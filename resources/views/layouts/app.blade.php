@@ -38,11 +38,7 @@
                 @include('components.navbar')
                 @include('components.sidebar')
                 
-                <div class="content-wrapper">            
-                    <section class="content-header">
-                        @yield('content-header')
-                    </section>                    
-
+                <div class="content-wrapper">
                     <!-- Main content -->
                     <section class="content">
                         @yield('content')

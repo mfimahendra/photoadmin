@@ -17,6 +17,7 @@ class ProjectController extends Controller
             'booking' => ['confirmed', 'cancelled'],
             'confirmed' => ['completed', 'cancelled'], //by downpayment
             // auto when d-day on session_date
+            'invoiced' => ['paid', 'cancelled'], // after invoice sent
             'shooting' => [],
             'editing' => [],
             'review' => [],
@@ -32,97 +33,62 @@ class ProjectController extends Controller
     {
         $title = 'New Client';
 
+        $services = DB::table('m_services')->get();
+        $cities = $services->pluck('city')->unique()->values();
+        $universities = DB::table('m_universities')->get();        
+        $faculties = DB::table('m_faculties')->get();
+        $additionals = DB::table('m_additionals')->get();
+
+        $projects = DB::table('t_projects')
+        ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
+        ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+        ->select('t_projects.*', 't_clients.name as client_name', 'm_services.package as service_package')
+        ->get();
+
         return view('projects.index_projects', [
-            'title' => $title
+            'title' => $title,
+            'services' => $services,
+            'cities' => $cities,
+            'universities' => $universities,
+            'faculties' => $faculties,
+            'additionals' => $additionals,
+            'projects' => $projects
         ]);
     }
 
     public function store(Request $request)
     {
-        $data = $request->all();                
+        $data = $request->all();                                
 
         try {
             DB::beginTransaction();
 
-            foreach ($data['data'] as $row) {
-                $data = [
-                    'session_date' => $row[0],
-                    'session_time' => $row[1],
-                    'name' => $row[2],
-                    'phone' => $row[3],
-                    'email' => $row[4],
-                    'address' => $row[5],
-                    'region' => $row[6],
-                    'type' => $row[7],
-                    'notes' => $row[8],
-                    'status' => 'booking',
-                    // add other necessary fields here
-                ];
+            // Insert into Client table
+            $clientId = DB::table('t_clients')->insertGetId([
+                'name' => $data['client_name'],
+                'phone' => $data['phone'],
+                'email' => $data['email'] ?? null,
+                'instagram' => $data['instagram'] ?? null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
 
-                // Process each row
-                $client = DB::table('clients')->where('email', $data['email'])->orWhere('phone', $data['phone'])->first();
-
-                if ($client) {
-                    $clients = $client->id;
-                } else {
-                    $clients = DB::table('clients')->insertGetId([
-                        'name' => $data['name'],
-                        'email' => $data['email'],
-                        'phone' => $data['phone'],
-                        'address' => $data['address'],
-                        'region' => $data['region'],
-                        'notes' => $data['notes'],
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]);
-                }
-
-                // get_service_id
-                $service = DB::table('services')->where('name', $data['type'])->first();
-                if ($service) {
-                    $service_id = $service->id;
-                } else {                    
-                    $service_id = DB::table('services')->insertGetId([
-                        'name' => $data['type'],
-                        'price' => 0,
-                        'description' => '',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]);
-                }
-
-                // Generate Project Code
-                $ymd = date('Ymd');
-
-                $project_type_code = preg_replace('/[aeiouAEIOU\s]/', '', strtoupper($data['type']));
-                if (strlen($project_type_code) > 3) {
-                    $project_type_code = substr($project_type_code, 0, 3);
-                }
-                
-                // clear vocal on region
-                $region_code = preg_replace('/[aeiouAEIOU\s]/', '', strtoupper($data['region']));
-                if (strlen($region_code) > 3) {
-                    $region_code = substr($region_code, 0, 3);
-                }
-
-                $project_code = $project_type_code . '-' . $ymd . '-' . $region_code;                
-
-                $project_id = DB::table('projects')->insertGetId([
-                    'client_id' => $clients,
-                    'service_id' => $service_id,
-                    // 'photographer_id' => $data['photographer_id'],
-                    'project_code' => $project_code,
-                    'title' => $data['title'] ?? $data['type'] . ' Session',
-                    'session_date' => $data['session_date'],
-                    'session_time' => $data['session_time'],
-                    'location' => $data['address'],
-                    'region' => $data['region'],
-                    'status' => $data['status'],
-                    'notes' => $data['notes'],
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ]);
-            }                                                
+            // Insert into Projects table
+            $projectId = DB::table('t_projects')->insertGetId([
+                'progress' => 'booking',
+                'event_date' => $data['event_date'],
+                'event_time' => $data['event_time'] ?? null,
+                'client_id' => $clientId,
+                'service_id' => $data['service_package'],
+                'city' => $data['city'],
+                'university' => $data['university'],
+                'faculty' => $data['faculty'],
+                'notes' => $data['notes'] ?? null,
+                'downpayment_at' => isset($data['deposit_paid']) ? now() : null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+                                            
 
             DB::commit();
 

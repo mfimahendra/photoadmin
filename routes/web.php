@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MasterController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -38,4 +39,8 @@ Route::prefix('projects')->name('projects.')->middleware('auth')->group(function
 
 // Payments
 
-// users
+// Master
+Route::prefix('master')->name('master.')->middleware('auth')->group(function () {    
+    Route::get('/index/{masters}', [MasterController::class, 'indexMaster'])->name('index');
+    Route::post('/update/{masters}', [MasterController::class, 'updateMaster'])->name('update');
+});
