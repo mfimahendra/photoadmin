@@ -238,7 +238,7 @@
                                         <label for="additional">
                                             <i class="fas fa-plus text-info"></i> Add On <small>(optional)</small>
                                         </label>
-                                        <select class="form-control select2" id="additional" name="additional" multiple
+                                        <select class="form-control select2" id="additional" name="additional[]" multiple
                                             data-placeholder="Select Add On(s)">
                                             <option value=""></option>
                                             @foreach ($additionals as $addon)
@@ -319,7 +319,7 @@
                     theme: 'bootstrap4',
                     dropdownParent: e.parent()
                 });
-            });
+            });        
 
             // Initialize FullCalendar
             var calendarEl = document.getElementById('calendar_container');
@@ -410,6 +410,10 @@
             });
         });
 
+        $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
+
         // event listener for city change to populate service packages
         $('#city').on('change', function() {
             var selectedCity = $(this).val();
@@ -481,12 +485,29 @@
 
 
         function createProject() {
-            const formData = $('#projectForm').serialize();
+            // Temporarily disable the additional field before creating FormData
+            const additionalSelect = $('#additional');
+            const additionalValues = additionalSelect.val();
+            
+            // Disable the select so it's not included in FormData
+            additionalSelect.prop('disabled', true);
+            
+            const formData = new FormData(document.getElementById('projectForm'));
+            
+            // Re-enable the select
+            additionalSelect.prop('disabled', false);
+            
+            // Add the comma-separated values
+            if (additionalValues && additionalValues.length > 0) {
+                formData.append('additional', additionalValues.join(','));
+            }
 
             $.ajax({
                 url: "{{ route('projects.store') }}",
                 method: 'POST',
                 data: formData,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     toastr.success('Project saved successfully!');
                     if (typeof success_audio !== 'undefined') {

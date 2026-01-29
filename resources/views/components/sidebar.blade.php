@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('clients.index') }}" class="nav-link">
                         👥
                         <p>Clients</p>
                     </a>

@@ -18,21 +18,30 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index']);
 
+Route::get('/forms', [ClientController::class, 'indexForms'])->name('indexForms');
+Route::post('/forms/create', [ClientController::class, 'store'])->name('clients.store');
+
+
 // Users
 Route::prefix('users')->name('users.')->middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::post('/update', [UserController::class, 'update'])->name('update');
 });
 
-// Clients
-Route::prefix('clients')->name('clients.')->middleware('auth')->group(function () {
-    Route::get('/', [ClientController::class, 'index'])->name('index');
-});
-
 // Projects
 Route::prefix('projects')->name('projects.')->middleware('auth')->group(function () {
     Route::get('/', [ProjectController::class, 'indexCreateProject'])->name('index');
+    Route::get('/create', [ProjectController::class, 'indexCreateProject'])->name('create');
     Route::post('/store', [ProjectController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
+    Route::post('/{id}/update', [ProjectController::class, 'update'])->name('update');
+    Route::post('/{id}/delete', [ProjectController::class, 'destroy'])->name('delete');
+});
+
+// Clients
+Route::prefix('clients')->name('clients.')->middleware('auth')->group(function () {
+    Route::get('/', [ProjectController::class, 'indexClients'])->name('index');
+    Route::get('/data', [ProjectController::class, 'getProjectClients'])->name('getProjectClients');
 });
 
 // Services
