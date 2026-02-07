@@ -11,7 +11,7 @@
  Target Server Version : 100432
  File Encoding         : 65001
 
- Date: 16/01/2026 11:26:56
+ Date: 07/02/2026 23:29:50
 */
 
 SET NAMES utf8mb4;
@@ -506,83 +506,84 @@ CREATE TABLE `m_faculties`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `faculty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of m_faculties
 -- ----------------------------
-INSERT INTO `m_faculties` VALUES (1, 'D3 Rekam Medis dan Informasi Kesehatan');
-INSERT INTO `m_faculties` VALUES (2, 'Fakultas Bahasa dan Seni');
-INSERT INTO `m_faculties` VALUES (3, 'Fakultas Ekonomi dan Bisnis');
-INSERT INTO `m_faculties` VALUES (4, 'Fakultas Farmasi');
-INSERT INTO `m_faculties` VALUES (5, 'Fakultas Hukum');
-INSERT INTO `m_faculties` VALUES (6, 'Fakultas Ilmu Budaya');
-INSERT INTO `m_faculties` VALUES (7, 'Fakultas Ilmu Keolahragaan');
-INSERT INTO `m_faculties` VALUES (8, 'Fakultas Ilmu Kesehatan');
-INSERT INTO `m_faculties` VALUES (9, 'Fakultas Ilmu Komputer');
-INSERT INTO `m_faculties` VALUES (10, 'Fakultas Ilmu Komunikasi');
-INSERT INTO `m_faculties` VALUES (11, 'Fakultas Ilmu Pendidikan');
-INSERT INTO `m_faculties` VALUES (12, 'Fakultas Ilmu Sosial dan Ilmu Politik');
-INSERT INTO `m_faculties` VALUES (13, 'Fakultas Keguruan dan Ilmu Pendidikan');
-INSERT INTO `m_faculties` VALUES (14, 'Fakultas Kedokteran');
-INSERT INTO `m_faculties` VALUES (15, 'Fakultas Kedokteran Gigi');
-INSERT INTO `m_faculties` VALUES (16, 'Jurusan Kebidanan');
-INSERT INTO `m_faculties` VALUES (17, 'Jurusan Keperawatan');
-INSERT INTO `m_faculties` VALUES (18, 'Fakultas Keperawatan dan Kebidanan');
-INSERT INTO `m_faculties` VALUES (19, 'Fakultas Kesehatan');
-INSERT INTO `m_faculties` VALUES (20, 'Fakultas Kesehatan Masyarakat');
-INSERT INTO `m_faculties` VALUES (21, 'Fakultas Matematika dan Ilmu Pendidikan Alam');
-INSERT INTO `m_faculties` VALUES (22, 'Fakultas Pertanian');
-INSERT INTO `m_faculties` VALUES (23, 'Fakultas Psikologi');
-INSERT INTO `m_faculties` VALUES (24, 'Fakultas Robotika');
-INSERT INTO `m_faculties` VALUES (25, 'Fakultas Sains dan Analitika Data');
-INSERT INTO `m_faculties` VALUES (26, 'Fakultas Sains dan Teknologi');
-INSERT INTO `m_faculties` VALUES (27, 'Fakultas Sosial dan Humaniora');
-INSERT INTO `m_faculties` VALUES (28, 'Fakultas Tarbiyah dan Ilmu Keguruan');
-INSERT INTO `m_faculties` VALUES (29, 'Fakultas Teknik');
-INSERT INTO `m_faculties` VALUES (30, 'Fakultas Teknik Sipil Perencanaan dan Kebumian');
-INSERT INTO `m_faculties` VALUES (31, 'Fakultas Teknologi Elektro dan Informatika Cerdas');
-INSERT INTO `m_faculties` VALUES (32, 'Fakultas Teknologi Industri dan Rekayasa Sistem');
-INSERT INTO `m_faculties` VALUES (33, 'Fakultas Teknologi Pertanian');
-INSERT INTO `m_faculties` VALUES (34, 'Fakultas Ushuluddin Adab dan Dakwah');
-INSERT INTO `m_faculties` VALUES (35, 'Fakultas Ushuluddin, Adab dan Dakwah');
-INSERT INTO `m_faculties` VALUES (36, 'Fakultas Vokasi');
-INSERT INTO `m_faculties` VALUES (37, 'Jurusan Manajemen');
-INSERT INTO `m_faculties` VALUES (38, 'Komunikasi dan Penyiaran Islam');
-INSERT INTO `m_faculties` VALUES (39, 'Prodi Kebidanan');
-INSERT INTO `m_faculties` VALUES (40, 'Fakultas Gizi');
-INSERT INTO `m_faculties` VALUES (41, 'Fakultas Teknik Kimia');
-INSERT INTO `m_faculties` VALUES (42, 'Fakultas Ilmu Bahasa');
-INSERT INTO `m_faculties` VALUES (43, 'Fakultas Ilmu Sosial');
-INSERT INTO `m_faculties` VALUES (44, 'Jurusan Kesehatan Gigi');
-INSERT INTO `m_faculties` VALUES (45, 'Fakultas Ilmu Administrasi');
-INSERT INTO `m_faculties` VALUES (46, 'Jurusan Akuntansi');
-INSERT INTO `m_faculties` VALUES (47, 'Fakultas Perikanan dan Ilmu Kelautan');
-INSERT INTO `m_faculties` VALUES (48, 'Pendidikan Profesi Ners');
-INSERT INTO `m_faculties` VALUES (49, 'Teknologi Laboratorium Medis');
-INSERT INTO `m_faculties` VALUES (50, 'Teknik Bangunan Kapal');
-INSERT INTO `m_faculties` VALUES (51, 'Jurusan Kebidanan');
-INSERT INTO `m_faculties` VALUES (52, 'Pendidikan Profesi Bidan');
-INSERT INTO `m_faculties` VALUES (53, 'Pascasarjana');
-INSERT INTO `m_faculties` VALUES (54, 'Jurusan Teknik Elektro');
-INSERT INTO `m_faculties` VALUES (55, 'Transportasi Laut');
-INSERT INTO `m_faculties` VALUES (56, 'Fakultas Keperawatan');
-INSERT INTO `m_faculties` VALUES (57, 'Profesi Fedokteran Gigi');
-INSERT INTO `m_faculties` VALUES (58, 'Fakultas Dakwah dan Ushuluddin');
-INSERT INTO `m_faculties` VALUES (59, 'Jurusan Rekam Medis dan Informasi Kesehatan');
-INSERT INTO `m_faculties` VALUES (60, 'Jurusan Informatika');
-INSERT INTO `m_faculties` VALUES (61, 'Fakultas Teknologi Manajemen Kesehatan');
-INSERT INTO `m_faculties` VALUES (62, 'Pascasarjana Pendidikan Bahasa Indonesia');
-INSERT INTO `m_faculties` VALUES (63, 'Kesehatan Lingkungan');
-INSERT INTO `m_faculties` VALUES (64, 'Fakultas Dakwah');
-INSERT INTO `m_faculties` VALUES (65, 'Fakultas Teknologi dan Manajemen Kesehatan');
-INSERT INTO `m_faculties` VALUES (66, 'Prodi Gizi');
-INSERT INTO `m_faculties` VALUES (67, 'Fakultas Pendidikan Agama Islam');
-INSERT INTO `m_faculties` VALUES (68, 'Fakultas Teknik dan Sains');
-INSERT INTO `m_faculties` VALUES (69, 'Fakultas Ekonomi');
-INSERT INTO `m_faculties` VALUES (70, 'Pendidikan Bahasa Arab');
-INSERT INTO `m_faculties` VALUES (71, 'Ekonomi dan Bisnis Islam');
-INSERT INTO `m_faculties` VALUES (72, 'Fakultas Syariah');
+INSERT INTO `m_faculties` VALUES (73, 'D3 Rekam Medis dan Informasi Kesehatan');
+INSERT INTO `m_faculties` VALUES (74, 'Fakultas Bahasa dan Seni');
+INSERT INTO `m_faculties` VALUES (75, 'Fakultas Ekonomi dan Bisnis');
+INSERT INTO `m_faculties` VALUES (76, 'Fakultas Farmasi');
+INSERT INTO `m_faculties` VALUES (77, 'Fakultas Hukum');
+INSERT INTO `m_faculties` VALUES (78, 'Fakultas Ilmu Budaya');
+INSERT INTO `m_faculties` VALUES (79, 'Fakultas Ilmu Keolahragaan');
+INSERT INTO `m_faculties` VALUES (80, 'Fakultas Ilmu Kesehatan');
+INSERT INTO `m_faculties` VALUES (81, 'Fakultas Ilmu Komputer');
+INSERT INTO `m_faculties` VALUES (82, 'Fakultas Ilmu Komunikasi');
+INSERT INTO `m_faculties` VALUES (83, 'Fakultas Ilmu Pendidikan');
+INSERT INTO `m_faculties` VALUES (84, 'Fakultas Ilmu Sosial dan Ilmu Politik');
+INSERT INTO `m_faculties` VALUES (85, 'Fakultas Keguruan dan Ilmu Pendidikan');
+INSERT INTO `m_faculties` VALUES (86, 'Fakultas Kedokteran');
+INSERT INTO `m_faculties` VALUES (87, 'Fakultas Kedokteran Gigi');
+INSERT INTO `m_faculties` VALUES (88, 'Jurusan Kebidanan');
+INSERT INTO `m_faculties` VALUES (89, 'Jurusan Keperawatan');
+INSERT INTO `m_faculties` VALUES (90, 'Fakultas Keperawatan dan Kebidanan');
+INSERT INTO `m_faculties` VALUES (91, 'Fakultas Kesehatan');
+INSERT INTO `m_faculties` VALUES (92, 'Fakultas Kesehatan Masyarakat');
+INSERT INTO `m_faculties` VALUES (93, 'Fakultas Matematika dan Ilmu Pendidikan Alam');
+INSERT INTO `m_faculties` VALUES (94, 'Fakultas Pertanian');
+INSERT INTO `m_faculties` VALUES (95, 'Fakultas Psikologi');
+INSERT INTO `m_faculties` VALUES (96, 'Fakultas Robotika');
+INSERT INTO `m_faculties` VALUES (97, 'Fakultas Sains dan Analitika Data');
+INSERT INTO `m_faculties` VALUES (98, 'Fakultas Sains dan Teknologi');
+INSERT INTO `m_faculties` VALUES (99, 'Fakultas Sosial dan Humaniora');
+INSERT INTO `m_faculties` VALUES (100, 'Fakultas Tarbiyah dan Ilmu Keguruan');
+INSERT INTO `m_faculties` VALUES (101, 'Fakultas Teknik');
+INSERT INTO `m_faculties` VALUES (102, 'Fakultas Teknik Sipil Perencanaan dan Kebumian');
+INSERT INTO `m_faculties` VALUES (103, 'Fakultas Teknologi Elektro dan Informatika Cerdas');
+INSERT INTO `m_faculties` VALUES (104, 'Fakultas Teknologi Industri dan Rekayasa Sistem');
+INSERT INTO `m_faculties` VALUES (105, 'Fakultas Teknologi Pertanian');
+INSERT INTO `m_faculties` VALUES (106, 'Fakultas Ushuluddin Adab dan Dakwah');
+INSERT INTO `m_faculties` VALUES (107, 'Fakultas Ushuluddin, Adab dan Dakwah');
+INSERT INTO `m_faculties` VALUES (108, 'Fakultas Vokasi');
+INSERT INTO `m_faculties` VALUES (109, 'Jurusan Manajemen');
+INSERT INTO `m_faculties` VALUES (110, 'Komunikasi dan Penyiaran Islam');
+INSERT INTO `m_faculties` VALUES (111, 'Prodi Kebidanan');
+INSERT INTO `m_faculties` VALUES (112, 'Fakultas Gizi');
+INSERT INTO `m_faculties` VALUES (113, 'Fakultas Teknik Kimia');
+INSERT INTO `m_faculties` VALUES (114, 'Fakultas Ilmu Bahasa');
+INSERT INTO `m_faculties` VALUES (115, 'Fakultas Ilmu Sosial');
+INSERT INTO `m_faculties` VALUES (116, 'Jurusan Kesehatan Gigi');
+INSERT INTO `m_faculties` VALUES (117, 'Fakultas Ilmu Administrasi');
+INSERT INTO `m_faculties` VALUES (118, 'Jurusan Akuntansi');
+INSERT INTO `m_faculties` VALUES (119, 'Fakultas Perikanan dan Ilmu Kelautan');
+INSERT INTO `m_faculties` VALUES (120, 'Pendidikan Profesi Ners');
+INSERT INTO `m_faculties` VALUES (121, 'Teknologi Laboratorium Medis');
+INSERT INTO `m_faculties` VALUES (122, 'Teknik Bangunan Kapal');
+INSERT INTO `m_faculties` VALUES (123, 'Jurusan Kebidanan');
+INSERT INTO `m_faculties` VALUES (124, 'Pendidikan Profesi Bidan');
+INSERT INTO `m_faculties` VALUES (125, 'Pascasarjana');
+INSERT INTO `m_faculties` VALUES (126, 'Jurusan Teknik Elektro');
+INSERT INTO `m_faculties` VALUES (127, 'Transportasi Laut');
+INSERT INTO `m_faculties` VALUES (128, 'Fakultas Keperawatan');
+INSERT INTO `m_faculties` VALUES (129, 'Profesi Fedokteran Gigi');
+INSERT INTO `m_faculties` VALUES (130, 'Fakultas Dakwah dan Ushuluddin');
+INSERT INTO `m_faculties` VALUES (131, 'Jurusan Rekam Medis dan Informasi Kesehatan');
+INSERT INTO `m_faculties` VALUES (132, 'Jurusan Informatika');
+INSERT INTO `m_faculties` VALUES (133, 'Fakultas Teknologi Manajemen Kesehatan');
+INSERT INTO `m_faculties` VALUES (134, 'Pascasarjana Pendidikan Bahasa Indonesia');
+INSERT INTO `m_faculties` VALUES (135, 'Kesehatan Lingkungan');
+INSERT INTO `m_faculties` VALUES (136, 'Fakultas Dakwah');
+INSERT INTO `m_faculties` VALUES (137, 'Fakultas Teknologi dan Manajemen Kesehatan');
+INSERT INTO `m_faculties` VALUES (138, 'Prodi Gizi');
+INSERT INTO `m_faculties` VALUES (139, 'Fakultas Pendidikan Agama Islam');
+INSERT INTO `m_faculties` VALUES (140, 'Fakultas Teknik dan Sains');
+INSERT INTO `m_faculties` VALUES (141, 'Fakultas Ekonomi');
+INSERT INTO `m_faculties` VALUES (142, 'Pendidikan Bahasa Arab');
+INSERT INTO `m_faculties` VALUES (143, 'Ekonomi dan Bisnis Islam');
+INSERT INTO `m_faculties` VALUES (144, 'Fakultas Syariah');
+INSERT INTO `m_faculties` VALUES (145, 'Fakultas Tes');
 
 -- ----------------------------
 -- Table structure for m_freelances
@@ -723,238 +724,238 @@ CREATE TABLE `m_services`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `package` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `duration` float NULL DEFAULT NULL,
+  `duration` double NULL DEFAULT NULL,
   `price` decimal(10, 0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 225 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 449 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of m_services
 -- ----------------------------
-INSERT INTO `m_services` VALUES (1, 'Surabaya', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (2, 'Surabaya', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (3, 'Surabaya', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (4, 'Surabaya', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (5, 'Surabaya', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (6, 'Surabaya', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (7, 'Surabaya', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (8, 'Surabaya', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (9, 'Surabaya', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (10, 'Surabaya', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (11, 'Surabaya', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (12, 'Surabaya', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (13, 'Surabaya', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (14, 'Surabaya', 'Photo + MUA', 1, 950000);
-INSERT INTO `m_services` VALUES (15, 'Malang', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (16, 'Malang', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (17, 'Malang', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (18, 'Malang', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (19, 'Malang', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (20, 'Malang', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (21, 'Malang', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (22, 'Malang', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (23, 'Malang', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (24, 'Malang', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (25, 'Malang', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (26, 'Malang', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (27, 'Malang', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (28, 'Malang', 'Photo + MUA', 1, 850000);
-INSERT INTO `m_services` VALUES (29, 'Kediri', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (30, 'Kediri', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (31, 'Kediri', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (32, 'Kediri', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (33, 'Kediri', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (34, 'Kediri', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (35, 'Kediri', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (36, 'Kediri', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (37, 'Kediri', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (38, 'Kediri', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (39, 'Kediri', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (40, 'Kediri', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (41, 'Kediri', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (42, 'Kediri', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (43, 'Madura', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (44, 'Madura', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (45, 'Madura', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (46, 'Madura', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (47, 'Madura', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (48, 'Madura', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (49, 'Madura', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (50, 'Madura', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (51, 'Madura', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (52, 'Madura', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (53, 'Madura', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (54, 'Madura', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (55, 'Madura', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (56, 'Madura', 'Photo + MUA', 1, 950000);
-INSERT INTO `m_services` VALUES (57, 'Tulungagung', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (58, 'Tulungagung', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (59, 'Tulungagung', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (60, 'Tulungagung', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (61, 'Tulungagung', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (62, 'Tulungagung', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (63, 'Tulungagung', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (64, 'Tulungagung', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (65, 'Tulungagung', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (66, 'Tulungagung', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (67, 'Tulungagung', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (68, 'Tulungagung', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (69, 'Tulungagung', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (70, 'Tulungagung', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (71, 'Lamongan', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (72, 'Lamongan', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (73, 'Lamongan', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (74, 'Lamongan', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (75, 'Lamongan', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (76, 'Lamongan', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (77, 'Lamongan', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (78, 'Lamongan', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (79, 'Lamongan', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (80, 'Lamongan', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (81, 'Lamongan', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (82, 'Lamongan', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (83, 'Lamongan', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (84, 'Lamongan', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (85, 'Gresik', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (86, 'Gresik', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (87, 'Gresik', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (88, 'Gresik', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (89, 'Gresik', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (90, 'Gresik', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (91, 'Gresik', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (92, 'Gresik', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (93, 'Gresik', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (94, 'Gresik', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (95, 'Gresik', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (96, 'Gresik', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (97, 'Gresik', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (98, 'Gresik', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (99, 'Blitar', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (100, 'Blitar', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (101, 'Blitar', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (102, 'Blitar', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (103, 'Blitar', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (104, 'Blitar', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (105, 'Blitar', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (106, 'Blitar', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (107, 'Blitar', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (108, 'Blitar', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (109, 'Blitar', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (110, 'Blitar', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (111, 'Blitar', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (112, 'Blitar', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (113, 'Pasuruan', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (114, 'Pasuruan', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (115, 'Pasuruan', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (116, 'Pasuruan', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (117, 'Pasuruan', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (118, 'Pasuruan', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (119, 'Pasuruan', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (120, 'Pasuruan', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (121, 'Pasuruan', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (122, 'Pasuruan', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (123, 'Pasuruan', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (124, 'Pasuruan', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (125, 'Pasuruan', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (126, 'Pasuruan', 'Photo + MUA', 1, 850000);
-INSERT INTO `m_services` VALUES (127, 'Sidoarjo', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (128, 'Sidoarjo', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (129, 'Sidoarjo', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (130, 'Sidoarjo', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (131, 'Sidoarjo', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (132, 'Sidoarjo', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (133, 'Sidoarjo', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (134, 'Sidoarjo', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (135, 'Sidoarjo', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (136, 'Sidoarjo', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (137, 'Sidoarjo', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (138, 'Sidoarjo', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (139, 'Sidoarjo', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (140, 'Sidoarjo', 'Photo + MUA', 1, 950000);
-INSERT INTO `m_services` VALUES (141, 'Jember', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (142, 'Jember', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (143, 'Jember', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (144, 'Jember', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (145, 'Jember', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (146, 'Jember', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (147, 'Jember', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (148, 'Jember', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (149, 'Jember', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (150, 'Jember', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (151, 'Jember', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (152, 'Jember', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (153, 'Jember', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (154, 'Jember', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (155, 'Semarang', 'Family A', 1, 375000);
-INSERT INTO `m_services` VALUES (156, 'Semarang', 'Family B', 1, 350000);
-INSERT INTO `m_services` VALUES (157, 'Semarang', 'Family C', 1, 300000);
-INSERT INTO `m_services` VALUES (158, 'Semarang', 'Exclusive One', 5, 2800000);
-INSERT INTO `m_services` VALUES (159, 'Semarang', 'Exclusive Two', 1, 550000);
-INSERT INTO `m_services` VALUES (160, 'Semarang', 'Exclusive Three', 1, 425000);
-INSERT INTO `m_services` VALUES (161, 'Semarang', 'Couple A', 2, 700000);
-INSERT INTO `m_services` VALUES (162, 'Semarang', 'Couple B', 1, 575000);
-INSERT INTO `m_services` VALUES (163, 'Semarang', 'Elite Group', 2, 1100000);
-INSERT INTO `m_services` VALUES (164, 'Semarang', 'Group One', 1, 675000);
-INSERT INTO `m_services` VALUES (165, 'Semarang', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (166, 'Semarang', 'Photo + Video', 1, 1050000);
-INSERT INTO `m_services` VALUES (167, 'Semarang', 'Photo + Mini Box', 1, 500000);
-INSERT INTO `m_services` VALUES (168, 'Semarang', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (169, 'Bandung', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (170, 'Bandung', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (171, 'Bandung', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (172, 'Bandung', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (173, 'Bandung', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (174, 'Bandung', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (175, 'Bandung', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (176, 'Bandung', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (177, 'Bandung', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (178, 'Bandung', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (179, 'Bandung', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (180, 'Bandung', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (181, 'Bandung', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (182, 'Bandung', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (183, 'Jakarta', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (184, 'Jakarta', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (185, 'Jakarta', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (186, 'Jakarta', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (187, 'Jakarta', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (188, 'Jakarta', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (189, 'Jakarta', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (190, 'Jakarta', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (191, 'Jakarta', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (192, 'Jakarta', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (193, 'Jakarta', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (194, 'Jakarta', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (195, 'Jakarta', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (196, 'Jakarta', 'Photo + MUA', 1, NULL);
-INSERT INTO `m_services` VALUES (197, 'Solo', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (198, 'Solo', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (199, 'Solo', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (200, 'Solo', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (201, 'Solo', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (202, 'Solo', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (203, 'Solo', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (204, 'Solo', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (205, 'Solo', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (206, 'Solo', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (207, 'Solo', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (208, 'Solo', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (209, 'Solo', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (210, 'Solo', 'Photo + MUA', 1, 950000);
-INSERT INTO `m_services` VALUES (211, 'Jogja', 'Family A', 1, 400000);
-INSERT INTO `m_services` VALUES (212, 'Jogja', 'Family B', 1, 375000);
-INSERT INTO `m_services` VALUES (213, 'Jogja', 'Family C', 1, 335000);
-INSERT INTO `m_services` VALUES (214, 'Jogja', 'Exclusive One', 5, 2850000);
-INSERT INTO `m_services` VALUES (215, 'Jogja', 'Exclusive Two', 1, 600000);
-INSERT INTO `m_services` VALUES (216, 'Jogja', 'Exclusive Three', 1, 475000);
-INSERT INTO `m_services` VALUES (217, 'Jogja', 'Couple A', 2, 750000);
-INSERT INTO `m_services` VALUES (218, 'Jogja', 'Couple B', 1, 600000);
-INSERT INTO `m_services` VALUES (219, 'Jogja', 'Elite Group', 2, 1200000);
-INSERT INTO `m_services` VALUES (220, 'Jogja', 'Group One', 1, 700000);
-INSERT INTO `m_services` VALUES (221, 'Jogja', 'Group Two', 1, 425000);
-INSERT INTO `m_services` VALUES (222, 'Jogja', 'Photo + Video', 1, 1100000);
-INSERT INTO `m_services` VALUES (223, 'Jogja', 'Photo + Mini Box', 1, 550000);
-INSERT INTO `m_services` VALUES (224, 'Jogja', 'Photo + MUA', 1, 950000);
+INSERT INTO `m_services` VALUES (225, 'Surabaya', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (226, 'Surabaya', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (227, 'Surabaya', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (228, 'Surabaya', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (229, 'Surabaya', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (230, 'Surabaya', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (231, 'Surabaya', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (232, 'Surabaya', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (233, 'Surabaya', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (234, 'Surabaya', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (235, 'Surabaya', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (236, 'Surabaya', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (237, 'Surabaya', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (238, 'Surabaya', 'Photo + MUA', 1, 950000);
+INSERT INTO `m_services` VALUES (239, 'Malang', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (240, 'Malang', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (241, 'Malang', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (242, 'Malang', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (243, 'Malang', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (244, 'Malang', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (245, 'Malang', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (246, 'Malang', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (247, 'Malang', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (248, 'Malang', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (249, 'Malang', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (250, 'Malang', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (251, 'Malang', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (252, 'Malang', 'Photo + MUA', 1, 850000);
+INSERT INTO `m_services` VALUES (253, 'Kediri', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (254, 'Kediri', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (255, 'Kediri', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (256, 'Kediri', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (257, 'Kediri', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (258, 'Kediri', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (259, 'Kediri', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (260, 'Kediri', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (261, 'Kediri', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (262, 'Kediri', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (263, 'Kediri', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (264, 'Kediri', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (265, 'Kediri', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (266, 'Kediri', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (267, 'Madura', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (268, 'Madura', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (269, 'Madura', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (270, 'Madura', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (271, 'Madura', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (272, 'Madura', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (273, 'Madura', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (274, 'Madura', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (275, 'Madura', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (276, 'Madura', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (277, 'Madura', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (278, 'Madura', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (279, 'Madura', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (280, 'Madura', 'Photo + MUA', 1, 950000);
+INSERT INTO `m_services` VALUES (281, 'Tulungagung', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (282, 'Tulungagung', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (283, 'Tulungagung', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (284, 'Tulungagung', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (285, 'Tulungagung', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (286, 'Tulungagung', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (287, 'Tulungagung', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (288, 'Tulungagung', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (289, 'Tulungagung', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (290, 'Tulungagung', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (291, 'Tulungagung', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (292, 'Tulungagung', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (293, 'Tulungagung', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (294, 'Tulungagung', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (295, 'Lamongan', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (296, 'Lamongan', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (297, 'Lamongan', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (298, 'Lamongan', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (299, 'Lamongan', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (300, 'Lamongan', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (301, 'Lamongan', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (302, 'Lamongan', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (303, 'Lamongan', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (304, 'Lamongan', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (305, 'Lamongan', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (306, 'Lamongan', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (307, 'Lamongan', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (308, 'Lamongan', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (309, 'Gresik', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (310, 'Gresik', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (311, 'Gresik', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (312, 'Gresik', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (313, 'Gresik', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (314, 'Gresik', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (315, 'Gresik', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (316, 'Gresik', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (317, 'Gresik', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (318, 'Gresik', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (319, 'Gresik', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (320, 'Gresik', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (321, 'Gresik', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (322, 'Gresik', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (323, 'Blitar', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (324, 'Blitar', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (325, 'Blitar', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (326, 'Blitar', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (327, 'Blitar', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (328, 'Blitar', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (329, 'Blitar', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (330, 'Blitar', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (331, 'Blitar', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (332, 'Blitar', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (333, 'Blitar', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (334, 'Blitar', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (335, 'Blitar', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (336, 'Blitar', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (337, 'Pasuruan', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (338, 'Pasuruan', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (339, 'Pasuruan', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (340, 'Pasuruan', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (341, 'Pasuruan', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (342, 'Pasuruan', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (343, 'Pasuruan', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (344, 'Pasuruan', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (345, 'Pasuruan', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (346, 'Pasuruan', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (347, 'Pasuruan', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (348, 'Pasuruan', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (349, 'Pasuruan', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (350, 'Pasuruan', 'Photo + MUA', 1, 850000);
+INSERT INTO `m_services` VALUES (351, 'Sidoarjo', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (352, 'Sidoarjo', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (353, 'Sidoarjo', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (354, 'Sidoarjo', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (355, 'Sidoarjo', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (356, 'Sidoarjo', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (357, 'Sidoarjo', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (358, 'Sidoarjo', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (359, 'Sidoarjo', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (360, 'Sidoarjo', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (361, 'Sidoarjo', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (362, 'Sidoarjo', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (363, 'Sidoarjo', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (364, 'Sidoarjo', 'Photo + MUA', 1, 950000);
+INSERT INTO `m_services` VALUES (365, 'Jember', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (366, 'Jember', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (367, 'Jember', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (368, 'Jember', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (369, 'Jember', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (370, 'Jember', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (371, 'Jember', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (372, 'Jember', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (373, 'Jember', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (374, 'Jember', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (375, 'Jember', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (376, 'Jember', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (377, 'Jember', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (378, 'Jember', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (379, 'Semarang', 'Family A', 1, 375000);
+INSERT INTO `m_services` VALUES (380, 'Semarang', 'Family B', 1, 350000);
+INSERT INTO `m_services` VALUES (381, 'Semarang', 'Family C', 1, 300000);
+INSERT INTO `m_services` VALUES (382, 'Semarang', 'Exclusive One', 5, 2800000);
+INSERT INTO `m_services` VALUES (383, 'Semarang', 'Exclusive Two', 1, 550000);
+INSERT INTO `m_services` VALUES (384, 'Semarang', 'Exclusive Three', 1, 425000);
+INSERT INTO `m_services` VALUES (385, 'Semarang', 'Couple A', 2, 700000);
+INSERT INTO `m_services` VALUES (386, 'Semarang', 'Couple B', 1.5, 575000);
+INSERT INTO `m_services` VALUES (387, 'Semarang', 'Elite Group', 2, 1100000);
+INSERT INTO `m_services` VALUES (388, 'Semarang', 'Group One', 1.5, 675000);
+INSERT INTO `m_services` VALUES (389, 'Semarang', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (390, 'Semarang', 'Photo + Video', 1.5, 1050000);
+INSERT INTO `m_services` VALUES (391, 'Semarang', 'Photo + Mini Box', 1, 500000);
+INSERT INTO `m_services` VALUES (392, 'Semarang', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (393, 'Bandung', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (394, 'Bandung', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (395, 'Bandung', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (396, 'Bandung', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (397, 'Bandung', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (398, 'Bandung', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (399, 'Bandung', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (400, 'Bandung', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (401, 'Bandung', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (402, 'Bandung', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (403, 'Bandung', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (404, 'Bandung', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (405, 'Bandung', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (406, 'Bandung', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (407, 'Jakarta', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (408, 'Jakarta', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (409, 'Jakarta', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (410, 'Jakarta', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (411, 'Jakarta', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (412, 'Jakarta', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (413, 'Jakarta', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (414, 'Jakarta', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (415, 'Jakarta', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (416, 'Jakarta', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (417, 'Jakarta', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (418, 'Jakarta', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (419, 'Jakarta', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (420, 'Jakarta', 'Photo + MUA', 1, NULL);
+INSERT INTO `m_services` VALUES (421, 'Solo', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (422, 'Solo', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (423, 'Solo', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (424, 'Solo', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (425, 'Solo', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (426, 'Solo', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (427, 'Solo', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (428, 'Solo', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (429, 'Solo', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (430, 'Solo', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (431, 'Solo', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (432, 'Solo', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (433, 'Solo', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (434, 'Solo', 'Photo + MUA', 1, 950000);
+INSERT INTO `m_services` VALUES (435, 'Jogja', 'Family A', 1, 400000);
+INSERT INTO `m_services` VALUES (436, 'Jogja', 'Family B', 1, 375000);
+INSERT INTO `m_services` VALUES (437, 'Jogja', 'Family C', 1, 335000);
+INSERT INTO `m_services` VALUES (438, 'Jogja', 'Exclusive One', 5, 2850000);
+INSERT INTO `m_services` VALUES (439, 'Jogja', 'Exclusive Two', 1, 600000);
+INSERT INTO `m_services` VALUES (440, 'Jogja', 'Exclusive Three', 1, 475000);
+INSERT INTO `m_services` VALUES (441, 'Jogja', 'Couple A', 2, 750000);
+INSERT INTO `m_services` VALUES (442, 'Jogja', 'Couple B', 1.5, 600000);
+INSERT INTO `m_services` VALUES (443, 'Jogja', 'Elite Group', 2, 1200000);
+INSERT INTO `m_services` VALUES (444, 'Jogja', 'Group One', 1.5, 700000);
+INSERT INTO `m_services` VALUES (445, 'Jogja', 'Group Two', 1, 425000);
+INSERT INTO `m_services` VALUES (446, 'Jogja', 'Photo + Video', 1.5, 1100000);
+INSERT INTO `m_services` VALUES (447, 'Jogja', 'Photo + Mini Box', 1, 550000);
+INSERT INTO `m_services` VALUES (448, 'Jogja', 'Photo + MUA', 1, 950000);
 
 -- ----------------------------
 -- Table structure for m_universities
@@ -1102,24 +1103,6 @@ CREATE TABLE `permissions`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for project_addons
--- ----------------------------
-DROP TABLE IF EXISTS `project_addons`;
-CREATE TABLE `project_addons`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `project_id` int NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `price` decimal(10, 2) NULL DEFAULT NULL,
-  `quantity` int NULL DEFAULT NULL,
-  `total` decimal(10, 2) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of project_addons
--- ----------------------------
-
--- ----------------------------
 -- Table structure for project_status_logs
 -- ----------------------------
 DROP TABLE IF EXISTS `project_status_logs`;
@@ -1157,8 +1140,11 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('8qLfQmL3id2tvBtcOqHsJJKaXV4RVGTKUvScEGc8', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNHNON2duNFo5aWt5UUI2UGYyM2F6RWJUZTdzaWdGQ0cwaGphTXRCMiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3QvcGhvdG9hZG1pbi9wdWJsaWMvcHJvamVjdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTc2ODUxODE3ODt9fQ==', 1768530504);
-INSERT INTO `sessions` VALUES ('CVhQNJ0plqM5OYIQIFeehdNeLBPoXzY7zLhysMWU', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoidXpXQjVERHlpcTNsUEVpZVVtZE44N21WQnBRaWNkQmNJMHZmNTI5RiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQzOiJodHRwOi8vbG9jYWxob3N0L3Bob3RvYWRtaW4vcHVibGljL3Byb2plY3RzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Njg1MzA1ODI7fX0=', 1768535985);
+INSERT INTO `sessions` VALUES ('3EAdYzEfdKbRXuxuxopaPuy8b2As8OuHJcwfGp62', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoid0p1aEFMcnozN3hrSHBra0tyc2hFODkxRUhYZENnR2lhemhjcUJKNiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjczOiJodHRwOi8vbG9jYWxob3N0L3Bob3RvYWRtaW4vcHVibGljL292ZXJ2aWV3L3Bob3RvZ3JhcGhlci1ldmVudHM/eWVhcj0yMDI2Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3NzAzODM2ODU7fX0=', 1770383685);
+INSERT INTO `sessions` VALUES ('AfB76VOLhxqVhRuGo17Mjd0kBBRelg6qgisW6qDX', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUGVqQzl0R1lpeFp2NGVrNWxOYTBvRjI3dDRySGZKTzhLbUxScEJDSiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MzoiaHR0cDovL2xvY2FsaG9zdC9waG90b2FkbWluL3B1YmxpYy9wcm9qZWN0cyI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQzOiJodHRwOi8vbG9jYWxob3N0L3Bob3RvYWRtaW4vcHVibGljL3Byb2plY3RzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770383672);
+INSERT INTO `sessions` VALUES ('Bcq2BjMNNntSz8Ii2LbsmaO3LOv4kD0YGtJ4G8M6', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoickhHNGRzc0ZyenhmaVpmbDdkWmpyQzBhQTBTZjZhaUdoNWdYTFhzcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly9sb2NhbGhvc3QvcGhvdG9hZG1pbi9wdWJsaWMvZXNva2hhcmkvMjAyNjAyMjcvaGVuZHJhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770386179);
+INSERT INTO `sessions` VALUES ('CfznauxvakFOKTnvfrzSurYrEQUgLdyXy7kkaCDl', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoib0dmYU1HWUVFZFBrVzV0dWdaQkRMRWJhQUhWeHBUZlNFNEM0NzFqeSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3QvcGhvdG9hZG1pbi9wdWJsaWMvcHJvamVjdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTc3MDM4MzcwNzt9fQ==', 1770389626);
+INSERT INTO `sessions` VALUES ('xkBUXMiF0oH7hLnR7D9xyjO0ktemdaCtUFIR7Xvp', 35, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiT214M2ZDQnhuUndzRFVQNE9maWhEdVZWTTNUQUJ5Q2J4Z01zajk4TiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3QvcGhvdG9hZG1pbi9wdWJsaWMvcHJvamVjdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTozNTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3NzAzODQ1MjI7fX0=', 1770390559);
 
 -- ----------------------------
 -- Table structure for t_clients
@@ -1167,7 +1153,7 @@ DROP TABLE IF EXISTS `t_clients`;
 CREATE TABLE `t_clients`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `shortname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -1176,13 +1162,25 @@ CREATE TABLE `t_clients`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_clients
 -- ----------------------------
-INSERT INTO `t_clients` VALUES (3, 'Mahendra', 'mfimahendra@gmail.com', '082111414954', NULL, 'UB', NULL, NULL, '2026-01-12 15:38:03', '2026-01-12 15:38:03');
-INSERT INTO `t_clients` VALUES (5, 'Mukhammad Fakhriza Ihza Mahendra', NULL, '082111454214', 'mfimahendra', NULL, NULL, NULL, '2026-01-16 03:54:58', '2026-01-16 03:54:58');
+INSERT INTO `t_clients` VALUES (3, 'Mahendra', 'Hendra', '082111414954', NULL, 'UB', NULL, NULL, '2026-01-12 15:38:03', '2026-01-12 15:38:03');
+INSERT INTO `t_clients` VALUES (5, 'Mukhammad Fakhriza Ihza Mahendra', 'Hendra', '082111454214', 'mfimahendra', NULL, NULL, NULL, '2026-01-16 03:54:58', '2026-01-16 03:54:58');
+INSERT INTO `t_clients` VALUES (6, 'Salwa Zhafira', 'Salwa', '08156155', 'salwazpw', NULL, NULL, NULL, '2026-01-19 14:29:17', '2026-02-01 12:08:12');
+INSERT INTO `t_clients` VALUES (11, 'tes', 'test', '156161', 'tes', NULL, NULL, NULL, '2026-01-19 14:42:03', '2026-01-19 14:42:03');
+INSERT INTO `t_clients` VALUES (12, 'Salwa Zhafira', 'salwa', '21312412', 'salwazpw', NULL, NULL, NULL, '2026-01-29 14:17:08', '2026-01-29 14:17:08');
+INSERT INTO `t_clients` VALUES (13, 'Salwa Zhafira', 'salwa', '123214124', 'salwazpw', NULL, NULL, NULL, '2026-01-29 14:20:25', '2026-01-29 14:20:25');
+INSERT INTO `t_clients` VALUES (14, 'testing', 'testing', '123214', 'dwadwa', NULL, NULL, NULL, '2026-01-29 14:27:52', '2026-01-29 14:27:52');
+INSERT INTO `t_clients` VALUES (15, 'tawdawwd', 'tawdawwd', 'dwqed123', 'test', NULL, NULL, NULL, '2026-01-29 14:28:41', '2026-01-29 14:28:41');
+INSERT INTO `t_clients` VALUES (16, 'awdawdaw', 'awdawdaw', '214314214', 'testawd', NULL, NULL, NULL, '2026-01-29 14:33:17', '2026-01-29 14:33:17');
+INSERT INTO `t_clients` VALUES (17, 'Arga Puguh Pratama', 'Arga', '08990000190', '_argatama', NULL, NULL, NULL, '2026-01-30 13:56:14', '2026-01-30 13:56:14');
+INSERT INTO `t_clients` VALUES (19, 'Mukhammad Fakhriza Ihza Mahendra', 'Hendra', '6282111414954', 'mfimahendra_', NULL, NULL, NULL, '2026-02-01 02:35:52', '2026-02-06 13:25:12');
+INSERT INTO `t_clients` VALUES (20, 'Arga Pratama', 'Arga', '62123456789', 'argazz', NULL, NULL, NULL, '2026-02-01 02:38:41', '2026-02-01 08:07:35');
+INSERT INTO `t_clients` VALUES (21, 'arga tes', 'arga', '082111414954', 'wdarwad', NULL, NULL, NULL, '2026-02-01 02:45:26', '2026-02-01 09:39:01');
+INSERT INTO `t_clients` VALUES (22, 'Hentong Markitong', 'Hentong', '6285126125', 'mfahentong', NULL, NULL, NULL, '2026-02-01 08:46:47', '2026-02-01 08:50:20');
 
 -- ----------------------------
 -- Table structure for t_invoices
@@ -1229,22 +1227,54 @@ CREATE TABLE `t_payments`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for t_project_additionals
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_additionals`;
+CREATE TABLE `t_project_additionals`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `project_id` int NULL DEFAULT NULL,
+  `additional_id` int NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `price` decimal(10, 0) NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_project_additionals
+-- ----------------------------
+INSERT INTO `t_project_additionals` VALUES (1, 8, 2, 'Extra (duo/group) 30 mins', 200000, '2026-01-19 14:42:03');
+INSERT INTO `t_project_additionals` VALUES (2, 8, 3, 'Extra Edit (5 photos)', 25000, '2026-01-19 14:42:03');
+INSERT INTO `t_project_additionals` VALUES (3, 8, 47, 'Extra Member (1)', 75000, '2026-01-19 14:42:03');
+INSERT INTO `t_project_additionals` VALUES (4, 15, 1, 'Extra (personal) 30 mins', 175000, '2026-01-30 13:56:14');
+INSERT INTO `t_project_additionals` VALUES (19, 17, 4, 'Extra Edit (10 photos)', 50000, '2026-02-01 08:07:35');
+INSERT INTO `t_project_additionals` VALUES (23, 18, 2, 'Extra (duo/group) 30 mins', 200000, '2026-02-01 09:39:01');
+INSERT INTO `t_project_additionals` VALUES (25, 20, 21, 'Extra Edit (5 photos)', 25000, '2026-02-01 12:08:12');
+INSERT INTO `t_project_additionals` VALUES (26, 16, 3, 'Extra Edit (5 photos)', 25000, '2026-02-06 13:25:12');
+INSERT INTO `t_project_additionals` VALUES (27, 16, 4, 'Extra Edit (10 photos)', 50000, '2026-02-06 13:25:12');
+
+-- ----------------------------
 -- Table structure for t_project_files
 -- ----------------------------
 DROP TABLE IF EXISTS `t_project_files`;
 CREATE TABLE `t_project_files`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `project_id` int NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_project_files
 -- ----------------------------
+INSERT INTO `t_project_files` VALUES (2, 16, 'all_files', 'Iki Gasido dit', '2026-02-04 14:15:53', '2026-02-04 14:15:53');
+INSERT INTO `t_project_files` VALUES (3, 16, NULL, 'Iki Gasido dit', '2026-02-05 13:19:30', '2026-02-05 13:29:57');
+INSERT INTO `t_project_files` VALUES (4, 17, NULL, 'Iki Gasido dit', '2026-02-05 13:28:52', '2026-02-05 13:28:52');
+INSERT INTO `t_project_files` VALUES (6, 18, 'all_files', 'Iki Gasido dit tak ganti nang t_projects', '2026-02-06 13:41:37', '2026-02-06 13:44:33');
+INSERT INTO `t_project_files` VALUES (7, NULL, NULL, 'Iki Gasido dit', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_projects
@@ -1252,7 +1282,6 @@ CREATE TABLE `t_project_files`  (
 DROP TABLE IF EXISTS `t_projects`;
 CREATE TABLE `t_projects`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `progress` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `event_date` date NULL DEFAULT NULL,
   `event_time` time NULL DEFAULT NULL,
   `user_id` int NULL DEFAULT NULL COMMENT 'photographer',
@@ -1270,15 +1299,20 @@ CREATE TABLE `t_projects`  (
   `all_filled_at` timestamp NULL DEFAULT NULL,
   `all_done_at` timestamp NULL DEFAULT NULL,
   `cancelled_at` timestamp NULL DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_projects
 -- ----------------------------
-INSERT INTO `t_projects` VALUES (2, 'booking', '2026-01-17', '11:00:00', NULL, 5, 17, 'Malang', 'UB', 'Fakultas Hukum', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-01-16 03:54:58', '2026-01-16 03:54:58');
+INSERT INTO `t_projects` VALUES (16, '2026-02-27', '09:00:00', 35, 19, 227, 'Surabaya', 'ITS', 'Fakultas Ilmu Komputer', 'Graduation', 'Ruang IT', 'tambah kecap', '2026-02-01 08:04:24', '2026-02-01 03:33:02', '2026-02-01 03:36:40', '2026-02-01 11:32:04', '2026-02-06 13:40:57', NULL, NULL, '2026-02-01 02:35:52', '2026-02-06 13:40:57');
+INSERT INTO `t_projects` VALUES (17, '2026-02-27', '10:00:00', NULL, 20, 225, 'Surabaya', 'CINO', 'Fakultas Ilmu Komputer', 'Graduation', 'Perpus', NULL, '2026-02-01 03:47:10', '2026-02-01 03:36:42', '2026-02-01 03:36:42', NULL, NULL, NULL, NULL, '2026-02-01 02:38:41', '2026-02-06 14:12:49');
+INSERT INTO `t_projects` VALUES (18, '2026-02-20', '13:00:00', 54, 21, 225, 'Surabaya', 'PENS', 'Fakultas Bahasa dan Seni', 'Graduation', 'WC Kantor', 'yepp', '2026-02-06 13:16:44', '2026-02-06 13:16:59', '2026-02-06 13:33:44', '2026-02-06 13:41:04', '2026-02-06 13:45:29', NULL, NULL, '2026-02-01 02:45:26', '2026-02-06 13:45:29');
+INSERT INTO `t_projects` VALUES (19, '2026-03-25', '13:00:00', NULL, 22, 239, 'Malang', 'UB', 'Fakultas Teknik', 'Graduation', 'Pinggire Rektor', NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-01 10:50:41', NULL, '2026-02-01 08:46:47', '2026-02-01 10:50:41');
+INSERT INTO `t_projects` VALUES (20, '2026-04-04', '13:00:00', 35, 6, 239, 'Malang', 'POLINEMA', 'Jurusan Informatika', 'Graduation', 'Depan Gedung Rektorat', NULL, '2026-02-01 12:07:47', NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-01 12:05:50', '2026-02-06 15:09:19');
 
 -- ----------------------------
 -- Table structure for users
@@ -1298,14 +1332,88 @@ CREATE TABLE `users`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'mahendra', 'mahendra', 'mfimahendra@gmail.com', '082111414954', 'admin', '$2y$12$Na7KU0wff9hYt29kmalZd.rgoytzozawKYoZLkYf8PN4XpPO5WMCe', NULL, NULL, '2024-05-12 05:26:39', '2024-05-12 05:26:39');
-INSERT INTO `users` VALUES (4, 'admin', 'admin', 'admin@admin', NULL, 'admin', '$2y$12$GmRwZX1xB5vFIoaE13Tw.uPeG.D3limVO5ogY1UmzOZn3eKR2gDOe', NULL, NULL, '2024-08-25 10:27:43', '2024-08-25 10:27:43');
-INSERT INTO `users` VALUES (5, 'arga', 'Arga', 'arga@gmail.com', '08123456789', 'photographer', '$2y$12$roEkekVHEd5DhwlFPw2JpOMc4YVB88Rf0v/fQ4QY0GYs4O.V04eDW', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (1, 'mahendra', 'mahendra', 'mfimahendra@gmail.com', '6282111414954', 'admin', '$2y$12$Na7KU0wff9hYt29kmalZd.rgoytzozawKYoZLkYf8PN4XpPO5WMCe', NULL, NULL, '2024-05-12 05:26:39', '2024-05-12 05:26:39');
+INSERT INTO `users` VALUES (4, 'admin', 'admin', 'admin@admin', '6282111414954', 'admin', '$2y$12$GmRwZX1xB5vFIoaE13Tw.uPeG.D3limVO5ogY1UmzOZn3eKR2gDOe', NULL, NULL, '2024-08-25 10:27:43', '2024-08-25 10:27:43');
 INSERT INTO `users` VALUES (6, 'thomi', 'thomi', 'adwawdaw@dawda', '123124514', 'admin', '$2y$12$CH5YhQuwC132Q5uDLWmK5ecWb2qaGLanjiMhX7ptOwQYFh7fQ6QJy', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (26, 'Abyan', 'Abyan Taufiiqul Hakim', 'abyanjezone345@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (27, 'Adin', 'Achmad Diya\' Addin', 'achmaddiyaaddin@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (28, 'Afis', 'Muhammad Lafif Akhid', 'afisakhid@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (29, 'Akbar', 'Akbar Dika Pratama', 'klotunal@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (30, 'Akhdan', 'Akhdan Naufarrozi', 'kokakhdancakep@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (31, 'Alfa', 'Muhammad Alfa Alfarizi', 'malfaalfarizi@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (32, 'Alif', 'Alif', 'hi.alfryz@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (33, 'Andika', 'Andika', 'kloturnal@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (34, 'Anta', 'Anta Maula Saniy', 'anta.ms123@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (35, 'Arga', 'Arga Puguh Pratama', 'argapratama845@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (36, 'Arif', 'Arif Rusman Hakim', 'ariffrusmanhakim@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (37, 'Arifin', 'Nurul Arifin', 'arifinsiregar94@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (38, 'Arup', 'Mochamad Aruf Maulana', 'sayaboecin@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (39, 'Asep', 'Septian Hadi Pratama Sasmita', 'sasmitaseptian123@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (40, 'Asyam', 'Asyam Haq', 'achmadasyam@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (41, 'Atikah', 'Atikah Husni Joban', 'atikah.j98@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (42, 'Awik', 'Dwi Wahyu Irwanto', 'awikaw13@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (43, 'Azel', 'Reyhan Azel Bagastama', 'rere.azel@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (44, 'Bayong', 'Akhmad Fadilah', 'akhmadfadilah75@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (45, 'Bima', 'Bhimo Pringga Jaya M', 'beningfotoku@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (46, 'Bintang', 'Bintang Alif', 'aliferdsyh@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (48, 'Bondan', 'Dias Faturrohman', 'bondanaldyanza@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (49, 'Damar Bagas', 'Damar Bagas Prakoso', 'damarbagasprakoso@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (50, 'Danny', 'Danny Eka Putra Prabandaru', 'ekadanny5@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (51, 'David', 'Muhammad David Iqbal Wahyudin', 'archivegraduation4@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (52, 'Dinar', 'Mochamad Dinar Yoga Pratama', 'dinaryogap@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (53, 'Dona', 'Alifia Dona Zuhaira', 'alifiadona@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (54, 'Dwiki', 'Dwiki Rikus Darmawan', 'dwikirikus@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (55, 'Dyas Eka', 'Dyas Eka', 'dyas.stywt11@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (56, 'Fafa', 'Muhammad Faishol Fathoni', 'm.faeshol.fthni@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (57, 'Faisal Julian', 'Faisal Fathqurrachman Julian', 'faisalfathqurrachmanjulian@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (58, 'Farrel', 'Farrel Putra Wardhana', 'wardhanafarrelputra76@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (59, 'Habib', 'Achmad Habib Dwi Prakoso', 'achmadhabiib@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (60, 'Hamdan', 'Moh. HamdanNafi\' Maula', 'hamdanbruizers@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (61, 'Hendra', 'Hendra Dinarta', 'hendradinarta29@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (62, 'Hilmi', 'Misbahul Hilmi Ramadan', 'ramadanhilmi22@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (63, 'Husein', 'Husein Ali Mahdawi', 'huseinali.4713@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (64, 'Ilham M', 'Ilham Ma\'ruf Ramadhan', 'ilhamm332@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (65, 'Indra', 'Newindra Yearil Jidan', 'indraraharjaamerta@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (66, 'Irsyad', 'Irsyaad Akmal Robbaanii', 'bagusivandra@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (67, 'Jetrip/Kiki', 'Mochamad Ilham Rifqi', 'jetrip006@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (68, 'Joko', 'Sujoko', 'sujoko2507@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (69, 'Kania', 'Alma Kania', 'realsky9294@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (70, 'Lian', 'Akhmad Haqqul Zulfikar', 'a910970@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (71, 'Lutfi (Upi)', 'Muchamad Lutfi Hidayat', 'loetfie33@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (72, 'Mahi', 'Yusuf Almahi', 'bestalmahi@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (73, 'Maisur', 'Muhammad Shofiyulloh', 'muhammadmaisur8@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (74, 'Meryta', 'Meryta Syane', 'fotoindongmei@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (75, 'Nabilah', 'Harida Nabilah', 'haridanabilah08@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (76, 'Naufal', 'Muhammad Naufal Firdausy', 'naufalfirdaus25@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (77, 'Pandu', 'Mochamad Pandu Wibisono', 'panduwibison@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (78, 'Qiqi', 'Rifqi Fadillah', 'hello.rifqifadillah@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (79, 'Ratih', 'Ratih Sukmaresi', 'raatiih88@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (80, 'Repo', 'Ferro Jala Satria', 'ferrojalasatria@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (81, 'Resti', 'Indira Resty Ardhana', 'restiardhanaa@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (82, 'Reyhan', 'Reyhan Afif Mahendra', 'reyhanafifm24@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (83, 'Ridho', 'Muhammad Ridho Ramadhan', 'datajagat06@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (84, 'Rifki', 'M. Rifki Firdani', 'muhammadrifkifirdani@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (85, 'Rifqi', 'Rifqi Wahyu Roziqin', 'rifqiwhy@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (86, 'Rilo', 'M. Zanuar Rilo Pambudi', 'rilopambudi503@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (87, 'Riyan', 'Triyanto Jiwandono', 'triyantojiwandono@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (88, 'Rizki Alifian', 'Rizki Alifian S', 'rizki.alifian46@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (89, 'Roby', 'Roby Fathoni', 'robyfathoni17@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (90, 'Sabiq', 'Imam Ibnu Sabiq', 'kexiememories@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (91, 'Septa', 'Septa Ady Putra Perd', 'septaady@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (92, 'Shinta', 'Shinta Permata Sari', 'shintapermata301202@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (93, 'Syifa', 'Muhammad Syifa\'', 'syf.nrd@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (94, 'Trio', 'Trio Saputra', 'trioputra250702@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (95, 'Tyo', 'R. Nityo Satwiko', 'memorabersama@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (96, 'Ulul', 'M. Ulul Azmi', 'ulula6637@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (100, 'Vian', 'Moch. Aliefian Dwi P', 'mochammad.alifian@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (101, 'Wicahya', 'Luthfan Huda Wicakya', 'luthfanzero2@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (102, 'Yusuf', 'Muhammad Yusuf Zakaria', 'yusuf.zakariazahir@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (103, 'Adil', 'Nibrasul Adil', 'adilnibrasul@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (104, 'Yahya', 'Lailatul Mufidayatus', 'yahzujks18@gmail.com', NULL, 'photographer', '$2y$12$j.IgaMAgJU/muk./4ulnGuzu8AopS4nO6fEtuUqYCHfu4r83BqgHu', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
