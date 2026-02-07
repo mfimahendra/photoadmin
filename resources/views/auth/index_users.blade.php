@@ -8,23 +8,20 @@
 @section('content-header')
     <div class="container-fluid">
         <p style="padding: 0; margin: 0; font-size: 1rem;">{{ $title }}</p>        
-
-        <button class="btn btn-success" style="float: right; padding: 6px 12px; margin-top: -25px;" onclick="saveSpreadsheet()">
-            <i class="fas fa-save"></i>&nbsp;Save
-        </button>
+        
     </div>
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row mt-2">
-            <div class="col-12">
+            <div class="col-12">                
                 <div class="card">
-                    <div class="card-body">                        
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
-                                {{-- TODO: Show Calendar of all projects Here --}}
-                            </div>
+                            <button class="btn btn-success" style="padding: 6px 12px; margin-bottom: 10px;" onclick="saveSpreadsheet()">
+                                <i class="fas fa-save"></i>&nbsp;Save
+                            </button>
                         </div>
                         <div class="row">
                             <div class="col-12">

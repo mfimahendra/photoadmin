@@ -13,87 +13,95 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">                
-                <li class="nav-header">Dashboard</li>
+                {{-- <li class="nav-header">Dashboard</li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('home') }}/" class="nav-link">                        
-                        📸
-                        <p>Overview</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link">                        
+                    <a href="{{ route('overview') }}" class="nav-link">                        
                         📆
                         <p>Schedule</p>
                     </a>
-                </li>
+                </li>                
+                
 
+                @if(auth()->check() && auth()->user()->role_code === 'admin')
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        📊
-                        <p>Statistic</p>
+                    <a href="#" class="nav-link">                        
+                        💵
+                        <p>Finance</p>
                     </a>
                 </li>
+
                 <hr style="border: 1px solid #3333355; width: 90%;">
+
                 <li class="nav-item" style="background: linear-gradient(100deg, #28c063 0%, #34f87f 100%); border-radius: 8px; margin-bottom: 8px;">
-                    <a href="{{ route('projects.index') }}" class="nav-link">
+                    <a href="{{ route('projects.create') }}" class="nav-link">
                         ➕
                         <p>New Clients</p>
                     </a>
                 </li>
-
+                @endif
+                
                 <li class="nav-item">
-                    <a href="{{ route('clients.index') }}" class="nav-link">
+                    <a href="{{ route('projects.index') }}" class="nav-link">
                         👥
                         <p>Clients</p>
                     </a>
                 </li>
-                <hr style="border: 1px solid #3333355; width: 90%;">
-                <li class="nav-header">Master</li>
 
-                <li class="nav-item">
-                    <a href="{{ route('master.index', ['masters' => 'services']) }}" class="nav-link">
-                        📸
-                        <p>Services</p>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="{{ route('master.index', ['masters' => 'additionals']) }}" class="nav-link">
-                        📦
-                        <p>Additionals</p>
-                    </a>
-                </li>
+                @if(auth()->check() && auth()->user()->role_code === 'admin')
+                    <hr style="border: 1px solid #3333355; width: 90%;">
+                    {{-- <li class="nav-header">Master</li> --}}
 
-                <li class="nav-item">
-                    <a href="{{ route('master.index', ['masters' => 'freelances']) }}" class="nav-link">
-                        🤙
-                        <p>Freelances</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'freelances']) }}" class="nav-link">
+                            🤙
+                            <p>Freelances</p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('master.index', ['masters' => 'universities']) }}" class="nav-link">
-                        🎓
-                        <p>Universities</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'services']) }}" class="nav-link">
+                            📸
+                            <p>Services</p>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'additionals']) }}" class="nav-link">
+                            📦
+                            <p>Additionals</p>
+                        </a>
+                    </li>                
 
-                <li class="nav-item">
-                    <a href="{{ route('master.index', ['masters' => 'faculties']) }}" class="nav-link">
-                        🏫
-                        <p>Faculties</p>
-                    </a>
-                </li>                
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'universities']) }}" class="nav-link">
+                            🎓
+                            <p>Universities</p>
+                        </a>
+                    </li>
 
-                <hr style="border: 1px solid #3333355; width: 90%;">
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'faculties']) }}" class="nav-link">
+                            🎓
+                            <p>Faculties</p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('users.index') }}" class="nav-link">
-                        👤
-                        <p>Users</p>
-                    </a>
-                </li>                
+                    <li class="nav-item">
+                        <a href="{{ route('master.index', ['masters' => 'events']) }}" class="nav-link">
+                            🎉
+                            <p>Events</p>
+                        </a>
+                    </li>
+
+                    <hr style="border: 1px solid #3333355; width: 90%;">
+
+                    <li class="nav-item">
+                        <a href="{{ route('users.index') }}" class="nav-link">
+                            👤
+                            <p>Users</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>

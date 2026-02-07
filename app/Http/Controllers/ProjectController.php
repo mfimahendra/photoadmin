@@ -14,18 +14,14 @@ class ProjectController extends Controller
         $this->middleware('auth');
 
         $this->status_flow = [
-            'waiting_confirmation' => [ 'booking', 'cancelled' ],
-            'booking' => ['confirmed', 'cancelled'],
-            'confirmed' => ['completed', 'cancelled'], //by downpayment
-            // auto when d-day on session_date
-        'invoiced' => ['paid', 'cancelled'], // after invoice sent
-            'shooting' => [],
-            'editing' => [],
-            'review' => [],
-            'completed' => [],
-            'delivered' => [],
+            'Follow Up',
+            'Client DP',
+            'Invoice',
+            'Lunas',
+            'All Files',
+            'Req Edit',
+            'All Done',
         ];
-
 
     }
 
@@ -39,6 +35,37 @@ class ProjectController extends Controller
         $universities = DB::table('m_universities')->get();        
         $faculties = DB::table('m_faculties')->get();
         $additionals = DB::table('m_additionals')->get();
+        $events = DB::table('m_events')->get();
+
+        $freelances = DB::table('m_freelances')->get();
+        $photographers = DB::table('users')            
+            ->select('id','username','name','phone','email')
+            ->where('role_code', 'photographer')
+            ->get();
+
+        // join by phone number if exists or by email if exists in users columns else keep null
+        foreach ($photographers as $photographer) {
+            $freelance = null;
+            
+            if (!empty($photographer->phone)) {
+                $freelance = $freelances->firstWhere('phone', $photographer->phone);
+            }
+            
+            if (!$freelance && !empty($photographer->email)) {
+                $freelance = $freelances->firstWhere('email', $photographer->email);
+            }
+            
+            if ($freelance) {
+                $photographer->freelance_id = $freelance->id;
+                $photographer->domicile = $freelance->domicile;
+            } else {
+                $photographer->freelance_id = null;
+                $photographer->domicile = null;
+            }
+        }    
+        
+        // sort by domicile
+        $photographers = $photographers->sortBy('domicile')->values();
 
         $projects = DB::table('t_projects')
         ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
@@ -53,6 +80,8 @@ class ProjectController extends Controller
             'universities' => $universities,
             'faculties' => $faculties,
             'additionals' => $additionals,
+            'events' => $events,
+            'photographers' => $photographers,
             'projects' => $projects
         ]);
     }
@@ -69,24 +98,26 @@ class ProjectController extends Controller
             // Insert into Client table
             $clientId = DB::table('t_clients')->insertGetId([
                 'name' => $data['client_name'],
-                'phone' => $data['phone'],
-                'email' => $data['email'] ?? null,
+                'shortname' => $data['nickname'] ?? null,
+                'phone' => $data['phone'],                
                 'instagram' => $data['instagram'] ?? null,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
 
             // Insert into Projects table
-            $projectId = DB::table('t_projects')->insertGetId([
-                'progress' => 'booking',
+            $projectId = DB::table('t_projects')->insertGetId([                
                 'event_date' => $data['event_date'],
                 'event_time' => $data['event_time'] ?? null,
+                'event' => $data['event_type'] ?? null,
                 'client_id' => $clientId,
                 'service_id' => $data['service_package'],
                 'city' => $data['city'],
                 'university' => $data['university'],
-                'faculty' => $data['faculty'],
+                'faculty' => $data['faculty'] ?? null,
+                'location' => $data['location'] ?? null,
                 'notes' => $data['notes'] ?? null,
+                'user_id' => $data['photographer'] ?? null,
                 'downpayment_at' => isset($data['deposit_paid']) ? now() : null,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -146,10 +177,55 @@ class ProjectController extends Controller
 
     public function indexClients()
     {
-        $title = 'Clients';
+        $title = 'Clients Overview';
+
+        $freelances = DB::table('m_freelances')->get();
+        $photographers = DB::table('users')            
+            ->select('id','username','name','phone','email')
+            ->where('role_code', 'photographer')
+            ->get();
+
+        // join by phone number if exists or by email if exists in users columns else keep null
+        foreach ($photographers as $photographer) {
+            $freelance = null;
+            
+            if (!empty($photographer->phone)) {
+            $freelance = $freelances->firstWhere('phone', $photographer->phone);
+            }
+            
+            if (!$freelance && !empty($photographer->email)) {
+            $freelance = $freelances->firstWhere('email', $photographer->email);
+            }
+            
+            if ($freelance) {
+            $photographer->freelance_id = $freelance->id;
+            $photographer->domicile = $freelance->domicile;
+            } else {
+            $photographer->freelance_id = null;
+            $photographer->domicile = null;
+            }
+        }    
+        
+        // sort by domicile
+        $photographers = $photographers->sortBy('domicile')->values();
+        
+        // Get data for form selects
+        $services = DB::table('m_services')->get();
+        $cities = $services->pluck('city')->unique()->values();
+        $universities = DB::table('m_universities')->get();
+        $faculties = DB::table('m_faculties')->get();
+        $additionals = DB::table('m_additionals')->get();
+        $events = DB::table('m_events')->get();
 
         return view('clients.index_clients', [
-            'title' => $title
+            'title' => $title,
+            'photographers' => $photographers,
+            'services' => $services,
+            'cities' => $cities,
+            'universities' => $universities,
+            'faculties' => $faculties,
+            'additionals' => $additionals,
+            'events' => $events
         ]);
     }
 
@@ -157,37 +233,47 @@ class ProjectController extends Controller
     public function getProjectClients(Request $request)
     {
         try {
-            $start_date = $request->get('start_date', date('Y-m-01'));            
-            $end_date = $request->get('end_date', date('Y-m-t'));
+            $year = $request->get('year', date('Y'));
 
             $projects_clients = DB::table('t_projects')
                 ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
                 ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
                 ->where('t_projects.cancelled_at', null)
-                ->whereBetween('t_projects.event_date', [$start_date, $end_date])
+                ->whereYear('t_projects.event_date', $year)
                 ->select('t_projects.*', 
                         't_clients.name as client_name',
                         't_clients.shortname as client_shortname',
-                        't_clients.phone as client_phone',
-                        't_clients.email as client_email',
+                        't_clients.phone as client_phone',                        
                         't_clients.instagram as client_instagram',
                         'm_services.package as service_package',
                         'm_services.duration as service_duration',
                         'm_services.price as service_price',
-                        )
-                ->get();
+                        't_projects.user_id as photographer_id',
+                        't_projects.event as event_type'
+                        );
 
+            // check login if photographer, show only their projects
+            if (auth()->check() && auth()->user()->role_code === 'photographer') {
+                $projects_clients = $projects_clients->where('t_projects.user_id', auth()->user()->id);
+            }
+            $projects_clients = $projects_clients->get();
 
             $additionals = DB::table('t_project_additionals')                
                 ->whereIn('project_id', $projects_clients->pluck('id'))
-                ->select('project_id', 'description', 'price')
+                ->select('project_id', 'additional_id', 'description', 'price')
+                ->get();
+
+            $files = DB::table('t_project_files')                
+                ->whereIn('project_id', $projects_clients->pluck('id'))
+                ->select('project_id', 'link', 'remark')
                 ->get();
                 
             $response = [
                 'status' => 'success',
                 'message' => 'Projects and Clients fetched successfully',
                 'projects_clients' => $projects_clients,
-                'additionals' => $additionals
+                'additionals' => $additionals,
+                'files' => $files
             ];
 
             return response()->json($response, 200);
@@ -213,7 +299,6 @@ class ProjectController extends Controller
                 ->select('t_projects.*', 
                         't_clients.name as client_name',
                         't_clients.phone as client_phone',
-                        't_clients.email as client_email',
                         't_clients.instagram as client_instagram',
                         'm_services.id as service_id')
                 ->first();
@@ -252,7 +337,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        $data = $request->all();        
 
         try {
             DB::beginTransaction();
@@ -269,8 +354,8 @@ class ProjectController extends Controller
                 ->where('id', $project->client_id)
                 ->update([
                     'name' => $data['client_name'],
+                    'shortname' => $data['nickname'] ?? null,
                     'phone' => $data['phone'],
-                    'email' => $data['email'] ?? null,
                     'instagram' => $data['instagram'] ?? null,
                     'updated_at' => now()
                 ]);
@@ -278,16 +363,16 @@ class ProjectController extends Controller
             // Update Projects table
             DB::table('t_projects')
                 ->where('id', $id)
-                ->update([
-                    'progress' => $data['progress'] ?? $project->progress,
+                ->update([                    
                     'event_date' => $data['event_date'],
                     'event_time' => $data['event_time'] ?? null,
+                    'event' => $data['event_type'] ?? null,
                     'service_id' => $data['service_package'],
                     'city' => $data['city'],
                     'university' => $data['university'],
                     'faculty' => $data['faculty'],
-                    'notes' => $data['notes'] ?? null,
-                    'downpayment_at' => isset($data['deposit_paid']) ? ($project->downpayment_at ?? now()) : null,
+                    'location' => $data['location'] ?? null,
+                    'notes' => $data['notes'] ?? null,                    
                     'updated_at' => now()
                 ]);
 
@@ -380,6 +465,174 @@ class ProjectController extends Controller
             ];
 
             return Response::json($response, 500);
+        }
+    }
+
+    public function updateProgress(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'project_id' => 'required|integer',
+                'field' => 'required|in:downpayment_at,invoiced_at,paid_at,all_filled_at,all_done_at',
+                'value' => 'required|boolean'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid input data',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $projectId = $request->project_id;
+            $field = $request->field;
+            $value = $request->value;
+
+            DB::beginTransaction();
+
+            // Get the project
+            $project = DB::table('t_projects')->where('id', $projectId)->first();
+            
+            if (!$project) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Project not found'
+                ], 404);
+            }
+
+            // Update the field
+            $updateData = [
+                $field => $value ? now() : null,
+                'updated_at' => now()
+            ];
+
+            DB::table('t_projects')
+                ->where('id', $projectId)
+                ->update($updateData);
+
+            DB::commit();
+
+            // Get updated project data
+            $updatedProject = DB::table('t_projects')->where('id', $projectId)->first();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Progress updated successfully',
+                'data' => $updatedProject
+            ], 200);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updatePhotographer(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'project_id' => 'required|integer',
+                'photographer_id' => 'nullable|integer'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid input data',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $projectId = $request->project_id;
+            $photographerId = $request->photographer_id;
+
+            DB::beginTransaction();
+
+            // Get the project
+            $project = DB::table('t_projects')->where('id', $projectId)->first();
+            
+            if (!$project) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Project not found'
+                ], 404);
+            }
+
+            // Update the photographer
+            DB::table('t_projects')
+                ->where('id', $projectId)
+                ->update([
+                    'user_id' => $photographerId,
+                    'updated_at' => now()
+                ]);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Photographer updated successfully'
+            ], 200);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updateDriveLink(Request $request)
+    {
+        try {                        
+
+            $projectId = $request->get('project_id');
+            $driveLink = $request->get('drive_link');                                    
+            $remark = $request->get('remark', null);
+
+            // Update the Google Drive link
+            // Insert or update the Google Drive link for the project
+            $existing = DB::table('t_project_files')
+                ->where('project_id', $projectId)
+                ->where('remark', $remark)
+                ->first();
+
+            if ($existing) {
+                DB::table('t_project_files')
+                    ->where('project_id', $projectId)
+                    ->where('remark', $remark)
+                    ->update([
+                        'link' => $driveLink,
+                        'updated_at' => now()
+                    ]);
+            } else {
+                DB::table('t_project_files')->insert([
+                    'project_id' => $projectId,
+                    'link' => $driveLink,
+                    'remark' => $remark,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+            
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Google Drive link updated successfully',
+                'drive_link' => $driveLink,
+                'remark' => $remark
+            ], 200);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

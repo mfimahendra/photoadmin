@@ -88,6 +88,22 @@
             font-weight: 600;
         }
 
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
         #calendar_container {
             min-height: 400px;
         }
@@ -126,144 +142,193 @@
                     <div class="card-body">
                         <form id="projectForm">
                             @csrf
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="client_name">
-                                            <i class="fas fa-user text-primary"></i> Client Name<span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="client_name" name="client_name"
-                                            placeholder="Enter client name" required>
-                                    </div>
+
+                            <!-- Client Information Section -->
+                            <div class="mb-4">
+                                <div class="section-title">
+                                    <i class="fas fa-user"></i>
+                                    Data Pribadi
                                 </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="phone">
-                                            <i class="fas fa-phone text-success"></i> Phone Number<span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <input type="tel" class="form-control" id="phone" name="phone"
-                                            placeholder="Enter phone number" required>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="client_name">
+                                                <i class="fas fa-id-card text-primary"></i> Nama Lengkap <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="client_name" name="client_name" required placeholder="Masukkan nama lengkap">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="instagram">
-                                            <i class="fab fa-instagram text-danger"></i>
-                                            Instagram
-                                        </label>
-                                        <input type="text" class="form-control" id="instagram" name="instagram"
-                                            placeholder="Enter Instagram handle">
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="nickname">
+                                                <i class="fas fa-user-tag text-info"></i> Panggilan
+                                            </label>
+                                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Masukkan panggilan (tanpa spasi)">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone">
+                                                <i class="fas fa-phone text-success"></i> No. WhatsApp <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Masukkan nomor WhatsApp">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="instagram">
+                                                <i class="fab fa-instagram text-danger"></i> Instagram
+                                            </label>
+                                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Masukkan username Instagram">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <input type="hidden" id="event_date" name="event_date">
+                            <!-- Event Details Section -->
+                            <div class="mb-4">
+                                <div class="section-title">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Detail Acara
+                                </div>
 
-                            <div class="row" style="display: none;">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="event_time">
-                                            <i class="fas fa-clock text-info"></i> Event Time <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <input type="time" class="form-control" id="event_time" name="event_time"
-                                            value="09:00" required>
-                                        <small class="text-muted">Select a date from the calendar first, then choose the
-                                            event time</small>
+                                <div class="row">
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="event_date">
+                                                <i class="fas fa-calendar text-primary"></i> Tanggal <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" id="event_date" name="event_date" required>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="city">
-                                            <i class="fas fa-map-marker-alt text-danger"></i>City<span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control select2" id="city" name="city" required
-                                            data-placeholder="Select City">
-                                            <option value=""></option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city }}">{{ $city }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="event_time">
+                                                <i class="fas fa-clock text-warning"></i> Jam Sesi <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="time" class="form-control" id="event_time" name="event_time" value="09:00" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="university">
-                                            <i class="fas fa-map-marker-alt text-danger"></i>University<span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control select2" id="university" name="university" required
-                                            data-placeholder="Select University">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="faculty">
-                                            <i class="fas fa-map-marker-alt text-danger"></i>
-                                            Faculty
-                                        </label>
-                                        <select class="form-control select2" id="faculty" name="faculty"
-                                            data-placeholder="Select Faculty">
-                                            <option value=""></option>
-                                            @foreach ($faculties as $faculty)
-                                                <option value="{{ $faculty->faculty }}">{{ $faculty->faculty }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="service_package">
-                                            <i class="fas fa-box text-warning"></i> Service Package<span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control select2" id="service_package" name="service_package"
-                                            required data-placeholder="Select Service Package">
-                                        </select>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="city">
+                                                <i class="fas fa-map-marker-alt text-danger"></i> Kota <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="city" name="city" required data-placeholder="Pilih Kota">
+                                                <option></option>
+                                                @foreach($cities as $city)
+                                                    <option value="{{ $city }}">{{ $city }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="additional">
-                                            <i class="fas fa-plus text-info"></i> Add On <small>(optional)</small>
-                                        </label>
-                                        <select class="form-control select2" id="additional" name="additional[]" multiple
-                                            data-placeholder="Select Add On(s)">
-                                            <option value=""></option>
-                                            @foreach ($additionals as $addon)
-                                                <option value="{{ $addon->id }}">{{ $addon->package }} - Rp
-                                                    {{ number_format($addon->price, 0, ',', '.') }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="notes">
-                                    <i class="fas fa-sticky-note text-secondary"></i> Additional Notes
-                                </label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"
-                                    placeholder="Enter any additional notes or special requests"></textarea>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="university">
+                                                <i class="fas fa-university text-primary"></i> Universitas <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="university" name="university" required data-placeholder="Pilih Universitas">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="faculty">
+                                                <i class="fas fa-graduation-cap text-success"></i> Fakultas
+                                            </label>
+                                            <select class="form-control select2" id="faculty" name="faculty" data-placeholder="Pilih Fakultas">
+                                                <option></option>
+                                                @foreach($faculties as $faculty)
+                                                    <option value="{{ $faculty->faculty }}">{{ $faculty->faculty }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="event_type">
+                                                <i class="fas fa-calendar-check text-info"></i> Jenis Acara <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="event_type" name="event_type" required data-placeholder="Pilih Jenis Acara">
+                                                <option></option>
+                                                @foreach($events as $event)
+                                                    <option value="{{ $event->event }}">{{ $event->event }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="photographer">
+                                                <i class="fas fa-camera text-secondary"></i> Fotografer
+                                            </label>
+                                            <select class="form-control select2" id="photographer" name="photographer" data-placeholder="Pilih Fotografer">
+                                                <option></option>
+                                                @foreach($photographers as $photographer)
+                                                    <option value="{{ $photographer->id }}">{{ $photographer->domicile }} - {{ $photographer->username }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="service_package">
+                                                <i class="fas fa-box text-primary"></i> Paket Layanan <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="service_package" name="service_package" required data-placeholder="Pilih Paket Layanan">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="additional">
+                                                <i class="fas fa-plus-circle text-success"></i> Add On
+                                            </label>
+                                            <select class="form-control select2" id="additional" name="additional" multiple="multiple" data-placeholder="Pilih Add On">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="location">
+                                                <i class="fas fa-map-pin text-danger"></i> Lokasi Foto <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="location" name="location" required placeholder="Masukkan lokasi foto">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="notes">
+                                                <i class="fas fa-sticky-note text-secondary"></i> Catatan Tambahan
+                                            </label>
+                                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Catatan tambahan atau permintaan khusus"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="deposit_paid"
-                                        name="deposit_paid">
+                                    <input class="custom-control-input" type="checkbox" id="deposit_paid" name="deposit_paid">
                                     <label for="deposit_paid" class="custom-control-label">
-                                        <i class="fas fa-check-circle text-success"></i> Bayar DP
+                                        <i class="fas fa-dollar-sign text-success"></i> DP Sudah Dibayar
                                     </label>
                                 </div>
                             </div>
@@ -276,7 +341,7 @@
                                         <i class="fas fa-undo"></i> Reset
                                     </button>
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> Save Project
+                                        <i class="fas fa-save"></i> Simpan
                                     </button>
                                 </div>
                             </div>
@@ -312,12 +377,14 @@
 
             // Initialize select2 first
             $('.select2').each((_i, e) => {
-                var e = $(e);
-                e.select2({
+                var elem = $(e);
+                var isMultiple = elem.attr('multiple') !== undefined;
+                elem.select2({
                     tags: true,
-                    allowClear: true,
+                    allowClear: !isMultiple,
                     theme: 'bootstrap4',
-                    dropdownParent: e.parent()
+                    placeholder: elem.data('placeholder') || 'Pilih',
+                    dropdownParent: elem.parent()
                 });
             });        
 
@@ -414,21 +481,18 @@
             document.querySelector('.select2-search__field').focus();
         });
 
-        // event listener for city change to populate service packages
+        // Event listener for city change to populate service packages, universities, and additionals
         $('#city').on('change', function() {
             var selectedCity = $(this).val();
 
-            var filteredServices = services.filter(function(service) {
-                return service.city === selectedCity;
-            });
-
+            // Filter and populate universities
             var filteredUniversities = universities.filter(function(university) {
                 return university.city === selectedCity;
             });
 
             var universitySelect = $('#university');
             universitySelect.empty();
-            universitySelect.append('<option value=""></option>');
+            universitySelect.append('<option></option>');
 
             filteredUniversities.forEach(function(university) {
                 var option = $('<option></option>')
@@ -436,21 +500,47 @@
                     .text(university.university);
                 universitySelect.append(option);
             });
-            universitySelect.val('').trigger('change');
+            universitySelect.val(null).trigger('change');
 
+            // Filter and populate services
+            var filteredServices = services.filter(function(service) {
+                return service.city === selectedCity;
+            });
 
             var serviceSelect = $('#service_package');
             serviceSelect.empty();
-            serviceSelect.append('<option value="">Select package</option>');
+            serviceSelect.append('<option></option>');
 
             filteredServices.forEach(function(service) {
                 var option = $('<option></option>')
                     .attr('value', service.id)
-                    .text(service.package + ' - ' + service.duration + ' Jam | Rp ' + numberWithDotsSplit3(
-                        service.price));
+                    .text(service.package + ' - ' + service.duration + ' jam | Rp ' + numberWithDotsSplit3(service.price));
                 serviceSelect.append(option);
             });
-            serviceSelect.val('').trigger('change');
+            serviceSelect.val(null).trigger('change');
+
+            // Filter and populate additionals
+            var additionals = @json($additionals);
+            var filteredAdditionals = additionals.filter(function(addon) {
+                return addon.city === selectedCity;
+            });
+
+            var additionalSelect = $('#additional');
+            additionalSelect.empty();
+            additionalSelect.append('<option></option>');
+
+            filteredAdditionals.forEach(function(addon) {
+                var option = $('<option></option>')
+                    .attr('value', addon.id)
+                    .text(addon.package + ' - Rp ' + numberWithDotsSplit3(addon.price));
+                additionalSelect.append(option);
+            });
+            additionalSelect.val(null).trigger('change');
+        });
+
+        // User only input without space for nickname
+        $('#nickname').on('input', function() {
+            this.value = this.value.replace(/\s/g, '');
         });
 
         // Function to update temporary event based on selected time

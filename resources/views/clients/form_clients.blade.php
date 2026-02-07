@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
@@ -45,7 +45,7 @@
         .card-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 10px 10px 0 0 !important;
+            /* border-radius: 10px 10px 0 0 !important; */
         }
 
         .card-primary.card-outline .card-header {
@@ -97,6 +97,17 @@
                         </h3>
                     </div>
                     <div class="card-body">
+                        <p>
+                            Panduan Mengisi Booking Form: <br>
+
+                            1. Gunakan EYD + huruf kapital di awal kata <br>
+                            2. Tulis singkatan Univ (contoh: UNAIR, UB, IIK BW) <br>
+                            3. Kota = kota kampus, bukan kota domisili <br>
+                            4. Contoh jam -> 05.30 - 06.30 / 13.00 - 14.00 <br>
+                            5. Event tulis yg sesuai, misal: Grad / Sumpah Dokter / Pelantikan Ners <br>
+                            6. Lokasi cukup sebut kampus/hotel/tempatnya, tidak perlu detail <br>
+                            7. DP biarkan default, kecuali mau langsung lunas
+                        </p>
                         <form id="bookingForm">
                             @csrf
 
@@ -119,21 +130,21 @@
 
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="phone">
-                                                <i class="fas fa-phone text-success"></i> No. WhatsApp <span class="text-danger">*</span>
+                                            <label for="nickname">
+                                                <i class="fas fa-id-badge text-secondary"></i> Nama Panggilan <span class="text-danger">*</span>
                                             </label>
-                                            <input type="tel" class="form-control" id="phone" name="phone" required placeholder="08xxxxxxxxxx">
+                                            <input type="text" class="form-control" id="nickname" name="nickname" required placeholder="Masukkan Nama Panggilan" >
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="email">
-                                                <i class="fas fa-envelope text-info"></i> Email
+                                            <label for="phone">
+                                                <i class="fas fa-phone text-success"></i> No. WhatsApp <span class="text-danger">*</span>
                                             </label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com">
+                                            <input type="tel" class="form-control" id="phone" name="phone" required placeholder="08xxxxxxxxxx">
                                         </div>
-                                    </div>
+                                    </div>                                    
 
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
@@ -172,10 +183,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="city">
-                                                <i class="fas fa-map-marker-alt text-danger"></i> Kota <span class="text-danger">*</span>
+                                                <i class="fas fa-city text-success"></i> Kota <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control select2" id="city" name="city" required data-placeholder="Pilih Kota">
                                                 <option value=""></option>
@@ -186,7 +197,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="university">
                                                 <i class="fas fa-university text-primary"></i> Universitas <span class="text-danger">*</span>
@@ -197,7 +208,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-3">
                                         <div class="form-group">
                                             <label for="faculty">
                                                 <i class="fas fa-graduation-cap text-success"></i> Fakultas <span class="text-danger">*</span>
@@ -211,10 +222,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-md-3">                                        
+                                        <div class="form-group">
+                                            <label for="location">
+                                                <i class="fas fa-map-marker-alt text-danger"></i> Lokasi <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="location" name="location" required placeholder="Masukkan lokasi acara">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
                                         <div class="form-group">
                                             <label for="service_package">
-                                                <i class="fas fa-box text-warning"></i> Paket Layanan <span class="text-danger">*</span>
+                                                <i class="fas fa-box text-warning"></i> Paket <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control select2" id="service_package" name="service_package" required data-placeholder="Pilih Paket">
                                                 <option value=""></option>
@@ -222,19 +242,30 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-md-4">
                                         <div class="form-group">
-                                            <label for="additional">
-                                                <i class="fas fa-plus text-info"></i> Layanan Tambahan <small>(opsional)</small>
+                                            <label for="event_type">
+                                                <i class="fas fa-tags text-info"></i> Event <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control select2" id="additional" name="additional[]" multiple data-placeholder="Pilih Layanan Tambahan">
+                                            <select class="form-control select2" id="event_type" name="event_type" required data-placeholder="Pilih Jenis Acara">
                                                 <option value=""></option>
-                                                @foreach($additionals as $addon)
-                                                    <option value="{{ $addon->id }}">{{ $addon->package }} - Rp {{ number_format($addon->price, 0, ',', '.') }}</option>
+                                                @foreach($events as $event)
+                                                    <option value="{{ $event->event }}">{{ $event->event }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                            <label for="additional">
+                                                <i class="fas fa-plus text-info"></i> Add On <small>(opsional, dapat memilih lebih dari satu)</small>
+                                            </label>
+                                            <select class="form-control select2" id="additional" name="additional[]" multiple data-placeholder="Pilih Layanan Tambahan">
+                                                <option value=""></option>                                                
+                                            </select>
+                                        </div>
+                                    </div>                                    
 
                                     <div class="col-12">
                                         <div class="form-group">
@@ -329,7 +360,29 @@
                     serviceSelect.append(option);
                 });
                 serviceSelect.val('').trigger('change');
+
+                // Filter and populate Add On
+                var filteredAdditionals = @json($additionals).filter(function(addon) {
+                    return addon.city === selectedCity;
+                });
+                var additionalSelect = $('#additional');
+                additionalSelect.empty();
+                additionalSelect.append('<option value=""></option>');
+                filteredAdditionals.forEach(function(addon) {
+                    var option = $('<option></option>')
+                        .attr('value', addon.id)
+                        .text(addon.package + ' - Rp ' + numberWithDotsSplit3(addon.price));
+                    additionalSelect.append(option);
+                });
+                additionalSelect.val(null).trigger('change');
             });
+
+
+            // user only input without space for nickname
+            $('#nickname').on('input', function() {
+                this.value = this.value.replace(/\s/g, '');
+            });
+
 
             // Set minimum date to today
             var today = new Date().toISOString().split('T')[0];
@@ -431,39 +484,46 @@
             var facultyText = facultyObj ? facultyObj.faculty : facultyValue;
             
             var serviceObj = services.find(s => s.id == serviceValue);
-            var serviceText = serviceObj ? serviceObj.package + ' - ' + serviceObj.duration + ' menit | Rp ' + numberWithDotsSplit3(serviceObj.price) : serviceValue;
+            var serviceText = serviceObj ? serviceObj.package + ' - ' + serviceObj.duration + ' jam | Rp ' + numberWithDotsSplit3(serviceObj.price) : serviceValue;
             
             // Get selected additional services text
             var additionalTexts = [];
-            $('#additional option:selected').each(function() {
-                additionalTexts.push($(this).text());
-            });
+            var additionalValue = formData.get('additional');
+            if (additionalValue) {
+                var additionalIds = additionalValue.split(',');
+                var additionals = @json($additionals);
+                additionalIds.forEach(function(id) {
+                    var addonObj = additionals.find(a => a.id == id);
+                    if (addonObj) {
+                        additionalTexts.push(addonObj.package + ' - Rp ' + numberWithDotsSplit3(addonObj.price));
+                    }
+                });
+            }
 
-            let message = "Halo Admin Wisuda Esok Hari,\nSaya ingin melakukan booking layanan fotografi.\n\n";
-            message += "Data Pribadi\n";
+
+            let message = "BOOKING FORM\nESOKHARI 2026\n\n";
             message += "Nama Lengkap: " + formData.get('client_name') + "\n";
-            message += "No. WhatsApp: " + formData.get('phone') + "\n";
-            if (formData.get('email')) {
-                message += "Email: " + formData.get('email') + "\n";
-            }
-            if (formData.get('instagram')) {
-                message += "Instagram: " + formData.get('instagram') + "\n";
-            }
-            message += "\nDetail Acara\n";
-            message += "Tanggal Acara: " + formatDate(formData.get('event_date')) + "\n";
-            if (formData.get('event_time')) {
-                message += "Waktu Acara: " + formData.get('event_time') + "\n";
-            }
-            message += "Kota: " + cityText + "\n";
-            message += "Universitas: " + universityText + "\n";
-            message += "Fakultas: " + facultyText + "\n";
-            message += "Paket Layanan: " + serviceText + "\n";
-            if (additionalTexts.length > 0) {
-                message += "Layanan Tambahan: " + additionalTexts.join(', ') + "\n";
-            }
+            message += "Panggilan: " + formData.get('nickname') + "\n";
+            message += "Univ: " + universityText + "\n";
+            message += "Kota: " + cityText + "\n";            
+            message += "No. WA: " + formData.get('phone') + "\n";
+            message += "Ig: " + (formData.get('instagram') || '-') + "\n";
+            message += "Package: " + serviceText + "\n";
+            message += "Add On: " + (additionalTexts.length > 0 ? additionalTexts.join(', ') : '-') + "\n";
+            message += "Tanggal: " + formatDate(formData.get('event_date')) + "\n";
+            message += "Jam: " + (formData.get('event_time') || '-') + "\n";
+            message += "Event: " + formData.get('event_type') + "\n";
+            message += "Lokasi Foto: " + formData.get('location') + "\n";
             if (formData.get('notes')) {
-                message += "\nCatatan Tambahan\n" + formData.get('notes') + "\n";
+                message += "\n\nCatatan Tambahan:\n" + formData.get('notes');
             }
+            message += "DP: 150000\n\n";
+            message += "_____\n\n";
+            message += "- Wajib sertakan bukti transfernya yaa\n";
+            message += "- Untuk pelunasan maksimal h-1\n\n";
+            message += "No. Rek: 001922209548 (Blu by BCA Digital)\n";
+            message += "A.n.: Arga Puguh Pratama\n";
+            message += "••";            
             
             message = encodeURIComponent(message);
 
