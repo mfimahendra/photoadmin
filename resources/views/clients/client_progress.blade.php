@@ -2,42 +2,59 @@
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libertinus+Serif+Display&family=Petit+Formal+Script&display=swap" rel="stylesheet">
 <style>
     body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Inter', sans-serif;
+        background: #fafbfc;
+        color: #333;
         min-height: 100vh;
         padding: 20px 0;
     }
 
     .progress-card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        margin: 15px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         overflow: hidden;
         margin-bottom: 30px;
     }
 
     .card-header-custom {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 30px;
+        background: white;
+        color: #222;
+        padding: 40px 60px 30px;
         text-align: center;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .card-header-custom .logo {
+        max-width: 120px;
+        margin-bottom: 20px;
     }
 
     .card-header-custom h2 {
+        font-family: 'Libertinus Serif Display', serif;
         margin: 0;
-        font-weight: 700;
-        font-size: 28px;
+        font-weight: 600;
+        font-size: 2.5rem;
+        color: #222;
+        letter-spacing: 3px;
     }
 
     .card-header-custom p {
-        margin: 10px 0 0;
-        opacity: 0.9;
-        font-size: 16px;
+        margin: 12px 0 0;
+        color: #888;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
     }
 
     .card-body-custom {
-        padding: 40px;
+        padding: 50px 60px;
     }
 
     .info-section {
@@ -45,12 +62,20 @@
     }
 
     .info-section h6 {
-        color: #667eea;
-        font-weight: 700;
-        font-size: 16px;
-        margin-bottom: 15px;
-        text-transform: uppercase;
+        font-family: 'Libertinus Serif Display', serif;
+        color: #222;
+        font-weight: 500;
+        font-size: 1.5rem;
+        margin-bottom: 24px;
         letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .info-section h6 i {
+        font-size: 1.3rem;
+        color: #222;
     }
 
     .info-table {
@@ -65,8 +90,8 @@
     }
 
     .info-table td:first-child {
-        font-weight: 600;
-        color: #666;
+        font-weight: 500;
+        color: #555;
         width: 150px;
     }
 
@@ -75,16 +100,17 @@
     }
 
     .price-box {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: #f7f7f7;
         border-radius: 12px;
         padding: 25px;
         text-align: center;
         margin-top: 20px;
+        border: 1.5px solid #e0e0e0;
     }
 
     .price-box .price-label {
-        font-size: 14px;
-        color: #666;
+        font-size: 0.88rem;
+        color: #555;
         margin-bottom: 10px;
         font-weight: 600;
     }
@@ -92,7 +118,7 @@
     .price-box .price-amount {
         font-size: 32px;
         font-weight: 700;
-        color: #667eea;
+        color: #222;
         margin: 0;
     }
 
@@ -148,7 +174,7 @@
     }
 
     .timeline .bg-primary {
-        background-color: #667eea !important;
+        background-color: #222 !important;
     }
 
     .timeline .bg-secondary {
@@ -176,6 +202,7 @@
         font-size: 18px;
         font-weight: 600;
         margin: 0 0 15px;
+        color: #222;
     }
 
     .timeline-body {
@@ -193,8 +220,8 @@
 
     .drive-link-box {
         background: white;
-        border: 2px solid #667eea;
-        border-radius: 10px;
+        border: 2px solid #222;
+        border-radius: 12px;
         padding: 20px;
         margin-top: 15px;
         text-align: center;
@@ -202,25 +229,28 @@
 
     .drive-link-box i {
         font-size: 28px;
-        color: #667eea;
+        color: #222;
         margin-bottom: 15px;
     }
 
     .btn-drive {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #222;
         color: white;
         border: none;
-        padding: 12px 30px;
-        border-radius: 25px;
+        padding: 12px 32px;
+        border-radius: 8px;
         font-weight: 600;
         text-decoration: none;
         display: inline-block;
         transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        margin: 5px;
     }
 
     .btn-drive:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        background: #000;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         color: white;
         text-decoration: none;
     }
@@ -230,7 +260,7 @@
         border-left: 4px solid #ffc107;
         padding: 15px 20px;
         border-radius: 5px;
-        margin: 20px 0;
+        margin: 10px 0;
     }
 
     .notes-box strong {
@@ -243,21 +273,36 @@
     }
 
     hr {
-        border-top: 2px solid #e9ecef;
-        margin: 30px 0;
+        border: none;
+        border-top: 1px solid #e8e8e8;
+        margin: 40px 0;
     }
 
     .status-badge {
         display: inline-block;
-        font-size: 16px;
+        font-size: 0.95rem;
         padding: 10px 20px;
         border-radius: 25px;
         font-weight: 600;
+        letter-spacing: 0.3px;
     }
 
-    @media (max-width: 768px) {
+    .bg-purple {
+        background-color: #6f42c1;
+        color: white;
+    }
+
+    @media (max-width: 991px) {
+        .progress-card {
+            margin: 30px 20px;
+        }
+
+        .card-header-custom {
+            padding: 35px 30px 25px;
+        }
+
         .card-body-custom {
-            padding: 20px;
+            padding: 35px 30px;
         }
 
         .info-table td:first-child {
@@ -266,6 +311,33 @@
 
         .price-box .price-amount {
             font-size: 24px;
+        }
+
+        .card-header-custom h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .card-header-custom {
+            padding: 25px 20px;
+        }
+
+        .card-body-custom {
+            padding: 25px 20px;
+        }
+
+        .card-header-custom h2 {
+            font-size: 1.6rem;
+        }
+
+        .info-section h6 {
+            font-size: 1.2rem;
+        }
+
+        .btn-drive {
+            padding: 10px 24px;
+            font-size: 0.9rem;
         }
     }
 </style>
@@ -276,7 +348,8 @@
     @foreach($projects as $project)
     <div class="progress-card">
         <div class="card-header-custom">
-            <h2><i class="fas fa-calendar-check"></i> Progress Booking</h2>
+            <img src="{{ asset('images/icon/esokhari.png') }}" alt="Esokhari Logo" class="logo">
+            <h2>PROGRESS BOOKING</h2>
             <p>{{ $project->client_name }}</p>
         </div>
         <div class="card-body-custom">
@@ -290,7 +363,7 @@
                             <td>: {{ $project->client_name }}</td>
                         </tr>
                         <tr>
-                            <td>Panggilan</td>
+                            <td>Nickname</td>
                             <td>: {{ $project->client_shortname ?? '-' }}</td>
                         </tr>
                         <tr>
@@ -386,7 +459,7 @@
                     @elseif($project->all_done_at)
                         <span class="badge badge-success status-badge"><i class="fas fa-check-circle"></i> ALL DONE</span>
                     @elseif($project->all_filled_at)
-                        <span class="badge badge-primary status-badge"><i class="fas fa-folder-open"></i> ALL FILES</span>
+                        <span class="badge bg-purple status-badge"><i class="fas fa-folder-open"></i> ALL FILES</span>
                     @elseif($project->paid_at)
                         <span class="badge badge-info status-badge"><i class="fas fa-check"></i> LUNAS</span>
                     @elseif($project->invoiced_at)
@@ -463,26 +536,82 @@
                             </span>
                             <h3 class="timeline-header no-border">
                                 @if($project->all_filled_at)
-                                    <span class="badge badge-primary">All Files Ready</span>
+                                    <span class="badge bg-purple">All Files Ready</span>
                                 @else
                                     <span class="badge badge-secondary">Files Pending</span>
                                 @endif
                             </h3>
-                            @if($project->drive_link)
-                            <div class="timeline-body">
-                                <div class="drive-link-box">
-                                    <i class="fab fa-google-drive"></i>
-                                    <h5>Your Files are Ready!</h5>
-                                    <p>Click the button below to access your files</p>
-                                    <a href="{{ $project->drive_link }}" target="_blank" class="btn-drive">
-                                        <i class="fab fa-google-drive text-white"></i> Open Files
-                                    </a>
-                                    <a href="#" target="_blank" class="btn-drive">
-                                        <i class="fa-solid fa-object-group text-white"></i>
-                                        Select Files to Edit
-                                    </a>
+                            @php
+                                // client only can select files to edit 14 days since $project->event_date
+                                // client only could open files from gdrive 1 month since $project->event_date
+                                $eventDate = \Carbon\Carbon::parse($project->event_date);
+                                $canSelectFiles = now()->lessThanOrEqualTo($eventDate->copy()->addDays(14));
+                                $canOpenFiles = now()->lessThanOrEqualTo($eventDate->copy()->addMonth());
+                            @endphp
+
+                            {{-- preview terms in here --}}
+                            @if($project->all_filled_at)
+                                <div class="timeline-body">
+                                    <div class="notes-box" style="background: #e7f3ff; border-left: 4px solid #2196F3;">
+                                        <strong style="color: #1565C0;"><i class="fas fa-info-circle"></i> Important Information</strong>
+                                        <p style="color: #1565C0; margin-top: 10px;">
+                                            <strong>Current Date:</strong> {{ now()->format('d F Y') }}<br>
+                                            <strong>Event Date:</strong> {{ $eventDate->format('d F Y') }}<br><br>
+                                            
+                                            <strong>Terms & Conditions:</strong>
+                                        </p>
+                                        <ul style="color: #1565C0; margin: 10px 0 0 20px;">
+                                            <li><strong>File Selection:</strong> Available until {{ $eventDate->copy()->addDays(14)->format('d F Y') }} (14 days after event)</li>
+                                            <li><strong>File Access:</strong> Available until {{ $eventDate->copy()->addMonth()->format('d F Y') }} (1 month after event)</li>
+                                            @if(!$canSelectFiles)
+                                                <li style="color: #d32f2f;"><strong>Note:</strong> Selection period has expired</li>
+                                            @endif
+                                            @if(!$canOpenFiles)
+                                                <li style="color: #d32f2f;"><strong>Note:</strong> Access period has expired</li>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
+
+                            @if($project->link && $project->all_filled_at)
+                                <div class="timeline-body">
+                                    <div class="drive-link-box">
+                                        <i class="fab fa-google-drive"></i>
+                                        <h5>Your Files are Ready!</h5>
+                                        <p>Click the button below to access your files</p>
+                                        
+                                        @if($canOpenFiles)
+                                            <a href="{{ $project->link }}" target="_blank" class="btn-drive">
+                                                <i class="fab fa-google-drive text-white"></i> Open Files
+                                            </a>
+                                        @else
+                                            <button class="btn-drive" disabled style="opacity: 0.6; cursor: not-allowed;">
+                                                <i class="fab fa-google-drive text-white"></i> Link Expired (1 month limit)
+                                            </button>
+                                        @endif
+                                        
+                                        @if($canSelectFiles)
+                                            <a href="{{ url('esokhari-select-images/' . $project->event_date . '/' . $shortname) }}" target="_blank" class="btn-drive">
+                                                <i class="fa-solid fa-object-group text-white"></i>
+                                                Select Files to Edit
+                                            </a>
+                                        @else
+                                            <button class="btn-drive" disabled style="opacity: 0.6; cursor: not-allowed;">
+                                                <i class="fa-solid fa-object-group text-white"></i>
+                                                Selection Period Expired (14 days limit)
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            @elseif($project->paid_at)
+                                <div class="timeline-body">
+                                    <div class="notes-box" style="background: #d1ecf1; border-left: 4px solid #17a2b8;">
+                                        <strong style="color: #0c5460;"><i class="fas fa-hourglass-half"></i> Waiting Admin for Uploading</strong>
+                                        <p style="color: #0c5460;">Please kindly wait while we upload your files.</p>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -511,19 +640,7 @@
                 </div>
             </div>
             <hr style="margin: 0 15px;">
-            {{-- Chat Admin & Chat Photographers --}}
-            <div class="row mt-4">
-                <div class="col-md-6 text-center">
-                    <a href="https://wa.me/?text=Halo%20Admin%2C%20saya%20{{ urlencode($project->client_name) }}%20ingin%20bertanya%20tentang%20progres%20foto%20saya." target="_blank" class="btn-drive">
-                        <i class="fas fa-headset text-white"></i> Chat Admin
-                    </a>
-                </div>
-                <div class="col-md-6 text-center">
-                    <a href="https://wa.me/?text=Halo%20Photographer%2C%20saya%20{{ urlencode($project->client_name) }}%20ingin%20bertanya%20tentang%20progres%20foto%20saya." target="_blank" class="btn-drive">
-                        <i class="fas fa-camera text-white"></i> Chat Photographer
-                    </a>
-                </div>
-            </div>
+            
         </div>
     </div>
     @endforeach

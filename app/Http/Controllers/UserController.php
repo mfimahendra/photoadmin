@@ -60,4 +60,18 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function indexUserActionLogs(Request $request)
+    {
+        $userId = $request->get('user_id');
+
+        $logs = DB::table('t_user_action_logs')
+            ->join('users', 't_user_action_logs.user_id', '=', 'users.id')
+            ->where('t_user_action_logs.user_id', $userId)
+            ->select('t_user_action_logs.*', 'users.name as user_name')
+            ->orderBy('t_user_action_logs.created_at', 'desc')
+            ->get();
+
+        return response()->json(['status' => 'success', 'logs' => $logs]);
+    }
 }

@@ -25,6 +25,17 @@ class ProjectController extends Controller
 
     }
 
+    public function insertActionLog($action, $description = null)
+    {
+        DB::table('user_action_logs')->insert([
+            'user_id' => auth()->id(),
+            'action' => $action,
+            'description' => $description,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+    }
+
 
     public function indexCreateProject()
     {
@@ -155,6 +166,12 @@ class ProjectController extends Controller
 
             DB::commit();
 
+            // Log action
+            $this->insertActionLog(
+                'create_project',
+                "Created new project for client: {$data['client_name']}, Event date: {$data['event_date']}"
+            );
+
             $response = [
                 'status' => 'success',
                 'message' => 'Project created successfully'
@@ -262,18 +279,12 @@ class ProjectController extends Controller
                 ->whereIn('project_id', $projects_clients->pluck('id'))
                 ->select('project_id', 'additional_id', 'description', 'price')
                 ->get();
-
-            $files = DB::table('t_project_files')                
-                ->whereIn('project_id', $projects_clients->pluck('id'))
-                ->select('project_id', 'link', 'remark')
-                ->get();
                 
             $response = [
                 'status' => 'success',
                 'message' => 'Projects and Clients fetched successfully',
                 'projects_clients' => $projects_clients,
-                'additionals' => $additionals,
-                'files' => $files
+                'additionals' => $additionals
             ];
 
             return response()->json($response, 200);
@@ -349,6 +360,45 @@ class ProjectController extends Controller
                 throw new \Exception('Project not found');
             }
 
+            // do checking did admin change the service_id if yes then insert to t_project_service_update_histories
+            if (isset($data['service_package']) && $data['service_package'] != $project->service_id) {
+
+                // check the price if lower then current service price then return false show cannot downgrade service, if higher then current service price then allow upgrade service
+                $currentServicePrice = DB::table('m_services')->where('id', $project->service_id)->value('price');
+                $newServicePrice = DB::table('m_services')->where('id', $data['service_package'])->value('price');
+
+                if ($newServicePrice < $currentServicePrice) {
+                    DB::rollBack();
+                    $response = [
+                        'status' => 'error',
+                        'message' => 'Cannot downgrade service to a cheaper package'
+                    ];
+
+                    return Response::json($response, 400);
+                }
+
+                DB::table('t_project_service_update_histories')->insert([
+                    'project_id' => $id,
+                    'service_id_before' => $project->service_id,
+                    'service_id_after' => $data['service_package'],                    
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+                // also update t_projects fill is_upgraded to 1
+                DB::table('t_projects')
+                    ->where('id', $id)
+                    ->update([
+                        'is_upgraded' => 1,                        
+                    ]);
+
+                // Log service upgrade
+                $this->insertActionLog(
+                    'upgrade_service',
+                    "Upgraded service for project ID: {$id} from service ID {$project->service_id} to {$data['service_package']}"
+                );
+            }
+
             // Update Client table
             DB::table('t_clients')
                 ->where('id', $project->client_id)
@@ -406,6 +456,12 @@ class ProjectController extends Controller
 
             DB::commit();
 
+            // Log action
+            $this->insertActionLog(
+                'update_project',
+                "Updated project ID: {$id}, Client: {$data['client_name']}"
+            );
+
             $response = [
                 'status' => 'success',
                 'message' => 'Project updated successfully'
@@ -449,6 +505,12 @@ class ProjectController extends Controller
                 ]);
 
             DB::commit();
+
+            // Log action
+            $this->insertActionLog(
+                'delete_project',
+                "Cancelled/deleted project ID: {$id}"
+            );
 
             $response = [
                 'status' => 'success',
@@ -513,6 +575,13 @@ class ProjectController extends Controller
 
             DB::commit();
 
+            // Log action
+            $statusText = $value ? 'marked as done' : 'unmarked';
+            $this->insertActionLog(
+                'update_progress',
+                "Updated progress for project ID: {$projectId}, Field: {$field} {$statusText}"
+            );
+
             // Get updated project data
             $updatedProject = DB::table('t_projects')->where('id', $projectId)->first();
 
@@ -572,6 +641,13 @@ class ProjectController extends Controller
 
             DB::commit();
 
+            // Log action
+            $photographerName = $photographerId ? DB::table('users')->where('id', $photographerId)->value('name') : 'Unassigned';
+            $this->insertActionLog(
+                'update_photographer',
+                "Updated photographer for project ID: {$projectId} to: {$photographerName}"
+            );
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Photographer updated successfully'
@@ -591,40 +667,27 @@ class ProjectController extends Controller
         try {                        
 
             $projectId = $request->get('project_id');
-            $driveLink = $request->get('drive_link');                                    
-            $remark = $request->get('remark', null);
+            $driveLink = $request->get('drive_link');
 
-            // Update the Google Drive link
-            // Insert or update the Google Drive link for the project
-            $existing = DB::table('t_project_files')
-                ->where('project_id', $projectId)
-                ->where('remark', $remark)
-                ->first();
-
-            if ($existing) {
-                DB::table('t_project_files')
-                    ->where('project_id', $projectId)
-                    ->where('remark', $remark)
-                    ->update([
-                        'link' => $driveLink,
-                        'updated_at' => now()
-                    ]);
-            } else {
-                DB::table('t_project_files')->insert([
-                    'project_id' => $projectId,
+            // Update the Google Drive link in t_projects
+            DB::table('t_projects')
+                ->where('id', $projectId)
+                ->update([
                     'link' => $driveLink,
-                    'remark' => $remark,
-                    'created_at' => now(),
                     'updated_at' => now()
                 ]);
-            }
-            
+
+            // Log action
+            $linkStatus = $driveLink ? 'updated' : 'cleared';
+            $this->insertActionLog(
+                'update_drive_link',
+                "Google Drive link {$linkStatus} for project ID: {$projectId}"
+            );
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Google Drive link updated successfully',
-                'drive_link' => $driveLink,
-                'remark' => $remark
+                'drive_link' => $driveLink
             ], 200);
             
         } catch (\Throwable $th) {
@@ -634,5 +697,5 @@ class ProjectController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-    }
+    }    
 }

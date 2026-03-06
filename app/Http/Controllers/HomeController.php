@@ -14,7 +14,50 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['landing']);
+    }
+
+    /**
+     * Show the landing page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function landing()
+    {
+        $services = DB::table('m_services')->get();
+        $cities = $services->pluck('city')->unique()->values();                
+        $additionals = DB::table('m_additionals')->get();
+
+        // Load portfolio images from storage
+        $portfolioImages = [];
+        if (\Storage::disk('public')->exists('portfolio')) {
+            $files = \Storage::disk('public')->files('portfolio');
+            foreach ($files as $file) {
+                $portfolioImages[] = \Storage::url($file);
+            }
+        }
+
+        // Load hero image from storage
+        $heroImage = asset('images/landing_page/bw-1.jpg'); // default fallback
+        if (\Storage::disk('public')->exists('landing/hero.jpg')) {
+            $heroImage = \Storage::url('landing/hero.jpg');
+        } elseif (\Storage::disk('public')->exists('landing/hero.png')) {
+            $heroImage = \Storage::url('landing/hero.png');
+        } elseif (\Storage::disk('public')->exists('landing/hero.jpeg')) {
+            $heroImage = \Storage::url('landing/hero.jpeg');
+        } elseif (\Storage::disk('public')->exists('landing/hero.gif')) {
+            $heroImage = \Storage::url('landing/hero.gif');
+        }
+
+        $heroImage = asset($heroImage);
+
+        return view('landing',[
+            'cities' => $cities,
+            'services' => $services,
+            'additionals' => $additionals,
+            'portfolioImages' => $portfolioImages,
+            'heroImage' => $heroImage
+        ]);
     }
 
     /**
@@ -24,7 +67,197 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        $isAdmin = $user->role_code === 'admin';
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        // Base query for projects
+        $baseQuery = DB::table('t_projects')
+            ->where('cancelled_at', null);
+
+        if (!$isAdmin) {
+            $baseQuery->where('user_id', $user->id);
+        }
+
+        // Total projects this year
+        $totalProjectsThisYear = (clone $baseQuery)
+            ->whereYear('event_date', $currentYear)
+            ->count();
+
+        // Upcoming events (next 30 days)
+        $upcomingEvents = (clone $baseQuery)
+            ->where('event_date', '>=', date('Y-m-d'))
+            ->where('event_date', '<=', date('Y-m-d', strtotime('+30 days')))
+            ->count();
+
+        // Projects by status
+        $pendingInvoice = (clone $baseQuery)
+            ->whereYear('event_date', $currentYear)
+            ->whereNotNull('downpayment_at')
+            ->whereNull('invoiced_at')
+            ->count();
+
+        $pendingPayment = (clone $baseQuery)
+            ->whereYear('event_date', $currentYear)
+            ->whereNotNull('invoiced_at')
+            ->whereNull('paid_at')
+            ->count();
+
+        $pendingFiles = (clone $baseQuery)
+            ->whereYear('event_date', $currentYear)
+            ->whereNotNull('paid_at')
+            ->whereNull('all_filled_at')
+            ->count();
+
+        $completedProjects = (clone $baseQuery)
+            ->whereYear('event_date', $currentYear)
+            ->whereNotNull('all_done_at')
+            ->count();
+
+        // Monthly bookings for chart (current year)
+        $monthlyBookings = DB::table('t_projects')
+            ->select(DB::raw('MONTH(event_date) as month'), DB::raw('COUNT(*) as total'))
+            ->where('cancelled_at', null)
+            ->whereYear('event_date', $currentYear)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('total', 'month')
+            ->toArray();
+
+        // Fill missing months with 0
+        $monthlyData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyData[] = $monthlyBookings[$i] ?? 0;
+        }
+
+        // Calculate revenue this year
+        $revenueThisYear = DB::table('t_projects')
+            ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+            ->where('t_projects.cancelled_at', null)
+            ->whereYear('t_projects.event_date', $currentYear)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->sum('m_services.price');
+
+        // Add additionals to revenue
+        $additionalsRevenue = DB::table('t_project_additionals')
+            ->join('t_projects', 't_project_additionals.project_id', '=', 't_projects.id')
+            ->where('t_projects.cancelled_at', null)
+            ->whereYear('t_projects.event_date', $currentYear)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->sum('t_project_additionals.price');
+
+        $totalRevenue = $revenueThisYear + $additionalsRevenue;
+
+        // Revenue this month
+        $revenueThisMonth = DB::table('t_projects')
+            ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+            ->where('t_projects.cancelled_at', null)
+            ->whereYear('t_projects.event_date', $currentYear)
+            ->whereMonth('t_projects.event_date', $currentMonth)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->sum('m_services.price');
+
+        $additionalsRevenueMonth = DB::table('t_project_additionals')
+            ->join('t_projects', 't_project_additionals.project_id', '=', 't_projects.id')
+            ->where('t_projects.cancelled_at', null)
+            ->whereYear('t_projects.event_date', $currentYear)
+            ->whereMonth('t_projects.event_date', $currentMonth)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->sum('t_project_additionals.price');
+
+        $totalRevenueMonth = $revenueThisMonth + $additionalsRevenueMonth;
+
+        // Recent projects
+        $recentProjects = DB::table('t_projects')
+            ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
+            ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+            ->leftJoin('users', 't_projects.user_id', '=', 'users.id')
+            ->where('t_projects.cancelled_at', null)
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->select(
+                't_projects.*',
+                't_clients.name as client_name',
+                't_clients.phone as client_phone',
+                'm_services.package as service_package',
+                'm_services.price as service_price',
+                'users.name as photographer_name'
+            )
+            ->orderBy('t_projects.created_at', 'desc')
+            ->limit(10)
+            ->get();
+
+        // Upcoming events list
+        $upcomingEventsList = DB::table('t_projects')
+            ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
+            ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+            ->leftJoin('users', 't_projects.user_id', '=', 'users.id')
+            ->where('t_projects.cancelled_at', null)
+            ->where('t_projects.event_date', '>=', date('Y-m-d'))
+            ->when(!$isAdmin, function ($query) use ($user) {
+                return $query->where('t_projects.user_id', $user->id);
+            })
+            ->select(
+                't_projects.*',
+                't_clients.name as client_name',
+                't_clients.shortname as client_shortname',
+                't_clients.phone as client_phone',
+                'm_services.package as service_package',
+                'm_services.city as service_city',
+                'users.name as photographer_name'
+            )
+            ->orderBy('t_projects.event_date', 'asc')
+            ->limit(8)
+            ->get();
+
+        // Status distribution
+        $statusDistribution = [
+            'follow_up' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNull('downpayment_at')->count(),
+            'dp_paid' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('downpayment_at')->whereNull('invoiced_at')->count(),
+            'invoiced' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('invoiced_at')->whereNull('paid_at')->count(),
+            'paid' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('paid_at')->whereNull('all_filled_at')->count(),
+            'files_ready' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('all_filled_at')->whereNull('all_done_at')->count(),
+            'completed' => $completedProjects
+        ];
+
+        // Active photographers count (admin only)
+        $activePhotographers = 0;
+        if ($isAdmin) {
+            $activePhotographers = DB::table('users')
+                ->where('role_code', 'photographer')
+                ->count();
+        }
+
+        return view('home', compact(
+            'totalProjectsThisYear',
+            'upcomingEvents',
+            'pendingInvoice',
+            'pendingPayment',
+            'pendingFiles',
+            'completedProjects',
+            'monthlyData',
+            'totalRevenue',
+            'totalRevenueMonth',
+            'recentProjects',
+            'upcomingEventsList',
+            'statusDistribution',
+            'activePhotographers',
+            'isAdmin'
+        ));
     }
 
     public function indexOverview()
@@ -50,10 +283,6 @@ class HomeController extends Controller
             $events = DB::table('t_projects')
                 ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
                 ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
-                ->leftJoin('t_project_files', function($join) {
-                    $join->on('t_projects.id', '=', 't_project_files.project_id')
-                         ->whereNull('t_project_files.remark');
-                })
                 ->leftJoin('users', 't_projects.user_id', '=', 'users.id')
                 ->where('t_projects.cancelled_at', null)
                 ->when(!$isAdmin, function ($query) use ($photographerId) {
@@ -70,7 +299,6 @@ class HomeController extends Controller
                         'm_services.price as service_price',
                         't_projects.user_id as photographer_id',
                         't_projects.event as event_type',
-                        't_project_files.link as drive_link',
                         'users.name as photographer_name',
                         'users.username as photographer_username'
                         )

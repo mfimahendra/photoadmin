@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Photoadmin Arga' }}</title>
+    <title>{{ $title ?? 'ESOKHARI' }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/icon/esokhari-logo-white.ico') }}" sizes="128x128">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">

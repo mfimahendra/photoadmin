@@ -213,7 +213,6 @@
 <script>
     var clients = [];
     var additionals = [];
-    var files = [];
     var allClients = [];
     var photographers = @json($photographers);
     var cities = @json($cities);
@@ -257,7 +256,6 @@
                 console.log('Response:', response);
                 allClients = response.projects_clients || [];
                 additionals = response.additionals || [];
-                files = response.files || [];
                 
                 applyLocalFilters();
                 updateStatistics();
@@ -325,7 +323,7 @@
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#e83e8c;">DP</th>' : '') + `
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#ffc107;">INV</th>' : '') + `
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#17a2b8;">L</th>' : '') + `
-                    <th style="width:1%; color:white; background-color:#007bff;">AF</th>
+                    <th style="width:1%; color:white; background-color:#6f42c1;">AF</th>
                     <th style="width:1%; color:white; background-color:#28a745;">AD</th>
                     <th>Nama</th>
                     <th>Jam Sesi</th>
@@ -462,13 +460,13 @@
                     '<td>' + (data.university || '-') + '<br><small class="text-muted">' + (data.faculty || '') + '</small></td>' +
                     '<td>' + (data.location || '-') + '</td>' +                    
                     '<td><a href="https://wa.me/' + (data.client_phone ? (data.client_phone.startsWith('0') ? '62' + data.client_phone.substring(1) : data.client_phone) : '') + '?text=' + encodeURIComponent('Halo kak ' + (data.client_shortname || data.client_name) + ' \n\n') + '" target="_blank"><i class="fab fa-whatsapp text-success"></i> ' + (data.client_phone || '-') + '</a></td>' +
-                    '<td>' + (data.service_package || '-') + (clientAdditionals.length > 0 ? '<br><small class="text-muted">' + clientAdditionals.map(a => a.description).join(', ') + '</small>' : '') + '</td>' +
-                    '<td>' +
-                        '<button class="btn btn-info btn-xs btn-action" onclick="viewDetails(' + data.id + ')" title="View Details"><i class="fas fa-eye"></i> Details</button> ' +
-                        
-                        '<button class="btn btn-primary btn-xs btn-action" onclick="editData(' + data.id + ')" title="Edit" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-edit"></i> Edit</button> ' +
-                        '<button class="btn btn-danger btn-xs btn-action" onclick="deleteData(' + data.id + ')" title="Delete" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-trash"></i> Cancel</button>' +
-                        '<button class="btn btn-primary btn-xs btn-action" onclick="copyClientProgress(' + data.id + ')" title="ClientProgress" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-edit"></i> Client</button> ' +
+                    // '<td>' + (data.service_package || '-') + (clientAdditionals.length > 0 ? '<br><small class="text-muted">' + clientAdditionals.map(a => a.description).join(', ') + '</small>' : '') + '</td>' +
+                    '<td>' + (data.service_package || '-') + (data.is_upgraded == 1 ? ' <span class="badge badge-success badge-sm">Upgraded</span>' : '') + (clientAdditionals.length > 0 ? '<br><small class="text-muted">' + clientAdditionals.map(a => a.description).join(', ') + '</small>' : '') + '</td>' +
+                    '<td style="display: flex; gap: 5px; flex-wrap: wrap; align-items: center;">' +
+                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="viewDetails(' + data.id + ')" title="View Details"><i class="fas fa-eye"></i></button> ' +                        
+                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="copyClientProgress(' + data.id + ')" title="ClientProgress" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-user"></i></button> ' +
+                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="editData(' + data.id + ')" title="Edit" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-edit"></i></button> ' +
+                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="deleteData(' + data.id + ')" title="Cancel" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-xmark"></i></button> ' +
 
                     '</td>' +
                     '</tr>';
@@ -566,7 +564,7 @@
         } else if(all_done_at) {
             return '<span class="badge badge-progress badge-success"><i class="fas fa-check-circle"></i> ALL DONE <br><small>' + moment(all_done_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else if(all_filled_at) {
-            return '<span class="badge badge-progress badge-primary"><i class="fas fa-folder-open"></i> ALL FILES <br><small>' + moment(all_filled_at).format('DD MMM YYYY HH:mm') + '</small></span>';
+            return '<span class="badge badge-progress bg-purple"><i class="fas fa-folder-open"></i> ALL FILES <br><small>' + moment(all_filled_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else if(paid_at) {
             return '<span class="badge badge-progress badge-info"><i class="fas fa-check"></i> LUNAS <br><small>' + moment(paid_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else if(invoiced_at) {
@@ -617,10 +615,8 @@
             eventSessionTime = client.event_time;
         }
 
-        // Get drive_link from files array
-        var clientFiles = files.filter(f => f.project_id === clientId);
-        var driveFile = clientFiles.find(f => f.remark === null || f.remark === '') || clientFiles[0];
-        var driveLink = driveFile ? driveFile.link : '';
+        // Get drive_link directly from client
+        var driveLink = client.link || '';
 
         var modalHtml = `
             <div class="modal fade" id="detailModal" tabindex="-1">
@@ -716,10 +712,14 @@
                                                 </div>
                                                 <small class="form-text text-muted">Leave empty to clear the link</small>
                                             </div>
-                                            ${driveLink ? '<p><a href="' + driveLink + '" target="_blank" class="btn btn-sm btn-info"><i class="fab fa-google-drive"></i> Open Files</a></p>' : ''}
-                                            <a href="/clients/${client.id}/edit-files" class="btn btn-sm btn-info">
-                                                <i class="fas fa-edit"></i> List File to Edit
-                                            </a>
+
+                                            <div class="form-group mt-3">
+                                                <label for="photo_list">Photo Edit List:</label>
+                                                <textarea class="form-control form-control-sm" id="photo_list_${client.id}" rows="4" readonly>${client.photo_list ? JSON.parse(client.photo_list).join('\n') : 'No photos'}</textarea>
+                                                <small class="form-text text-muted">List of photos to be edited</small>
+                                            </div>
+
+                                            ${driveLink ? '<p><a href="' + driveLink + '" target="_blank" class="btn btn-sm btn-info"><i class="fab fa-google-drive"></i> Open Files</a></p>' : ''}                                            
                                         </div>
                                     </div>
                                 </div>
@@ -988,6 +988,17 @@
             e.preventDefault();
             
             var saveBtn = $('#saveEditBtn');
+
+            // do checking if admin changing the service package show confirmation modal about changing service package
+            const originalServicePackage = $('#edit_service_package').data('original');
+            const newServicePackage = $('#edit_service_package').val();
+            if (originalServicePackage !== newServicePackage) {
+                if (!confirm('Are you sure you want to change the service package? This action may affect the project details.')) {
+                    saveBtn.prop('disabled', false).html('<i class="fas fa-save"></i> Save Changes');
+                    return;
+                }
+            }
+            
             saveBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Saving...');
             
             // Temporarily disable the additional field before creating FormData
@@ -995,7 +1006,7 @@
             const additionalValues = additionalSelect.val();
             
             // Disable the select so it's not included in FormData
-            additionalSelect.prop('disabled', true);
+            additionalSelect.prop('disabled', true);            
             
             const formData = new FormData(this);
             
@@ -1407,31 +1418,17 @@
             data: {
                 _token: '{{ csrf_token() }}',
                 project_id: projectId,
-                drive_link: driveLink || null,
-                remark: 'all_files'
+                drive_link: driveLink || null
             },
             success: function(response) {
                 if (response.status === 'success') {
                     toastr.success(driveLink ? 'Google Drive link saved successfully' : 'Google Drive link cleared successfully');
                     success_audio.play();
                     
-                    // Update the files data
-                    var existingFileIndex = files.findIndex(f => f.project_id === projectId && f.remark === 'all_files');
-                    if (driveLink) {
-                        if (existingFileIndex >= 0) {
-                            files[existingFileIndex].link = driveLink;
-                        } else {
-                            files.push({
-                                project_id: projectId,
-                                link: driveLink,
-                                remark: 'all_files'
-                            });
-                        }
-                    } else {
-                        // Remove from files array if cleared
-                        if (existingFileIndex >= 0) {
-                            files[existingFileIndex].link = null;
-                        }
+                    // Update the client data with new drive link
+                    var clientIndex = allClients.findIndex(c => c.id === projectId);
+                    if (clientIndex !== -1) {
+                        allClients[clientIndex].link = driveLink || null;
                     }
 
                 } else {
@@ -1446,9 +1443,20 @@
         });
     }
 
-    // function copyClientProgress(id) {
-    //     let url = {{ url('esokhari/{date}/{shortname}')}}
-    // }
+    function copyClientProgress(id) {
+        let url = "{{ url('esokhari/{date}/{shortname}') }}"
+            .replace('{date}', moment(clients.find(c => c.id === id).event_date).format('YYYYMMDD'))
+            .replace('{shortname}', clients.find(c => c.id === id).client_shortname || clients.find(c => c.id === id).client_name);
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(url).then(function() {
+                toastr.success('URL copied to clipboard!');
+                success_audio.play();
+            }, function(err) {
+                toastr.error('Failed to copy URL');
+                error_audio.play();
+            });
+    }
 
     
 
@@ -1569,7 +1577,7 @@
                     {
                         name: 'ALL FILES',
                         data: allFilesData,
-                        color: '#007bff'
+                        color: '#6f42c1'
                     }, {
                         name: 'ALL DONE',
                         data: allDoneData,
