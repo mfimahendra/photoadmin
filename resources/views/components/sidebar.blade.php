@@ -21,7 +21,7 @@
 
                 @if(auth()->check() && auth()->user()->role_code === 'admin')
                 <li class="nav-item">
-                    <a href="#" class="nav-link">                        
+                    <a href="{{ route('financial.index') }}" class="nav-link">                        
                         <i class="lni lni-bar-chart-dollar"></i>
                         <p>Finance</p>
                     </a>

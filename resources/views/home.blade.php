@@ -87,16 +87,6 @@
         <!-- Status Overview -->
         <div class="row">
             <div class="col-lg-3 col-6">
-                <div class="info-box bg-gradient-warning">
-                    <span class="info-box-icon"><i class="fas fa-file-invoice"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Pending Invoice</span>
-                        <span class="info-box-number">{{ $pendingInvoice }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-6">
                 <div class="info-box bg-gradient-danger">
                     <span class="info-box-icon"><i class="fas fa-coins"></i></span>
                     <div class="info-box-content">
@@ -267,8 +257,6 @@
                                             <span class="badge bg-purple"><i class="fas fa-folder"></i> Files Ready</span>
                                         @elseif($project->paid_at)
                                             <span class="badge badge-info"><i class="fas fa-check"></i> Paid</span>
-                                        @elseif($project->invoiced_at)
-                                            <span class="badge badge-warning"><i class="fas fa-file-invoice"></i> Invoiced</span>
                                         @elseif($project->downpayment_at)
                                             <span class="badge badge-primary"><i class="fas fa-hand-holding-usd"></i> DP Paid</span>
                                         @else
@@ -406,12 +394,11 @@ $(function () {
     // Status Distribution Donut Chart
     var statusCtx = document.getElementById('statusChart').getContext('2d');
     var statusData = {
-        labels: ['Follow Up', 'DP Paid', 'Invoiced', 'Paid', 'Files Ready', 'Completed'],
+        labels: ['Follow Up', 'DP Paid', 'Paid', 'Files Ready', 'Completed'],
         datasets: [{
             data: [
                 {{ $statusDistribution['follow_up'] }},
                 {{ $statusDistribution['dp_paid'] }},
-                {{ $statusDistribution['invoiced'] }},
                 {{ $statusDistribution['paid'] }},
                 {{ $statusDistribution['files_ready'] }},
                 {{ $statusDistribution['completed'] }}
@@ -419,7 +406,6 @@ $(function () {
             backgroundColor: [
                 '#6c757d', // Follow Up - Gray
                 '#007bff', // DP Paid - Blue
-                '#ffc107', // Invoiced - Yellow
                 '#17a2b8', // Paid - Info
                 '#6f42c1', // Files Ready - Purple
                 '#28a745'  // Completed - Green

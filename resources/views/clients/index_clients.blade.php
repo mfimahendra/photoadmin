@@ -320,8 +320,7 @@
                     <th style="width:5%;">Progress</th>
                     <th style="width:5%;">Tanggal</th>
                     ` + (!isPhotographer ? '<th style="width:10%;">FG</th>' : '') + `
-                    ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#e83e8c;">DP</th>' : '') + `
-                    ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#ffc107;">INV</th>' : '') + `
+                    ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#e83e8c;">DP</th>' : '') + `                    
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#17a2b8;">L</th>' : '') + `
                     <th style="width:1%; color:white; background-color:#6f42c1;">AF</th>
                     <th style="width:1%; color:white; background-color:#28a745;">AD</th>
@@ -343,8 +342,7 @@
                     <th>Progress</th>
                     <th>Tanggal</th>
                     ` + (!isPhotographer ? '<th>FG</th>' : '') + `
-                    ` + (!isPhotographer ? '<th>DP</th>' : '') + `
-                    ` + (!isPhotographer ? '<th>INV</th>' : '') + `
+                    ` + (!isPhotographer ? '<th>DP</th>' : '') + `                    
                     ` + (!isPhotographer ? '<th>L</th>' : '') + `
                     <th>AF</th>
                     <th>AD</th>
@@ -365,7 +363,7 @@
         $('#clients-table tfoot th').each(function () {
             var title = $(this).text();
             if (title === 'Progress') {
-                var progress_array = ['WAITING', 'DP', 'INVOICE', 'LUNAS', 'ALL FILES', 'ALL DONE', 'CANCELLED'];
+                var progress_array = ['WAITING', 'DP', 'LUNAS', 'ALL FILES', 'ALL DONE', 'CANCELLED'];
                 var progressOptions = '<option value="">All</option>';
 
                 progress_array.forEach(function(progress) {
@@ -386,7 +384,7 @@
                     univOptions += '<option value="' + univ + '">' + univ + '</option>';
                 });
                 $(this).html('<select class="form-control form-control-sm select2-filter">' + univOptions + '</select>');
-            } else if (title !== 'No' && title !== 'Actions' && title !== 'DP' && title !== 'INV' && title !== 'L' && title !== 'AF' && title !== 'AD') {
+            } else if (title !== 'No' && title !== 'Actions' && title !== 'DP' && title !== 'L' && title !== 'AF' && title !== 'AD') {
                 $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
             } else {
                 $(this).html('');
@@ -446,9 +444,8 @@
                     '<td style="white-space: nowrap; text-align:right;">' + eventDate + '</td>' +
                     (!isPhotographer ? photographerCell : '') +
 
-                    // checklist to update DP, INV, L, AF, AD status (DP, INV, L hidden for photographers)                    
-                    (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-dp" data-client-id="' + data.id + '" data-field="downpayment_at" ' + (data.downpayment_at ? 'checked' : '') + '></td>' : '') +
-                    (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-inv" data-client-id="' + data.id + '" data-field="invoiced_at" ' + (data.invoiced_at ? 'checked' : '') + '></td>' : '') +
+                    // checklist to update DP, L, AF, AD status (DP, L hidden for photographers)                    
+                    (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-dp" data-client-id="' + data.id + '" data-field="downpayment_at" ' + (data.downpayment_at ? 'checked' : '') + '></td>' : '') +                    
                     (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-l" data-client-id="' + data.id + '" data-field="paid_at" ' + (data.paid_at ? 'checked' : '') + '></td>' : '') +
                     '<td class="checklist-cell"><input type="checkbox" class="checklist-af" data-client-id="' + data.id + '" data-field="all_filled_at" ' + (data.all_filled_at ? 'checked' : '') + '></td>' +
                     '<td class="checklist-cell"><input type="checkbox" class="checklist-ad" data-client-id="' + data.id + '" data-field="all_done_at" ' + (data.all_done_at ? 'checked' : '') + '></td>' +
@@ -550,9 +547,8 @@
     }
 
     function getProgressBadge(data) {        
-        // status based on downpayment_at, invoiced_at, paid_at, all_filed_at, all_done_at not based on data.progress
-
-        let invoiced_at = data.invoiced_at;
+        // status based on downpayment_at, paid_at, all_filed_at, all_done_at not based on data.progress
+        
         let paid_at = data.paid_at;
         let all_filled_at = data.all_filled_at;
         let all_done_at = data.all_done_at;
@@ -567,8 +563,6 @@
             return '<span class="badge badge-progress bg-purple"><i class="fas fa-folder-open"></i> ALL FILES <br><small>' + moment(all_filled_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else if(paid_at) {
             return '<span class="badge badge-progress badge-info"><i class="fas fa-check"></i> LUNAS <br><small>' + moment(paid_at).format('DD MMM YYYY HH:mm') + '</small></span>';
-        } else if(invoiced_at) {
-            return '<span class="badge badge-progress badge-warning"><i class="fas fa-file-invoice"></i> INVOICE <br><small>' + moment(invoiced_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else if(data.downpayment_at) {
             return '<span class="badge badge-progress bg-pink"><i class="fas fa-dollar-sign"></i> DP <br><small>' + moment(data.downpayment_at).format('DD MMM YYYY HH:mm') + '</small></span>';
         } else {
@@ -675,14 +669,6 @@
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i> ${client.downpayment_at ? moment(client.downpayment_at).format('DD MMM YYYY HH:mm') : 'Not yet paid'}</span>
                                         <h3 class="timeline-header no-border">${client.downpayment_at ? '<span class="badge badge-success">DP Paid</span>' : '<span class="badge badge-secondary">DP Pending</span>'}</h3>
-                                    </div>
-                                </div>
-                                <!-- Invoice -->
-                                <div>
-                                    <i class="fas ${client.invoiced_at ? 'fa-file-invoice bg-warning' : 'fa-circle bg-secondary'}"></i>
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fas fa-clock"></i> ${client.invoiced_at ? moment(client.invoiced_at).format('DD MMM YYYY HH:mm') : 'Not yet invoiced'}</span>
-                                        <h3 class="timeline-header no-border">${client.invoiced_at ? '<span class="badge badge-warning">Invoiced</span>' : '<span class="badge badge-secondary">Invoice Pending</span>'}</h3>
                                     </div>
                                 </div>
                                 <!-- Lunas -->
@@ -1344,7 +1330,7 @@
     });
 
     // Handle checkbox changes for progress updates
-    $(document).on('change', '.checklist-dp, .checklist-inv, .checklist-l, .checklist-af, .checklist-ad', function() {
+    $(document).on('change', '.checklist-dp, .checklist-l, .checklist-af, .checklist-ad', function() {
         var checkbox = $(this);
         var clientId = checkbox.data('client-id');
         var field = checkbox.data('field');
@@ -1466,8 +1452,7 @@
         
         // Initialize data structure for each progress status
         var waitingData = [];
-        var dpData = [];
-        var invoiceData = [];
+        var dpData = [];        
         var lunasData = [];
         var allFilesData = [];
         var allDoneData = [];
@@ -1478,8 +1463,7 @@
             var monthClients = allClients.filter(c => moment(c.event_date).format('M') === i.toString());
             
             waitingData.push(monthClients.filter(c => !c.downpayment_at && !c.cancelled_at).length);
-            dpData.push(monthClients.filter(c => c.downpayment_at && !c.invoiced_at && !c.cancelled_at).length);
-            invoiceData.push(monthClients.filter(c => c.invoiced_at && !c.paid_at && !c.cancelled_at).length);
+            dpData.push(monthClients.filter(c => c.downpayment_at && !c.cancelled_at).length);            
             lunasData.push(monthClients.filter(c => c.paid_at && !c.all_filled_at && !c.cancelled_at).length);
             allFilesData.push(monthClients.filter(c => c.all_filled_at && !c.all_done_at && !c.cancelled_at).length);
             allDoneData.push(monthClients.filter(c => c.all_done_at && !c.cancelled_at).length);
@@ -1565,10 +1549,6 @@
                         data: dpData,
                         color: '#e83e8c'
                     }, {
-                        name: 'INVOICE',
-                        data: invoiceData,
-                        color: '#ffc107'
-                    }, {
                         name: 'LUNAS',
                         data: lunasData,
                         color: '#17a2b8'
@@ -1602,13 +1582,9 @@
                             <p><i class="fas fa-hourglass-half"></i> Waiting</p>
                         </div>
                         <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <h3>${allClients.filter(c => c.downpayment_at && !c.invoiced_at && !c.cancelled_at).length}</h3>
+                            <h3>${allClients.filter(c => c.downpayment_at && !c.cancelled_at).length}</h3>
                             <p><i class="fas fa-dollar-sign"></i> DP</p>
-                        </div>
-                        <div class="stats-card" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
-                            <h3>${allClients.filter(c => c.invoiced_at && !c.paid_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-file-invoice"></i> Invoice</p>
-                        </div>
+                        </div>                        
                         <div class="stats-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                             <h3>${allClients.filter(c => c.paid_at && !c.all_filled_at && !c.cancelled_at).length}</h3>
                             <p><i class="fas fa-check"></i> Lunas</p>

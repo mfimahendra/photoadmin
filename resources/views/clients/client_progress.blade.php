@@ -462,8 +462,6 @@
                         <span class="badge bg-purple status-badge"><i class="fas fa-folder-open"></i> ALL FILES</span>
                     @elseif($project->paid_at)
                         <span class="badge badge-info status-badge"><i class="fas fa-check"></i> LUNAS</span>
-                    @elseif($project->invoiced_at)
-                        <span class="badge badge-warning status-badge"><i class="fas fa-file-invoice"></i> INVOICE</span>
                     @elseif($project->downpayment_at)
                         <span class="badge status-badge" style="background-color: #e83e8c; color: white;"><i class="fas fa-dollar-sign"></i> DP</span>
                     @else
@@ -485,24 +483,6 @@
                                     <span class="badge badge-success">DP Paid</span>
                                 @else
                                     <span class="badge badge-secondary">DP Pending</span>
-                                @endif
-                            </h3>
-                        </div>
-                    </div>
-
-                    <!-- Invoice -->
-                    <div>
-                        <i class="fas {{ $project->invoiced_at ? 'fa-file-invoice bg-warning' : 'fa-circle bg-secondary' }}"></i>
-                        <div class="timeline-item">
-                            <span class="time">
-                                <i class="fas fa-clock"></i> 
-                                {{ $project->invoiced_at ? \Carbon\Carbon::parse($project->invoiced_at)->format('d M Y H:i') : 'Not yet invoiced' }}
-                            </span>
-                            <h3 class="timeline-header no-border">
-                                @if($project->invoiced_at)
-                                    <span class="badge badge-warning">Invoiced</span>
-                                @else
-                                    <span class="badge badge-secondary">Invoice Pending</span>
                                 @endif
                             </h3>
                         </div>

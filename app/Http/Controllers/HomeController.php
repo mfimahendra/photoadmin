@@ -92,15 +92,9 @@ class HomeController extends Controller
             ->count();
 
         // Projects by status
-        $pendingInvoice = (clone $baseQuery)
-            ->whereYear('event_date', $currentYear)
-            ->whereNotNull('downpayment_at')
-            ->whereNull('invoiced_at')
-            ->count();
-
         $pendingPayment = (clone $baseQuery)
             ->whereYear('event_date', $currentYear)
-            ->whereNotNull('invoiced_at')
+            ->whereNotNull('downpayment_at')
             ->whereNull('paid_at')
             ->count();
 
@@ -227,8 +221,7 @@ class HomeController extends Controller
         // Status distribution
         $statusDistribution = [
             'follow_up' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNull('downpayment_at')->count(),
-            'dp_paid' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('downpayment_at')->whereNull('invoiced_at')->count(),
-            'invoiced' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('invoiced_at')->whereNull('paid_at')->count(),
+            'dp_paid' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('downpayment_at')->whereNull('paid_at')->count(),
             'paid' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('paid_at')->whereNull('all_filled_at')->count(),
             'files_ready' => (clone $baseQuery)->whereYear('event_date', $currentYear)->whereNotNull('all_filled_at')->whereNull('all_done_at')->count(),
             'completed' => $completedProjects
@@ -245,7 +238,6 @@ class HomeController extends Controller
         return view('home', compact(
             'totalProjectsThisYear',
             'upcomingEvents',
-            'pendingInvoice',
             'pendingPayment',
             'pendingFiles',
             'completedProjects',

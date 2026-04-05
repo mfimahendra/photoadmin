@@ -38,7 +38,7 @@ class ProjectController extends Controller
 
 
     public function indexCreateProject()
-    {
+    {        
         $title = 'New Client';
 
         $services = DB::table('m_services')->get();
@@ -116,6 +116,11 @@ class ProjectController extends Controller
                 'updated_at' => now()
             ]);
 
+            // Get service price at time of creation
+            $servicePrice = DB::table('m_services')
+                ->where('id', $data['service_package'])
+                ->value('price');
+
             // Insert into Projects table
             $projectId = DB::table('t_projects')->insertGetId([                
                 'event_date' => $data['event_date'],
@@ -123,6 +128,7 @@ class ProjectController extends Controller
                 'event' => $data['event_type'] ?? null,
                 'client_id' => $clientId,
                 'service_id' => $data['service_package'],
+                'services_price' => $servicePrice,
                 'city' => $data['city'],
                 'university' => $data['university'],
                 'faculty' => $data['faculty'] ?? null,
@@ -136,6 +142,7 @@ class ProjectController extends Controller
 
             // insert into Project Additionals table
             // "data[additional]" => "2,3,47"
+            $totalAdditionalPrice = 0;
             if (isset($data['additional']) && !empty($data['additional'])) {            
                 
                 // Convert string to array if needed
@@ -156,12 +163,18 @@ class ProjectController extends Controller
                         'price' => $additional->price,
                         'created_at' => now(),
                     ];
+                    $totalAdditionalPrice += $additional->price;
                 }
                 
                 if (!empty($projectAdditionals)) {
                     DB::table('t_project_additionals')->insert($projectAdditionals);
                 }
-            }            
+            }
+
+            // Update project with total additional price
+            DB::table('t_projects')
+                ->where('id', $projectId)
+                ->update(['additional_price' => $totalAdditionalPrice]);            
                                             
 
             DB::commit();
@@ -264,7 +277,7 @@ class ProjectController extends Controller
                         't_clients.instagram as client_instagram',
                         'm_services.package as service_package',
                         'm_services.duration as service_duration',
-                        'm_services.price as service_price',
+                        DB::raw('COALESCE(t_projects.services_price, m_services.price) as service_price'),
                         't_projects.user_id as photographer_id',
                         't_projects.event as event_type'
                         );
@@ -361,10 +374,11 @@ class ProjectController extends Controller
             }
 
             // do checking did admin change the service_id if yes then insert to t_project_service_update_histories
+            $newServicePrice = null;
             if (isset($data['service_package']) && $data['service_package'] != $project->service_id) {
 
                 // check the price if lower then current service price then return false show cannot downgrade service, if higher then current service price then allow upgrade service
-                $currentServicePrice = DB::table('m_services')->where('id', $project->service_id)->value('price');
+                $currentServicePrice = $project->services_price ?? DB::table('m_services')->where('id', $project->service_id)->value('price');
                 $newServicePrice = DB::table('m_services')->where('id', $data['service_package'])->value('price');
 
                 if ($newServicePrice < $currentServicePrice) {
@@ -411,24 +425,32 @@ class ProjectController extends Controller
                 ]);
 
             // Update Projects table
+            $updateData = [                    
+                'event_date' => $data['event_date'],
+                'event_time' => $data['event_time'] ?? null,
+                'event' => $data['event_type'] ?? null,
+                'service_id' => $data['service_package'],
+                'city' => $data['city'],
+                'university' => $data['university'],
+                'faculty' => $data['faculty'],
+                'location' => $data['location'] ?? null,
+                'notes' => $data['notes'] ?? null,                    
+                'updated_at' => now()
+            ];
+
+            // Update service price if service changed
+            if ($newServicePrice !== null) {
+                $updateData['services_price'] = $newServicePrice;
+            }
+
             DB::table('t_projects')
                 ->where('id', $id)
-                ->update([                    
-                    'event_date' => $data['event_date'],
-                    'event_time' => $data['event_time'] ?? null,
-                    'event' => $data['event_type'] ?? null,
-                    'service_id' => $data['service_package'],
-                    'city' => $data['city'],
-                    'university' => $data['university'],
-                    'faculty' => $data['faculty'],
-                    'location' => $data['location'] ?? null,
-                    'notes' => $data['notes'] ?? null,                    
-                    'updated_at' => now()
-                ]);
+                ->update($updateData);
 
             // Update Project Additionals
             DB::table('t_project_additionals')->where('project_id', $id)->delete();
 
+            $totalAdditionalPrice = 0;
             if (isset($data['additional']) && !empty($data['additional'])) {            
                 $additionalIds = is_array($data['additional']) 
                     ? $data['additional'] 
@@ -447,12 +469,18 @@ class ProjectController extends Controller
                         'price' => $additional->price,
                         'created_at' => now(),
                     ];
+                    $totalAdditionalPrice += $additional->price;
                 }
                 
                 if (!empty($projectAdditionals)) {
                     DB::table('t_project_additionals')->insert($projectAdditionals);
                 }
             }
+
+            // Update project with total additional price
+            DB::table('t_projects')
+                ->where('id', $id)
+                ->update(['additional_price' => $totalAdditionalPrice]);
 
             DB::commit();
 
@@ -477,6 +505,48 @@ class ProjectController extends Controller
             ];
 
             return Response::json($response, 500);
+        }
+    }
+
+    public function temporaryUpdateServiceAdditional()
+    {
+        try {
+            // This function is only for temporary use to update service_id and additional_price in t_projects based on current data in t_project_additionals and m_services, this is because before we have feature to update service and additionals after project created, so some of the projects have null in service_id and additional_price in t_projects, this function will update those fields based on current service_id and additionals in t_project_additionals, this function can be removed after all data is updated
+                $projects = DB::table('t_projects')->get();
+    
+                foreach ($projects as $project) {
+                    $servicePrice = DB::table('m_services')
+                        ->where('id', $project->service_id)
+                        ->value('price');
+    
+                    $additionalsPrice = DB::table('t_project_additionals')
+                        ->where('project_id', $project->id)
+                        ->sum('price');
+    
+                    DB::table('t_projects')
+                        ->where('id', $project->id)
+                        ->update([
+                            'services_price' => $servicePrice,
+                            'additional_price' => $additionalsPrice,
+                            'updated_at' => now()
+                        ]);
+                }
+    
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Projects updated successfully'
+                ];
+
+                return response()->json($response, 200);
+            
+        } catch (\Throwable $th) {
+            $response = [
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ];
+
+            return Response::json($response, 500);
+            
         }
     }
 
@@ -535,7 +605,7 @@ class ProjectController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'project_id' => 'required|integer',
-                'field' => 'required|in:downpayment_at,invoiced_at,paid_at,all_filled_at,all_done_at',
+                'field' => 'required|in:downpayment_at,paid_at,all_filled_at,all_done_at',
                 'value' => 'required|boolean'
             ]);
 
@@ -568,6 +638,11 @@ class ProjectController extends Controller
                 $field => $value ? now() : null,
                 'updated_at' => now()
             ];
+
+            // If field is paid_at and value is true, also set sales_log
+            if ($field === 'paid_at' && $value) {
+                $updateData['sales_log'] = now();
+            }
 
             DB::table('t_projects')
                 ->where('id', $projectId)

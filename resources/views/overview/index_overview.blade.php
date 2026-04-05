@@ -587,14 +587,6 @@
                             <h3 class="timeline-header no-border">${event.downpayment_at ? '<span class="badge badge-success">DP Paid</span>' : '<span class="badge badge-secondary">DP Pending</span>'}</h3>
                         </div>
                         </div>
-                        <!-- Invoice -->
-                        <div>
-                        <i class="fas ${event.invoiced_at ? 'fa-file-invoice bg-warning' : 'fa-circle bg-secondary'}"></i>
-                        <div class="timeline-item">
-                            <span class="time"><i class="fas fa-clock"></i> ${event.invoiced_at ? moment(event.invoiced_at).format('DD MMM YYYY HH:mm') : 'Not yet invoiced'}</span>
-                            <h3 class="timeline-header no-border">${event.invoiced_at ? '<span class="badge badge-warning">Invoiced</span>' : '<span class="badge badge-secondary">Invoice Pending</span>'}</h3>
-                        </div>
-                        </div>
                         <!-- Lunas -->
                         <div>
                         <i class="fas ${event.paid_at ? 'fa-check bg-info' : 'fa-circle bg-secondary'}"></i>
@@ -667,8 +659,6 @@
             return '<span class="badge badge-primary"><i class="fas fa-folder-open"></i> ALL FILES</span>';
             } else if (event.paid_at) {
             return '<span class="badge badge-info"><i class="fas fa-check"></i> LUNAS</span>';
-            } else if (event.invoiced_at) {
-            return '<span class="badge badge-warning"><i class="fas fa-file-invoice"></i> INVOICE</span>';
             } else if (event.downpayment_at) {
             return '<span class="badge" style="background-color: #e83e8c; color: white;"><i class="fas fa-dollar-sign"></i> DP</span>';
             } else {

@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\FinancialController;
 
 // Landing page - default route
 Route::get('/', [HomeController::class, 'landing'])->name('landing');
@@ -62,7 +63,11 @@ Route::name('clients.')->group(function () {
 });
 
 
-// Payments
+// Financial
+Route::prefix('financial')->name('financial.')->middleware('auth')->group(function () {    
+    Route::get('/index', [FinancialController::class, 'index'])->name('index');    
+    Route::get('/fetch', [FinancialController::class, 'fetch'])->name('fetch');    
+});
 
 // Master
 Route::prefix('master')->name('master.')->middleware('auth')->group(function () {    
