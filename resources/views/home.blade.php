@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            {{-- <div class="col-lg-3 col-6">
                 <!-- Revenue This Month -->
                 <div class="small-box bg-success">
                     <div class="inner">
@@ -65,7 +65,7 @@
                         Total: Rp {{ number_format($totalRevenueMonth, 0) }}
                     </a>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="col-lg-3 col-6">
                 <!-- Completed Projects -->

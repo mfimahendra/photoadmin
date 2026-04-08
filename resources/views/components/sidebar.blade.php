@@ -74,7 +74,14 @@
                             <i class="lni lni-photos"></i>
                             <p>Additionals</p>
                         </a>
-                    </li>                
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('portfolio.index') }}" class="nav-link">
+                            <i class="lni lni-gallery"></i>
+                            <p>Portfolio</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{ route('master.index', ['masters' => 'universities']) }}" class="nav-link">

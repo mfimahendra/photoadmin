@@ -4,6 +4,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libertinus+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 <style>
     body {
         font-family: 'Inter', sans-serif;
@@ -275,17 +277,38 @@
                     <h5 style="font-weight: 600; margin-bottom: 15px; color: #222;">
                         <i class="fas fa-plus-circle"></i> Upload New Portfolio Image
                     </h5>
-                    <form action="{{ route('master.uploadPortfolioImage') }}" method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <form action="{{ route('master.uploadPortfolioImage') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <label class="custom-file-upload">
-                            <input type="file" name="portfolio_image" accept="image/*" required onchange="previewNewPortfolio(this)">
-                            <i class="fas fa-upload"></i> Choose Image
-                        </label>
-                        <button type="submit" class="btn-save" style="padding: 10px 24px; margin: 0;">
-                            <i class="fas fa-cloud-upload-alt"></i> Upload
-                        </button>
-                        <div class="file-info" style="margin: 0;">
-                            <i class="fas fa-info-circle"></i> Max 5MB, formats: JPG, PNG, GIF
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <!-- University Selection -->
+                            <div>
+                                <label style="font-weight: 600; color: #555; margin-bottom: 8px; display: block; font-size: 0.9rem;">
+                                    <i class="fas fa-university"></i> Select University <span style="color: #dc3545;">*</span>
+                                </label>
+                                <select name="university_id" class="form-control select2" required style="max-width: 400px; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                                    <option value="">-- Select University --</option>
+                                    @foreach($universities as $univ)
+                                        <option value="{{ $univ->id }}">{{ $univ->university }} ({{ $univ->city }})</option>
+                                    @endforeach
+                                </select>
+                                <small style="color: #888; font-size: 0.85rem; margin-top: 5px; display: block;">
+                                    <i class="fas fa-info-circle"></i> Image will be auto-prefixed with university code
+                                </small>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                                <label class="custom-file-upload">
+                                    <input type="file" name="portfolio_image" accept="image/*" required onchange="previewNewPortfolio(this)">
+                                    <i class="fas fa-upload"></i> Choose Image
+                                </label>
+                                <button type="submit" class="btn-save" style="padding: 10px 24px; margin: 0;">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload
+                                </button>
+                                <div class="file-info" style="margin: 0;">
+                                    <i class="fas fa-info-circle"></i> Max 5MB, formats: JPG, PNG, GIF
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <div id="new-portfolio-preview" style="margin-top: 15px; display: none;">
@@ -305,8 +328,15 @@
                                 <div class="portfolio-image-item" data-path="{{ $image['path'] }}" style="position: relative; border: 2px solid #e8e8e8; border-radius: 8px; padding: 10px; background: white;">
                                     <img src="{{ asset($image['url']) }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px;">
                                     <div style="margin-top: 10px; font-size: 0.8rem; color: #666;">
-                                        <i class="fas fa-file-image"></i> {{ $image['name'] }}<br>
-                                        <i class="fas fa-weight"></i> {{ number_format($image['size'] / 1024, 1) }} KB
+                                        <div style="background: #007bff; color: white; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600;">
+                                            <i class="fas fa-university"></i> {{ $image['university_code'] }}
+                                        </div>
+                                        <div style="word-break: break-all;">
+                                            <i class="fas fa-file-image"></i> {{ $image['name'] }}
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-weight"></i> {{ number_format($image['size'] / 1024, 1) }} KB
+                                        </div>
                                     </div>
                                     <button onclick="deletePortfolioImage('{{ $image['path'] }}', this)" 
                                             class="btn-delete-portfolio" 
@@ -331,7 +361,19 @@
 @endsection
 
 @section('scripts')    
-<script>        
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            width: '100%',
+            placeholder: 'Select an option',
+            allowClear: true
+        });
+
+    });
+
     function previewNewPortfolio(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
@@ -398,14 +440,14 @@
                     });
                     
                     // Show success message
-                    alert('Image deleted successfully!');
+                    toastr.success('Image deleted successfully!');
                 } else {
-                    alert('Error: ' + response.message);
+                    toastr.error('Error: ' + response.message);
                     $button.prop('disabled', false).html(originalHtml);
                 }
             },
             error: function(xhr) {
-                alert('Error deleting image. Please try again.');
+                toastr.error('Error deleting image. Please try again.');
                 $button.prop('disabled', false).html(originalHtml);
             }
         });

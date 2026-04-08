@@ -403,7 +403,9 @@ class ProjectController extends Controller
                 DB::table('t_projects')
                     ->where('id', $id)
                     ->update([
-                        'is_upgraded' => 1,                        
+                        'is_upgraded' => 1,
+                        'services_price' => $newServicePrice,
+                        'paid_at' => null,
                     ]);
 
                 // Log service upgrade
@@ -633,15 +635,26 @@ class ProjectController extends Controller
                 ], 404);
             }
 
+            $servicePrice = 0;
+            $additionalPrice = 0;
+
+            // get service price for calculate revenue
+            if($field === 'paid_at') {
+                $servicePrice = $project->services_price ?? DB::table('m_services')->where('id', $project->service_id)->value('price');
+                $additionalPrice = $project->additional_price ?? DB::table('t_project_additionals')->where('project_id', $projectId)->sum('price');
+            }
+
             // Update the field
             $updateData = [
                 $field => $value ? now() : null,
+                'services_price' => $servicePrice,
+                'additional_price' => $additionalPrice,
                 'updated_at' => now()
             ];
 
             // If field is paid_at and value is true, also set sales_log
             if ($field === 'paid_at' && $value) {
-                $updateData['sales_log'] = now();
+                $updateData['sales_log'] = now();                
             }
 
             DB::table('t_projects')

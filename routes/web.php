@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\FinancialController;
+use App\Http\Controllers\PortfolioController;
 
 // Landing page - default route
 Route::get('/', [HomeController::class, 'landing'])->name('landing');
@@ -67,6 +68,13 @@ Route::name('clients.')->group(function () {
 Route::prefix('financial')->name('financial.')->middleware('auth')->group(function () {    
     Route::get('/index', [FinancialController::class, 'index'])->name('index');    
     Route::get('/fetch', [FinancialController::class, 'fetch'])->name('fetch');    
+});
+
+// Portfolio Management
+Route::prefix('portfolio')->name('portfolio.')->middleware('auth')->group(function () {
+    Route::get('/', [PortfolioController::class, 'index'])->name('index');
+    Route::post('/upload', [PortfolioController::class, 'upload'])->name('upload');
+    Route::post('/delete', [PortfolioController::class, 'delete'])->name('delete');
 });
 
 // Master

@@ -322,15 +322,16 @@
                     ` + (!isPhotographer ? '<th style="width:10%;">FG</th>' : '') + `
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#e83e8c;">DP</th>' : '') + `                    
                     ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#17a2b8;">L</th>' : '') + `
-                    <th style="width:1%; color:white; background-color:#6f42c1;">AF</th>
-                    <th style="width:1%; color:white; background-color:#28a745;">AD</th>
+                    ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#6f42c1;">AF</th>' : '') + `
+                    ` + (!isPhotographer ? '<th style="width:1%; color:white; background-color:#28a745;">AD</th>' : '') + `
                     <th>Nama</th>
                     <th>Jam Sesi</th>
                     <th>Kota</th>
                     <th>Universitas</th>                    
                     <th>Lokasi</th>                    
                     <th>Whatsapp</th>
-                    <th>Paket</th>                    
+                    <th>Paket</th>
+                    ` + (isPhotographer ? '<th>Link Gdrive</th>' : '') + `
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -344,15 +345,16 @@
                     ` + (!isPhotographer ? '<th>FG</th>' : '') + `
                     ` + (!isPhotographer ? '<th>DP</th>' : '') + `                    
                     ` + (!isPhotographer ? '<th>L</th>' : '') + `
-                    <th>AF</th>
-                    <th>AD</th>
+                    ` + (!isPhotographer ? '<th>AF</th>' : '') + `
+                    ` + (!isPhotographer ? '<th>AD</th>' : '') + `
                     <th>Nama</th>
                     <th>Jam Sesi</th>
                     <th>Kota</th>
                     <th>Universitas</th>                    
                     <th>Lokasi</th>                    
                     <th>Whatsapp</th>
-                    <th>Paket</th>                    
+                    <th>Paket</th>
+                    ` + (isPhotographer ? '<th>Link Gdrive</th>' : '') + `
                     <th>Actions</th>
                 </tr>
             </tfoot>
@@ -422,9 +424,12 @@
                 if (data.photographer_id) {
                     // Find photographer name
                     var photographer = photographers.find(p => p.id == data.photographer_id);
-                    var photographerName = photographer ? (photographer.domicile + ' - ' + photographer.username) : 'Unknown';
+                    var photographerName = photographer ? (photographer.username + '<br><small class="text-muted">' + (photographer.domicile || '') + '</small>') : 'Unknown';
+                    var photographerPhone = photographer ? photographer.phone : '';
+                    var whatsappLink = photographerPhone ? ' <a href="https://wa.me/' + photographerPhone + '" target="_blank" style="color: #25d366; text-decoration: none; font-size: 0.85em;">[WhatsApp]</a>' : '';
+
                     photographerCell = '<td class="photographer-cell" data-client-id="' + data.id + '" data-photographer-id="' + data.photographer_id + '">' +
-                        '<span class="photographer-display">' + photographerName + ' <a href="javascript:void(0)" class="photographer-edit-link" style="color: #007bff; text-decoration: none; font-size: 0.85em;">[Edit]</a></span>' +
+                        '<span class="photographer-display">' + photographerName + ' <a href="javascript:void(0)" class="photographer-edit-link" style="color: #007bff; text-decoration: none; font-size: 0.85em;">[Edit]</a>' + whatsappLink + '</span>' +
                         '<span class="photographer-edit-mode" style="display: none;"></span>' +
                         '</td>';
                 } else {
@@ -447,8 +452,8 @@
                     // checklist to update DP, L, AF, AD status (DP, L hidden for photographers)                    
                     (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-dp" data-client-id="' + data.id + '" data-field="downpayment_at" ' + (data.downpayment_at ? 'checked' : '') + '></td>' : '') +                    
                     (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-l" data-client-id="' + data.id + '" data-field="paid_at" ' + (data.paid_at ? 'checked' : '') + '></td>' : '') +
-                    '<td class="checklist-cell"><input type="checkbox" class="checklist-af" data-client-id="' + data.id + '" data-field="all_filled_at" ' + (data.all_filled_at ? 'checked' : '') + '></td>' +
-                    '<td class="checklist-cell"><input type="checkbox" class="checklist-ad" data-client-id="' + data.id + '" data-field="all_done_at" ' + (data.all_done_at ? 'checked' : '') + '></td>' +
+                    (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-af" data-client-id="' + data.id + '" data-field="all_filled_at" ' + (data.all_filled_at ? 'checked' : '') + '></td>' : '') +
+                    (!isPhotographer ? '<td class="checklist-cell"><input type="checkbox" class="checklist-ad" data-client-id="' + data.id + '" data-field="all_done_at" ' + (data.all_done_at ? 'checked' : '') + '></td>' : '') +
 
                     
                     '<td><strong>' + (data.client_name || '-') + '</strong><br><small class="text-muted">' + (data.client_shortname || '') + '</small></td>' +
@@ -459,18 +464,19 @@
                     '<td><a href="https://wa.me/' + (data.client_phone ? (data.client_phone.startsWith('0') ? '62' + data.client_phone.substring(1) : data.client_phone) : '') + '?text=' + encodeURIComponent('Halo kak ' + (data.client_shortname || data.client_name) + ' \n\n') + '" target="_blank"><i class="fab fa-whatsapp text-success"></i> ' + (data.client_phone || '-') + '</a></td>' +
                     // '<td>' + (data.service_package || '-') + (clientAdditionals.length > 0 ? '<br><small class="text-muted">' + clientAdditionals.map(a => a.description).join(', ') + '</small>' : '') + '</td>' +
                     '<td>' + (data.service_package || '-') + (data.is_upgraded == 1 ? ' <span class="badge badge-success badge-sm">Upgraded</span>' : '') + (clientAdditionals.length > 0 ? '<br><small class="text-muted">' + clientAdditionals.map(a => a.description).join(', ') + '</small>' : '') + '</td>' +
+                    (isPhotographer ? '<td>' + (data.link ? '<a href="' + data.link + '" target="_blank"><i class="fas fa-folder-open"></i> ' + (data.link || '-') + '</a>' : '-') + '</td>' : '') +
                     '<td style="display: flex; gap: 5px; flex-wrap: wrap; align-items: center;">' +
                         '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="viewDetails(' + data.id + ')" title="View Details"><i class="fas fa-eye"></i></button> ' +                        
-                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="copyClientProgress(' + data.id + ')" title="ClientProgress" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-user"></i></button> ' +
-                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="editData(' + data.id + ')" title="Edit" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-edit"></i></button> ' +
-                        '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="deleteData(' + data.id + ')" title="Cancel" style="display: {{ auth()->user()->role_code === 'admin' ? 'inline-block' : 'none' }};"><i class="fas fa-xmark"></i></button> ' +
+                        (!isPhotographer ? '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="copyClientProgress(' + data.id + ')" title="ClientProgress"><i class="fas fa-user"></i></button> ' : '') +
+                        (!isPhotographer ? '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="editData(' + data.id + ')" title="Edit"><i class="fas fa-edit"></i></button> ' : '') +
+                        (!isPhotographer ? '<button style="width: 30px; height:30px;" class="btn btn-secondary btn-xs btn-action" onclick="deleteData(' + data.id + ')" title="Cancel"><i class="fas fa-xmark"></i></button> ' : '') +
 
                     '</td>' +
                     '</tr>';
                 tbody.append(row);
             });
         } else {
-            tbody.append('<tr><td colspan="17" class="text-center"><i class="fas fa-inbox"></i> No clients found</td></tr>');
+            tbody.append('<tr><td colspan="' + (isPhotographer ? '18' : '17') + '" class="text-center"><i class="fas fa-inbox"></i> No clients found</td></tr>');
         }
 
         // Destroy existing DataTable instance if it exists
@@ -1463,7 +1469,7 @@
             var monthClients = allClients.filter(c => moment(c.event_date).format('M') === i.toString());
             
             waitingData.push(monthClients.filter(c => !c.downpayment_at && !c.cancelled_at).length);
-            dpData.push(monthClients.filter(c => c.downpayment_at && !c.cancelled_at).length);            
+            dpData.push(monthClients.filter(c => c.downpayment_at && !c.cancelled_at && !c.paid_at).length);            
             lunasData.push(monthClients.filter(c => c.paid_at && !c.all_filled_at && !c.cancelled_at).length);
             allFilesData.push(monthClients.filter(c => c.all_filled_at && !c.all_done_at && !c.cancelled_at).length);
             allDoneData.push(monthClients.filter(c => c.all_done_at && !c.cancelled_at).length);
@@ -1569,35 +1575,119 @@
                     }
                 });
 
-                // Render statistics cards
+                // Render statistics table and upcoming clients
+                var today = moment().format('YYYY-MM-DD');
+                var tomorrow = moment().add(1, 'days').format('YYYY-MM-DD');
+                
+                var todayClients = allClients.filter(c => moment(c.event_date).format('YYYY-MM-DD') === today && !c.cancelled_at);
+                var tomorrowClients = allClients.filter(c => moment(c.event_date).format('YYYY-MM-DD') === tomorrow && !c.cancelled_at);
+                
                 var statsHtml = `
-                    <div class="stats-container">
-                        <div class="stats-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <h3>${allClients.filter(c => !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-users"></i> Total</p>
+                    <div style="display: grid; grid-template-columns: auto 1fr 1fr; gap: 15px; align-items: stretch;">
+                        <div style="background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 12px 15px; display: flex; flex-direction: column;">
+                            <table style="width: 100%; font-size: 0.85em; border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #667eea;"><i class="fas fa-users"></i> Total</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #667eea;">${allClients.filter(c => !c.cancelled_at).length}</td>
+                                    </tr>
+                                    @if(auth()->user()->role_code === 'admin')
+                                    <tr style="border-top: 1px solid #f0f0f0;">
+                                        <td style="padding: 4px 8px; color: #6c757d;"><i class="fas fa-hourglass-half"></i> Waiting</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #6c757d;">${allClients.filter(c => !c.downpayment_at && !c.cancelled_at).length}</td>
+                                    </tr>
+                                    <tr style="border-top: 1px solid #f0f0f0;">
+                                        <td style="padding: 4px 8px; color: #e83e8c;"><i class="fas fa-dollar-sign"></i> DP</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #e83e8c;">${allClients.filter(c => c.downpayment_at && !c.cancelled_at && !c.paid_at).length}</td>
+                                    </tr>
+                                    <tr style="border-top: 1px solid #f0f0f0;">
+                                        <td style="padding: 4px 8px; color: #17a2b8;"><i class="fas fa-check"></i> Lunas</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #17a2b8;">${allClients.filter(c => c.paid_at && !c.all_filled_at && !c.cancelled_at).length}</td>
+                                    </tr>
+                                    @endif
+                                    <tr style="border-top: 1px solid #f0f0f0;">
+                                        <td style="padding: 4px 8px; color: #007bff;"><i class="fas fa-folder-open"></i> All Files</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #007bff;">${allClients.filter(c => c.all_filled_at && !c.all_done_at && !c.cancelled_at).length}</td>
+                                    </tr>
+                                    <tr style="border-top: 1px solid #f0f0f0;">
+                                        <td style="padding: 4px 8px; color: #28a745;"><i class="fas fa-check-circle"></i> All Done</td>
+                                        <td style="padding: 4px 8px; text-align: right; font-weight: 600; color: #28a745;">${allClients.filter(c => c.all_done_at && !c.cancelled_at).length}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        @if(auth()->user()->role_code === 'admin')
-                        <div class="stats-card" style="background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);">
-                            <h3>${allClients.filter(c => !c.downpayment_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-hourglass-half"></i> Waiting</p>
+                        <div style="background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 12px 15px; display: flex; flex-direction: column;">
+                            <div style="font-size: 0.8em; font-weight: 600; color: #007bff; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
+                                <i class="fas fa-calendar-day"></i> Hari Ini <span style="background: #007bff; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.9em; margin-left: auto;">${todayClients.length}</span>
+                            </div>
+                            <div style="flex: 1; overflow-y: auto; font-size: 0.8em; min-height: 0;">
+                                ${todayClients.length > 0 ? todayClients.map(c => {
+                                    var eventSessionTime = '';
+                                    if (c.event_time && c.service_duration) {
+                                        var startTime = moment(c.event_time, 'HH:mm');
+                                        var duration = parseFloat(c.service_duration);
+                                        var hours = Math.floor(duration);
+                                        var minutes = Math.round((duration - hours) * 60);
+                                        var endTime = startTime.clone().add(hours, 'hours').add(minutes, 'minutes');
+                                        eventSessionTime = startTime.format('HH:mm') + ' - ' + endTime.format('HH:mm');
+                                    } else if (c.event_time) {
+                                        eventSessionTime = c.event_time;
+                                    }
+                                    var photographer = c.photographer_id ? photographers.find(p => p.id == c.photographer_id) : null;
+                                    var photographerHtml = '';
+                                    if (photographer) {
+                                        var waNumber = photographer.phone ? photographer.phone.replace(/[^0-9]/g, '') : '';
+                                        if (waNumber && !waNumber.startsWith('62')) {
+                                            waNumber = '62' + waNumber.replace(/^0+/, '');
+                                        }
+                                        photographerHtml = '<div style="color: #28a745; font-size: 0.9em; margin-top: 2px;"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/' + waNumber + '?text=Halo%20' + encodeURIComponent(photographer.username) + '%2C%20konfirmasi%20jadwal%20' + encodeURIComponent(c.client_shortname) + '%20' + eventSessionTime + '" target="_blank" style="color: #28a745; text-decoration: none;" onclick="event.stopPropagation();">' + photographer.username + '</a></div>';
+                                    }
+                                    return `
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <a href="#" onclick="viewDetails(${c.id})" style="font-weight: 600; color: #333; font-size: 1.05em;">${c.client_shortname} | ${c.client_name}</a>
+                                        <div style="color: #888; font-size: 0.9em; margin-top: 2px;"><i class="fas fa-university"></i> ${c.university || '-'} • <i class="fas fa-map-marker-alt"></i> ${c.city || '-'}</div>
+                                        ${eventSessionTime ? '<div style="color: #007bff; font-size: 0.9em; margin-top: 2px;"><i class="far fa-clock"></i> ' + eventSessionTime + '</div>' : ''}
+                                        ${photographerHtml}
+                                    </div>
+                                `}).join('') : '<div style="color: #999; text-align: center; padding: 10px 0;">Tidak ada client</div>'}
+                            </div>
                         </div>
-                        <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <h3>${allClients.filter(c => c.downpayment_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-dollar-sign"></i> DP</p>
-                        </div>                        
-                        <div class="stats-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                            <h3>${allClients.filter(c => c.paid_at && !c.all_filled_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-check"></i> Lunas</p>
+                        <div style="background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 12px 15px; display: flex; flex-direction: column;">
+                            <div style="font-size: 0.8em; font-weight: 600; color: #28a745; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
+                                <i class="fas fa-calendar-plus"></i> Besok <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.9em; margin-left: auto;">${tomorrowClients.length}</span>
+                            </div>
+                            <div style="flex: 1; overflow-y: auto; font-size: 0.8em; min-height: 0;">
+                                ${tomorrowClients.length > 0 ? tomorrowClients.map(c => {
+                                    var eventSessionTime = '';
+                                    if (c.event_time && c.service_duration) {
+                                        var startTime = moment(c.event_time, 'HH:mm');
+                                        var duration = parseFloat(c.service_duration);
+                                        var hours = Math.floor(duration);
+                                        var minutes = Math.round((duration - hours) * 60);
+                                        var endTime = startTime.clone().add(hours, 'hours').add(minutes, 'minutes');
+                                        eventSessionTime = startTime.format('HH:mm') + ' - ' + endTime.format('HH:mm');
+                                    } else if (c.event_time) {
+                                        eventSessionTime = c.event_time;
+                                    }
+                                    var photographer = c.photographer_id ? photographers.find(p => p.id == c.photographer_id) : null;
+                                    var photographerHtml = '';
+                                    if (photographer) {
+                                        var waNumber = photographer.phone ? photographer.phone.replace(/[^0-9]/g, '') : '';
+                                        if (waNumber && !waNumber.startsWith('62')) {
+                                            waNumber = '62' + waNumber.replace(/^0+/, '');
+                                        }
+                                        photographerHtml = '<div style="color: #28a745; font-size: 0.9em; margin-top: 2px;"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/' + waNumber + '?text=Halo%20' + encodeURIComponent(photographer.username) + '%2C%20konfirmasi%20jadwal%20' + encodeURIComponent(c.client_shortname) + '%20' + eventSessionTime + '" target="_blank" style="color: #28a745; text-decoration: none;" onclick="event.stopPropagation();">' + photographer.username + '</a></div>';
+                                    }
+                                    return `
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <a href="#" onclick="viewDetails(${c.id})" style="font-weight: 600; color: #333; font-size: 1.05em;">${c.client_shortname} | ${c.client_name}</a>
+                                        <div style="color: #888; font-size: 0.9em; margin-top: 2px;"><i class="fas fa-university"></i> ${c.university || '-'} • <i class="fas fa-map-marker-alt"></i> ${c.city || '-'}</div>
+                                        ${eventSessionTime ? '<div style="color: #007bff; font-size: 0.9em; margin-top: 2px;"><i class="far fa-clock"></i> ' + eventSessionTime + '</div>' : ''}
+                                        ${photographerHtml}
+                                    </div>
+                                `}).join('') : '<div style="color: #999; text-align: center; padding: 10px 0;">Tidak ada client</div>'}
+                            </div>
                         </div>
-                        @endif
-                        <div class="stats-card" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
-                            <h3>${allClients.filter(c => c.all_filled_at && !c.all_done_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-folder-open"></i> All Files</p>
-                        </div>
-                        <div class="stats-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                            <h3>${allClients.filter(c => c.all_done_at && !c.cancelled_at).length}</h3>
-                            <p><i class="fas fa-check-circle"></i> All Done</p>
-                        </div>                        
                     </div>
                 `;
                 $('#statistic_card_container').html(statsHtml);

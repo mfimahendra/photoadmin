@@ -307,7 +307,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="event_date">
-                                    <i class="fas fa-calendar text-gray"></i> Tanggal Acara <span class="text-danger">*</span>
+                                    <i class="fas fa-calendar text-gray"></i> Tanggal Sesi Foto <span class="text-danger">*</span>
                                 </label>
                                 <input type="date" class="form-control" id="event_date" name="event_date" required>
                             </div>
@@ -316,7 +316,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="event_time">
-                                    <i class="fas fa-clock text-gray"></i> Waktu Acara
+                                    <i class="fas fa-clock text-gray"></i> Jam Mulai Sesi Foto
                                 </label>
                                 <input type="time" class="form-control" id="event_time" name="event_time">
                             </div>
@@ -366,7 +366,7 @@
                                 <label for="location">
                                     <i class="fas fa-map-marker-alt text-gray"></i> Lokasi <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="location" name="location" required placeholder="Masukkan lokasi acara foto (misal: depan rektorat, lobby, dll)">
+                                <input type="text" class="form-control" id="location" name="location" required placeholder="Masukkan lokasi sesi foto (misal: kampus UB, Hotel xxx, Studio xxx, dsb)">
                             </div>
                         </div>
 
@@ -384,7 +384,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="event_type">
-                                    <i class="fas fa-tags text-gray"></i> Event <span class="text-danger">*</span>
+                                    <i class="fas fa-tags text-gray"></i> Jenis Acara <span class="text-danger">*</span>
                                 </label>
                                 <select class="form-control select2" id="event_type" name="event_type" required data-placeholder="Pilih Jenis Acara">
                                     <option value=""></option>
@@ -398,7 +398,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="additional">
-                                    <i class="fas fa-plus text-gray"></i> Add On <small>(opsional, dapat memilih lebih dari satu)</small>
+                                    <i class="fas fa-plus text-gray"></i> Add On <small>(opsional, dapat memilih lebih dari satu dan kosongkan jika tidak ada)</small>
                                 </label>
                                 <select class="form-control select2" id="additional" name="additional[]" multiple data-placeholder="Pilih Layanan Tambahan">
                                     <option value=""></option>                                                
@@ -411,7 +411,7 @@
                                 <label for="notes">
                                     <i class="fas fa-sticky-note text-secondary"></i> Catatan Tambahan
                                 </label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Tambahkan catatan atau permintaan khusus..."></textarea>
+                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Tambahkan catatan atau permintaan khusus, misal keluarga yang ikut foto jumlahnya 6, tidak terlalu suka foto close-up, dsb."></textarea>
                             </div>
                         </div>
                     </div>
@@ -638,7 +638,7 @@
             }
 
 
-            let message = "BOOKING FORM\nESOKHARI 2026\n\n";
+            let message = "*BOOKING FORM*\nESOKHARI " + new Date().getFullYear() + "\n\n";
             message += "Nama Lengkap: " + formData.get('client_name') + "\n";
             message += "Panggilan: " + formData.get('nickname') + "\n";
             message += "Univ: " + universityText + "\n";
@@ -654,6 +654,7 @@
             if (formData.get('notes')) {
                 message += "\n\nCatatan Tambahan:\n" + formData.get('notes');
             }
+            message += "\n\n---\n\n";
             message += "DP: 150000\n\n";
             message += "_____\n\n";
             message += "- Wajib sertakan bukti transfernya yaa\n";

@@ -84,16 +84,28 @@ class MasterController extends Controller
 
     public function indexEditLandingPage()
     {
+        // Get universities for dropdown
+        $universities = DB::table('m_universities')
+            ->orderBy('university', 'asc')
+            ->get();
+
         // List all portfolio images from storage
         $portfolioImages = [];
         if (\Storage::disk('public')->exists('portfolio')) {
             $files = \Storage::disk('public')->files('portfolio');
             foreach ($files as $file) {
+                $filename = basename($file);
+                
+                // Parse university prefix from filename
+                $parts = explode('_', $filename, 2);
+                $universityCode = count($parts) > 1 ? $parts[0] : 'Unknown';
+                
                 $portfolioImages[] = [
-                    'name' => basename($file),
+                    'name' => $filename,
                     'url' => \Storage::url($file),
                     'size' => \Storage::disk('public')->size($file),
-                    'path' => $file
+                    'path' => $file,
+                    'university_code' => $universityCode
                 ];
             }
         }
@@ -108,7 +120,7 @@ class MasterController extends Controller
 
         $heroImage = asset($heroImage);
 
-        return view('master.landing_page_edit', compact('portfolioImages', 'heroImage'));
+        return view('master.landing_page_edit', compact('portfolioImages', 'heroImage', 'universities'));
     }
 
     public function updateLandingImages(Request $request)
@@ -193,19 +205,34 @@ class MasterController extends Controller
     {
         try {
             $request->validate([
+                'university_id' => 'required|exists:m_universities,id',
                 'portfolio_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
             ]);
 
             if ($request->hasFile('portfolio_image')) {
+                // Get university data
+                $university = DB::table('m_universities')
+                    ->where('id', $request->university_id)
+                    ->first();
+
+                if (!$university) {
+                    return redirect()->back()->with('error', 'University not found.');
+                }
+
+                // Extract university code
+                $universityCode = $this->extractUniversityCode($university->university);
+
                 $file = $request->file('portfolio_image');
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
                 
-                // Generate unique filename with timestamp
-                $fileName = time() . '_' . $file->getClientOriginalName();
+                // Create filename with university prefix: [CODE]_[timestamp]_[original].[ext]
+                $fileName = $universityCode . '_' . time() . '_' . $originalName . '.' . $extension;
                 
                 // Store in storage/app/public/portfolio
                 $path = $file->storeAs('portfolio', $fileName, 'public');
 
-                return redirect()->back()->with('success', 'Portfolio image uploaded successfully!');
+                return redirect()->back()->with('success', 'Portfolio image uploaded successfully with prefix: ' . $universityCode);
             }
 
             return redirect()->back()->with('error', 'No image selected.');
@@ -265,5 +292,43 @@ class MasterController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Error deleting image: ' . $e->getMessage()], 500);
         }
+    }
+
+    /**
+     * Extract university code from university name
+     * If it's already a short code (2-8 chars, all caps), use it
+     * Otherwise, extract first letters of words
+     */
+    private function extractUniversityCode($universityName)
+    {
+        $name = trim($universityName);
+        
+        // If already short and uppercase (like ITB, UI, UGM), use as is
+        if (strlen($name) <= 8 && strtoupper($name) === $name && !str_contains($name, ' ')) {
+            return $name;
+        }
+
+        // Otherwise, extract initials from each word
+        $words = explode(' ', $name);
+        $code = '';
+        
+        foreach ($words as $word) {
+            // Skip common words
+            $word = trim($word);
+            if (in_array(strtolower($word), ['universitas', 'institut', 'politeknik', 'sekolah', 'tinggi', 'dr', 'prof'])) {
+                continue;
+            }
+            
+            if (!empty($word)) {
+                $code .= strtoupper(substr($word, 0, 1));
+            }
+        }
+
+        // If no code extracted, use first 3 chars
+        if (empty($code)) {
+            $code = strtoupper(substr($name, 0, 3));
+        }
+
+        return $code;
     }
 }

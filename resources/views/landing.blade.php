@@ -1031,34 +1031,41 @@
                 </p>
             </div>
 
-            <div class="home-portfolio-container">
-                @if(isset($portfolioImages) && count($portfolioImages) > 0)
-                    @foreach($portfolioImages as $image)
-                        @if($loop->iteration <= 8)
-                            <div class="home-portfolio-item">
-                                <img src="{{ asset($image) }}" alt="Portfolio Image {{ $loop->iteration }}">
-                                <div class="home-portfolio-overlay">
-                                    <span class="home-portfolio-overlay-text" onclick="showSection('portofolio')">
-                                        <i class="fas fa-search-plus"></i> View More
-                                    </span>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                @else
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #999;">
-                        <i class="fas fa-camera" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
-                        <p style="font-size: 1.1rem; color: #666;">Our portfolio is being updated with amazing new photos!</p>
-                        <p style="font-size: 0.9rem; color: #999;">Check back soon to see our latest work</p>
-                    </div>
-                @endif
-            </div>
+            @if(isset($portfolioGrouped) && count($portfolioGrouped) > 0)
+                @php
+                    // Get first 8 images from all universities for preview
+                    $previewImages = [];
+                    foreach($portfolioGrouped as $universityCode => $images) {
+                        foreach($images as $image) {
+                            $previewImages[] = ['url' => $image, 'university' => $universityCode];
+                            if(count($previewImages) >= 8) break 2;
+                        }
+                    }
+                @endphp
 
-            @if(isset($portfolioImages) && count($portfolioImages) > 0)
+                <div class="home-portfolio-container">
+                    @foreach($previewImages as $item)
+                        <div class="home-portfolio-item">
+                            <img src="{{ asset($item['url']) }}" alt="Portfolio {{ $item['university'] }}">
+                            <div class="home-portfolio-overlay">
+                                <span class="home-portfolio-overlay-text" onclick="showSection('portofolio')">
+                                    <i class="fas fa-university"></i> {{ $item['university'] }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
                 <div style="text-align: center; margin-top: 50px;">
                     <button onclick="showSection('portofolio')" class="btn-view-portfolio">
-                        <i class="fas fa-images"></i> View Full Portfolio
+                        <i class="fas fa-images"></i> View Full Portfolio ({{ count($portfolioGrouped) }} Universities)
                     </button>
+                </div>
+            @else
+                <div style="text-align: center; padding: 60px 20px; color: #999;">
+                    <i class="fas fa-camera" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
+                    <p style="font-size: 1.1rem; color: #666;">Our portfolio is being updated with amazing new photos!</p>
+                    <p style="font-size: 0.9rem; color: #999;">Check back soon to see our latest work</p>
                 </div>
             @endif
         </section>
@@ -1107,7 +1114,7 @@
             </div>
         </section>
 
-        <section id="feedback" style="padding: 30px 0; background: #fafbfc;">
+        <section id="feedback" style="padding: 30px 0; background: #fafbfc; display:none;">
             <section class="feedback-section">
                 <div
                     style="font-size: 2rem; color: #222; font-weight: 500; margin-bottom: 32px; text-align: center; font-family: 'Libertinus Serif Display', serif;">
@@ -1154,28 +1161,46 @@
     </section>
 
     <section id="portofolio">
-        <div class="portfolio-container py-4">
-            @if(isset($portfolioImages) && count($portfolioImages) > 0)
-                @foreach($portfolioImages as $image)
-                    <div class="portfolio-item">
-                        <img src="{{ asset($image) }}" alt="Portfolio Image">
+        @if(isset($portfolioGrouped) && count($portfolioGrouped) > 0)
+            @foreach($portfolioGrouped as $universityCode => $images)
+                <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+                    <!-- University Header -->
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <h2 style="font-family: 'Libertinus Serif Display', serif; font-size: 2rem; color: #222; font-weight: 500; margin-bottom: 8px; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                            <i class="fas fa-university" style="color: #007bff;"></i>
+                            {{ $universityCode }}
+                        </h2>
+                        <p style="font-size: 0.9rem; color: #888;">{{ count($images) }} photos</p>
                     </div>
-                @endforeach
-            @else
-                <!-- Fallback to default images if no portfolio images in storage -->
+
+                    <!-- Masonry Grid -->
+                    <div class="portfolio-container" style="margin-top: 0;">
+                        @foreach($images as $image)
+                            <div class="portfolio-item">
+                                <img src="{{ asset($image) }}" alt="{{ $universityCode }} Portfolio">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+                @if(!$loop->last)
+                    <hr style="max-width: 1100px; margin: 40px auto; border: 0; border-top: 2px solid #eee;">
+                @endif
+            @endforeach
+        @else
+            <!-- Fallback to default images if no portfolio images in storage -->
+            <div class="portfolio-container py-4">
                 <div class="portfolio-item">
                     <img src="{{ asset('images/landing_page/solo-1.png') }}" alt="Project 1">
                 </div>
-
                 <div class="portfolio-item">
                     <img src="{{ asset('images/landing_page/couple-2.png') }}" alt="Project 2">
                 </div>
-
                 <div class="portfolio-item">
                     <img src="{{ asset('images/landing_page/solo-back-1.png') }}" alt="Project 3">
-                </div>                
-            @endif
-        </div>
+                </div>
+            </div>
+        @endif
     </section>
     
     <section id="service">
@@ -1352,7 +1377,12 @@
 
         // Update URL parameter without reloading the page
         const url = new URL(window.location);
-        url.searchParams.set('section', sectionId);
+        if (sectionId === 'home') {
+            // Remove section parameter for home
+            url.searchParams.delete('section');
+        } else {
+            url.searchParams.set('section', sectionId);
+        }
         window.history.pushState({}, '', url);
     }
 

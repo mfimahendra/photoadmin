@@ -28,12 +28,31 @@ class HomeController extends Controller
         $cities = $services->pluck('city')->unique()->values();                
         $additionals = DB::table('m_additionals')->get();
 
-        // Load portfolio images from storage
-        $portfolioImages = [];
+        // Load portfolio images from storage and group by university
+        $portfolioGrouped = [];
         if (\Storage::disk('public')->exists('portfolio')) {
             $files = \Storage::disk('public')->files('portfolio');
+            
             foreach ($files as $file) {
-                $portfolioImages[] = \Storage::url($file);
+                $filename = basename($file);
+                $url = \Storage::url($file);
+                
+                // Parse university prefix from filename (format: CODE_timestamp_filename.ext)
+                $parts = explode('_', $filename, 2);
+                $universityCode = count($parts) > 1 ? $parts[0] : 'Unknown';
+                
+                if (!isset($portfolioGrouped[$universityCode])) {
+                    $portfolioGrouped[$universityCode] = [];
+                }
+                
+                $portfolioGrouped[$universityCode][] = $url;
+            }
+            
+            // Sort each group and limit to reasonable number
+            foreach ($portfolioGrouped as $code => $images) {
+                // Shuffle for variety but keep consistent per session
+                // $portfolioGrouped[$code] = array_slice($images, 0, 20); // Max 20 per university
+                $portfolioGrouped[$code] = $images;
             }
         }
 
@@ -55,7 +74,7 @@ class HomeController extends Controller
             'cities' => $cities,
             'services' => $services,
             'additionals' => $additionals,
-            'portfolioImages' => $portfolioImages,
+            'portfolioGrouped' => $portfolioGrouped, // Changed from portfolioImages
             'heroImage' => $heroImage
         ]);
     }
