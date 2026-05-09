@@ -391,4 +391,102 @@ class ClientController extends Controller
             ], 500);
         }
     }
+
+    public function showInvoice($date, $shortname)
+    {        
+        try {
+            $project = DB::table('t_projects')
+                ->join('t_clients', 't_projects.client_id', '=', 't_clients.id')
+                ->join('m_services', 't_projects.service_id', '=', 'm_services.id')
+                ->where('t_projects.event_date', $date)
+                ->where('t_clients.shortname', $shortname)
+                ->select(
+                    't_projects.*', 
+                    't_clients.name as client_name',
+                    't_clients.shortname as client_shortname',
+                    't_clients.phone as client_phone',
+                    't_clients.instagram as client_instagram',
+                    'm_services.package as service_package',
+                    'm_services.duration as service_duration',
+                    'm_services.price as service_price'
+                )
+                ->first();            
+
+            if (!$project) {
+                abort(404, 'Project not found');
+            }
+
+            // Get project additionals
+            $additionals = DB::table('t_project_additionals')
+                ->where('project_id', $project->id)
+                ->select('additional_id', 'description', 'price')
+                ->get();
+
+            // Get admin contact
+            $adminPhone = DB::table('users')
+                ->where('username', 'admin')
+                ->value('phone');
+
+            $title = 'Invoice - ' . $project->client_name;
+
+            return view('clients.invoice', [
+                'title' => $title,
+                'project' => $project,
+                'additionals' => $additionals,
+                'adminPhone' => $adminPhone
+            ]);
+            
+        } catch (\Throwable $th) {
+            abort(500, $th->getMessage());
+        }
+    }
+
+    public function saveFeedback(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'feedback' => 'required|string|max:2000',
+                'stars' => 'required|integer|min:1|max:5'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validator->errors()->first()
+                ], 422);
+            }
+
+            DB::beginTransaction();
+
+            $project = DB::table('t_projects')->where('id', $id)->first();
+            
+            if (!$project) {
+                throw new \Exception('Project not found');
+            }
+
+            // Save feedback and stars
+            DB::table('t_projects')
+                ->where('id', $id)
+                ->update([
+                    'feedback' => $request->feedback,
+                    'stars' => $request->stars,
+                    'feedback_submitted_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Thank you for your ' . $request->stars . '-star rating and feedback!'
+            ], 200);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

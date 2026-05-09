@@ -38,11 +38,15 @@
 
 @section('content-header')
     <div class="row">
-        <div class="col-10"></div>
-        <div class="col-2" style="text-align: right;">
+        <div class="col-8"></div>
+        <div class="col-4" style="text-align: right;">
+            <button class="btn bg-blue btn-sm" onclick="modalAddSubscription()">
+                <i class="fa-solid fa-calendar-plus"></i>
+                Tambah Subscription
+            </button>
             <button class="btn bg-green btn-sm" onclick="modalAddTransaction()">
                 <i class="fa-solid fa-plus"></i>
-                Tambah Transaksi
+                Tambah Expense
             </button>
         </div>
     </div>
@@ -176,45 +180,20 @@
                             <input type="text" class="form-control datepicker" id="transactionDate" name="transactionDate">
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="transactionAccount">Akun Debit</label>
-                                    <select class="form-control select2" id="input_debit" name="transactionAccount" style="width: 100%;">
-                                        @foreach ($accounts as $account)
-                                            <option value="{{ $account->account_id }}">{{ $account->account_id }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="transactionAccount">Akun Kredit</label>
-                                        <select class="form-control select2" id="input_credit" name="transactionAccount" style="width: 100%;">
-                                            @foreach ($accounts as $account)
-                                                <option value="{{ $account->account_id }}">{{ $account->account_id }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="transactionDescription">Deskripsi</label>
-                            <input type="text" class="form-control" id="transactionDescription" name="transactionDescription">
-                        </div>
-                        <div class="form-group">
-                            <label for="transactionSource">Sumber</label>
-                            <input type="text" class="form-control" id="transactionSource" name="transactionSource">
-                        </div>
-                        <div class="form-group">
-                            <label for="transactionAmount">Nominal</label>
-                            <input type="number" class="form-control" id="transactionAmount" name="transactionAmount">
-                        </div>
-                        <div class="form-group">
-                            <label for="transactionType">Tipe</label>
-                            <select class="form-control" id="transactionType" name="transactionType">
-                                <option value="debit">Debit</option>
-                                <option value="kredit">Kredit</option>
+                            <label for="transactionAccount">Category (Akun)</label>
+                            <select class="form-control select2" id="input_debit" name="transactionAccount" style="width: 100%;">
+                                @foreach ($accounts as $account)
+                                    <option value="{{ $account->account_id }}">{{ $account->account_id }}</option>
+                                @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionDescription">Detail</label>
+                            <input type="text" class="form-control" id="transactionDescription" name="transactionDescription" placeholder="e.g., Buying equipment, Office supplies, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionAmount">Price</label>
+                            <input type="number" class="form-control" id="transactionAmount" name="transactionAmount">
                         </div>
                     </form>
                 </div>
@@ -226,6 +205,57 @@
         </div>
     </div>
 
+    <!-- Modal Add Subscription -->
+    <div class="modal fade" id="modalAddSubscription" tabindex="-1" role="dialog" aria-labelledby="modalAddSubscriptionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h5 class="modal-title" id="modalAddSubscriptionLabel">Tambah Subscription</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAddSubscription">
+                        <div class="form-group">
+                            <label for="subscriptionCategory">Category</label>
+                            <input type="text" class="form-control" id="subscriptionCategory" name="subscriptionCategory" placeholder="e.g., Software, Hosting, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label for="subscriptionDescription">Description</label>
+                            <input type="text" class="form-control" id="subscriptionDescription" name="subscriptionDescription" placeholder="e.g., Adobe Creative Cloud">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="subscriptionValidFrom">Valid From</label>
+                                    <input type="text" class="form-control datepicker" id="subscriptionValidFrom" name="subscriptionValidFrom">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="subscriptionValidTo">Valid To</label>
+                                    <input type="text" class="form-control datepicker" id="subscriptionValidTo" name="subscriptionValidTo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subscriptionPrice">Total Price (akan dibagi per bulan otomatis)</label>
+                            <input type="number" class="form-control" id="subscriptionPrice" name="subscriptionPrice" placeholder="Total price for the subscription period">
+                        </div>
+                        <div class="form-group">
+                            <label for="subscriptionRemark">Remark</label>
+                            <textarea class="form-control" id="subscriptionRemark" name="subscriptionRemark" rows="3" placeholder="Optional notes"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn bg-blue" onclick="saveSubscription()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -284,7 +314,13 @@
                 document.querySelector('.select2-search__field').focus();
             });
 
-            $('#filter_date').daterangepicker();
+            $('#filter_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
 
             $('.datepicker').daterangepicker({
                 singleDatePicker: true,
@@ -333,6 +369,20 @@
             html += '</thead>';
             html += '<tbody>';
             html += '</tbody>';
+            html += '<tfoot>';
+            html += '<tr style="font-weight: bold; background-color: #f0f0f0;">';
+            html += '<td colspan="5" style="text-align: right;">TOTAL:</td>';
+            html += '<td id="footer-total-price">0</td>';
+            html += '<td id="footer-total-debit">0</td>';
+            html += '<td id="footer-total-kredit">0</td>';
+            html += '<td></td>';
+            html += '</tr>';
+            html += '<tr style="font-weight: bold; background-color: #e8e8e8;">';
+            html += '<td colspan="5" style="text-align: right;">BALANCE:</td>';
+            html += '<td id="footer-balance" colspan="3">0</td>';
+            html += '<td></td>';
+            html += '</tr>';
+            html += '</tfoot>';
 
             $('#table_container').html(html);
         }
@@ -340,38 +390,46 @@
         function renderTable(data) {
             initTable();
 
-            let journal_data = data;
+            let journal_data = data.data || data;
+            let totals = data.totals || { debit: 0, kredit: 0, balance: 0 };
 
             // if undefined
             if (journal_data == undefined) {
                 journal_data = [];
             }
 
-            let html = '';           
+            let html = '';
+            let totalPrice = 0;
 
             journal_data.forEach((journal, index) => {
+                totalPrice += parseFloat(journal.price) || 0;
+                
                 html += '<tr>';
                 html += '<td>' + (index + 1) + '</td>';
                 html += '<td>' + journal.date + '</td>';
                 html += '<td>' + journal.description + '</td>';
                 html += '<td>' + journal.source + '</td>';
                 html += '<td>' + journal.is_tax + '</td>';
-                html += '<td>' + journal.price + '</td>';
+                html += '<td style="text-align: right;">Rp ' + numberWithDots(journal.price) + '</td>';
                 html += '<td>' + journal.debit + '</td>';
                 html += '<td>' + journal.credit + '</td>';
-                html += '<td>';
-                html += '<button class="btn btn-warning btn-sm" onclick="editJournalTransaction(' + journal.id + ')" style="margin:2px;">';
-                html += '<i class="fa-solid fa-edit"></i>';
-                html += '</button>';
-                html += '<button class="btn bg-red btn-sm" onclick="deleteJournalTransaction(' + journal.id + ')">';
-                html += '<i class="fa-solid fa-trash"></i>';
-                html += '</button>';
+                html += '<td style="text-align: center;">';
+                if (journal.type === 'expense') {
+                    html += '<button class="btn bg-red btn-sm" onclick="deleteJournalTransaction(\'' + journal.id + '\')"><i class="fa-solid fa-trash"></i></button>';
+                } else if (journal.type === 'subscription') {
+                    html += '<span class="badge badge-info">Auto</span>';
+                }
                 html += '</td>';
                 html += '</tr>';
             });
 
             $('#table_journal_transactions tbody').html(html);
 
+            // Update totals
+            $('#footer-total-price').text('Rp ' + numberWithDots(totalPrice));
+            $('#footer-total-debit').text('Rp ' + numberWithDots(totals.debit));
+            $('#footer-total-kredit').text('Rp ' + numberWithDots(totals.kredit));
+            $('#footer-balance').text('Rp ' + numberWithDots(totals.balance));
         }
 
         function modalAddTransaction() {
@@ -388,7 +446,7 @@
             formData.append('description', $('#transactionDescription').val());
             formData.append('source', $('#transactionSource').val());
             formData.append('amount', $('#transactionAmount').val());
-            formData.append('type', $('#transactionType').val());
+            formData.append('type', 'expense');
             // csrf
             formData.append('_token', '{{ csrf_token() }}');
 
@@ -401,20 +459,24 @@
                 success: function(response) {
                     if (response.status == 'success') {
                         $('#modalAddTransaction').modal('hide');
+                        $('#formAddTransaction')[0].reset();
                         fetchData();
+                        alert('Transaction saved successfully');
                     }
+                },
+                error: function(xhr) {
+                    alert('Error: ' + xhr.responseJSON.message);
                 }
             });
         }
 
-        function deleteTransaction() {\
-            
+        function deleteJournalTransaction(id) {
+            if (!confirm('Are you sure you want to delete this transaction?')) {
+                return;
+            }
 
             let formData = new FormData();
-
-            formData.append('id', $('#transactionId').val());
-
-            // csrf
+            formData.append('id', id);
             formData.append('_token', '{{ csrf_token() }}');
 
             $.ajax({
@@ -426,10 +488,52 @@
                 success: function(response) {
                     if (response.status == 'success') {
                         fetchData();
+                        alert('Transaction deleted successfully');
                     }
+                },
+                error: function(xhr) {
+                    alert('Error: ' + xhr.responseJSON.message);
                 }
             });
+        }
 
+        function numberWithDots(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function modalAddSubscription() {
+            $('#modalAddSubscription').modal('show');
+        }
+
+        function saveSubscription() {
+            let formData = new FormData();
+
+            formData.append('category', $('#subscriptionCategory').val());
+            formData.append('description', $('#subscriptionDescription').val());
+            formData.append('valid_from', $('#subscriptionValidFrom').val());
+            formData.append('valid_to', $('#subscriptionValidTo').val());
+            formData.append('price', $('#subscriptionPrice').val());
+            formData.append('remark', $('#subscriptionRemark').val());
+            formData.append('_token', '{{ csrf_token() }}');
+
+            $.ajax({
+                url: '{{ route('financial.saveSubscription') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status == 'success') {
+                        $('#modalAddSubscription').modal('hide');
+                        $('#formAddSubscription')[0].reset();
+                        fetchData();
+                        alert('Subscription saved successfully');
+                    }
+                },
+                error: function(xhr) {
+                    alert('Error: ' + xhr.responseJSON.message);
+                }
+            });
         }
 
 

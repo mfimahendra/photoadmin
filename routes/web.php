@@ -61,13 +61,27 @@ Route::name('clients.')->group(function () {
 
     Route::post('/{id}/save-photo-list', [ClientController::class, 'savePhotoList'])->name('savePhotoList');
     Route::get('/{id}/get-photo-list', [ClientController::class, 'getPhotoList'])->name('getPhotoList');
+    
+    Route::post('/{id}/save-feedback', [ClientController::class, 'saveFeedback'])->name('saveFeedback');
+    
+    Route::get('/{date}/{shortname}/invoice', [ClientController::class, 'showInvoice'])->name('invoice');
 });
 
 
 // Financial
 Route::prefix('financial')->name('financial.')->middleware('auth')->group(function () {    
     Route::get('/index', [FinancialController::class, 'index'])->name('index');    
-    Route::get('/fetch', [FinancialController::class, 'fetch'])->name('fetch');    
+    Route::get('/fetch', [FinancialController::class, 'fetch'])->name('fetch');
+    
+    // Journal Transactions
+    Route::get('/journal', [FinancialController::class, 'indexJournal'])->name('indexJournal');
+    Route::get('/journal/fetch', [FinancialController::class, 'fetchJournalData'])->name('fetchJournalData');
+    Route::post('/journal/save', [FinancialController::class, 'saveTransaction'])->name('saveTransaction');
+    Route::post('/journal/delete', [FinancialController::class, 'deleteTransaction'])->name('deleteTransaction');
+    
+    // Subscriptions
+    Route::post('/subscription/save', [FinancialController::class, 'saveSubscription'])->name('saveSubscription');
+    Route::post('/subscription/delete', [FinancialController::class, 'deleteSubscription'])->name('deleteSubscription');
 });
 
 // Portfolio Management

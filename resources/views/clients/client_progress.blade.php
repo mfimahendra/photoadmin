@@ -292,6 +292,42 @@
         color: white;
     }
 
+    .star-rating {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .star-rating input[type="radio"] {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 40px;
+        color: #ddd;
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffc107;
+    }
+
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input[type="radio"]:checked ~ label {
+        color: #ffc107;
+    }
+
     @media (max-width: 991px) {
         .progress-card {
             margin: 30px 20px;
@@ -436,6 +472,11 @@
                                 Rp {{ number_format($project->service_price + collect($project->additionals)->sum('price'), 0, ',', '.') }}
                             </h3>
                         </div>
+
+                        {{-- open invoice button --}}                        
+                        <a href="{{ url( $project->event_date . '/' . $project->client_shortname . '/invoice') }}" target="_blank" class="btn-drive mt-3">
+                            <i class="fas fa-file-invoice-dollar text-white"></i> View Invoice
+                        </a>
                     </div>
                 </div>
             </div>
@@ -611,6 +652,62 @@
                                     <span class="badge badge-secondary">Not Completed</span>
                                 @endif
                             </h3>
+                            
+                            @if($project->all_done_at)
+                                <div class="timeline-body">
+                                    <div class="notes-box" style="background: #d4edda; border-left: 4px solid #28a745;">
+                                        <strong style="color: #155724;"><i class="fas fa-star"></i> Give Us Your Feedback & Rating</strong>
+                                        <p style="color: #155724; margin-top: 10px;">
+                                            We'd love to hear about your experience! Please rate us and share your thoughts.
+                                        </p>
+                                        
+                                        <form id="feedbackForm_{{ $project->id }}" onsubmit="submitFeedback(event, {{ $project->id }})" style="margin-top: 15px;">
+                                            <!-- Star Rating -->
+                                            <div style="text-align: center; margin-bottom: 20px;">
+                                                <label style="display: block; color: #155724; font-weight: 600; margin-bottom: 10px;">Rate Your Experience:</label>
+                                                <div class="star-rating">
+                                                    <input type="radio" id="star5_{{ $project->id }}" name="stars_{{ $project->id }}" value="5" {{ ($project->stars ?? 0) == 5 ? 'checked' : '' }} />
+                                                    <label for="star5_{{ $project->id }}">★</label>
+                                                    
+                                                    <input type="radio" id="star4_{{ $project->id }}" name="stars_{{ $project->id }}" value="4" {{ ($project->stars ?? 0) == 4 ? 'checked' : '' }} />
+                                                    <label for="star4_{{ $project->id }}">★</label>
+                                                    
+                                                    <input type="radio" id="star3_{{ $project->id }}" name="stars_{{ $project->id }}" value="3" {{ ($project->stars ?? 0) == 3 ? 'checked' : '' }} />
+                                                    <label for="star3_{{ $project->id }}">★</label>
+                                                    
+                                                    <input type="radio" id="star2_{{ $project->id }}" name="stars_{{ $project->id }}" value="2" {{ ($project->stars ?? 0) == 2 ? 'checked' : '' }} />
+                                                    <label for="star2_{{ $project->id }}">★</label>
+                                                    
+                                                    <input type="radio" id="star1_{{ $project->id }}" name="stars_{{ $project->id }}" value="1" {{ ($project->stars ?? 0) == 1 ? 'checked' : '' }} />
+                                                    <label for="star1_{{ $project->id }}">★</label>
+                                                </div>
+                                                <small style="color: #155724; display: block; margin-top: 5px;">Click on stars to rate (1-5)</small>
+                                            </div>
+                                            
+                                            <!-- Feedback Text -->
+                                            <textarea 
+                                                class="form-control" 
+                                                id="feedback_{{ $project->id }}" 
+                                                name="feedback" 
+                                                rows="4" 
+                                                placeholder="Share your feedback here..." 
+                                                style="resize: vertical; border: 1px solid #c3e6cb; border-radius: 8px; padding: 12px;"
+                                            >{{ $project->feedback ?? '' }}</textarea>
+                                            
+                                            <button 
+                                                type="submit" 
+                                                class="btn-drive" 
+                                                style="margin-top: 10px;"
+                                                id="submitBtn_{{ $project->id }}"
+                                            >
+                                                <i class="fas fa-paper-plane"></i> Submit Feedback
+                                            </button>
+                                            
+                                            <div id="feedbackMessage_{{ $project->id }}" style="margin-top: 10px; display: none;"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -629,4 +726,70 @@
 
 @section('scripts')
 <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
+<script>
+function submitFeedback(event, projectId) {
+    event.preventDefault();
+    
+    const feedback = document.getElementById('feedback_' + projectId).value;
+    const starsElement = document.querySelector('input[name="stars_' + projectId + '"]:checked');
+    const stars = starsElement ? parseInt(starsElement.value) : 0;
+    const submitBtn = document.getElementById('submitBtn_' + projectId);
+    const messageDiv = document.getElementById('feedbackMessage_' + projectId);
+    
+    // Validate stars
+    if (stars === 0) {
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#721c24';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select a star rating before submitting.';
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 3000);
+        return;
+    }
+    
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    
+    // Send AJAX request
+    fetch('/clients/' + projectId + '/save-feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            feedback: feedback,
+            stars: stars
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = '#155724';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
+        } else {
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = '#721c24';
+            messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + data.message;
+        }
+    })
+    .catch(error => {
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#721c24';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed to submit feedback. Please try again.';
+    })
+    .finally(() => {
+        // Enable button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Feedback';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    });
+}
+</script>
 @endsection

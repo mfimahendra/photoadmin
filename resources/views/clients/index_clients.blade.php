@@ -660,9 +660,9 @@
                                     <h4 class="text-primary mb-0"><strong>Rp ${numberWithDotsSplit3(parseInt(client.service_price) + clientAdditionals.reduce((sum, addon) => sum + parseInt(addon.price), 0))}</strong></h4>
 
                                     <p class="mb-1 mt-3"><strong>Invoice</strong></p>
-                                    <a href="/clients/${client.id}/invoice" class="btn btn-sm btn-warning" target="_blank">
-                                        <i class="fas fa-file-invoice"></i> Open Invoice
-                                    </a>
+                                    ${client.client_shortname ? 
+                                        '<a href="{{ url("") }}/' + client.event_date + '/' + client.client_shortname + '/invoice" class="btn btn-sm btn-warning" target="_blank"><i class="fas fa-file-invoice"></i> Open Invoice</a>' 
+                                        : '<button class="btn btn-sm btn-secondary" disabled title="Nickname required for invoice"><i class="fas fa-file-invoice"></i> No Nickname</button>'}
                                 </div>
                             </div>
                             ${client.notes ? '<hr><h6>📝 Notes</h6><p>' + client.notes + '</p>' : ''}
